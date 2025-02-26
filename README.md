@@ -1,8 +1,33 @@
-# React + Vite
+# PING(work)ER
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 커밋 컨벤션
 
-Currently, two official plugins are available:
+`타입: (#이슈번호) 설명` 형식으로 작성한다.
+ex) feat: (#42) 사용자 로그인 기능 추가
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+여러 개의 이슈와 연결할 경우
+ex) fix: (#12, #34) 로그인 및 회원가입 오류 수정
+
+| 타입      | 설명 |
+|----------|------------------------------------------------|
+| **feat**     | (#이슈번호) 새로운 기능 추가 |
+| **fix**      | (#이슈번호) 버그 수정 |
+| **docs**     | (#이슈번호) 문서 수정 |
+| **style**    | (#이슈번호) 코드 포맷팅, 세미콜론 누락, 코드 변경이 없는 경우 |
+| **refactor** | (#이슈번호) 코드 리펙토링 |
+| **test**     | (#이슈번호) 테스트 코드, 리펙토링 테스트 코드 추가 |
+| **chore**    | (#이슈번호) 빌드 업무 수정, 패키지 매니저 수정 |
+
+
+## 브랜치 전략
+
+| 브랜치명      | 설명                 | 예시              |
+|---------------|----------------------|-------------------|
+| **main**        | 배포용 브랜치         | `main`            |
+| **dev**         | 통합(개발)용 브랜치   | `dev`             |
+| **feature/**    | 기능 개발 브랜치      | `feature/login`   |
+| **bugfix/**     | 버그 수정 브랜치      | `bugfix/nav-bar`  |
+| **hotfix/**     | 긴급 패치 브랜치      | `hotfix/payment`  |
+| **chore/**      | 문서, 설정파일 변경  | `chore/update-readme` |
+| **docs/**       | 문서 작업 브랜치      | `docs/api-guide`  |
+| **refactor/**   | 리팩토링 브랜치       | `refactor/homepage-ui` |
