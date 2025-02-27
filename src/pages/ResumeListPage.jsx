@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { PATH } from '../constants/RouterPathConstants';
 
 //일단은 칠칠이로
-const useUserStore = create((set) => ({
+export const useUserStore = create((set) => ({
   user: { id: 'user1', name: '칠칠이' },
   role: 'seeker',
   setUser: (user) => set({ user }),
@@ -49,7 +49,7 @@ const ResumeListPage = () => {
             <li
               key={resume.id}
               onClick={() => handleResumeClick(resume.id)}
-              className="w-full cursor-pointer rounded-lg border-2 px-20 py-5"
+              className="cursor-pointer rounded-lg border-2 bg-white px-20 py-5"
             >
               <h3 className="text-xl font-semibold">{resume.title}</h3>
               <p>{resume.user_name}</p>
@@ -67,7 +67,7 @@ const ResumeListPage = () => {
 export default ResumeListPage;
 
 // 더미 데이터
-const dummyData = [
+export const dummyData = [
   {
     id: 1,
     title: '기업이름 1',
