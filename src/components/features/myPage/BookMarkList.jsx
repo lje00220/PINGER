@@ -21,9 +21,13 @@ const BookMarkList = () => {
   return (
     <div className="flex flex-col items-center gap-5">
       <h1 className="text-2xl">북마크</h1>
-      {jobs.map((job) => {
-        return <JobItem key={job.id} job={job} width={600} />;
-      })}
+      {!jobs ? (
+        <span>북마크한 채용 정보가 없습니다.</span>
+      ) : (
+        jobs.map((job) => {
+          return <JobItem key={job.id} job={job} width={600} />;
+        })
+      )}
     </div>
   );
 };
