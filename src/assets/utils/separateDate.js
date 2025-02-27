@@ -1,3 +1,5 @@
+import DATE_RANGE from '../../constants/DateRange';
+
 /**
  * 날짜 변환 함수
  *  - 연도, 월, 일을 콤마로 구분한 결과를 반환
@@ -9,9 +11,9 @@
 const separateDate = (date) => {
   const strDate = String(date);
   const separateArr = [
-    strDate.slice(0, 4),
-    strDate.slice(4, 6),
-    strDate.slice(6),
+    strDate.slice(DATE_RANGE.YEAR_START, DATE_RANGE.YEAR_END),
+    strDate.slice(DATE_RANGE.MONTH_START, DATE_RANGE.MONTH_END),
+    strDate.slice(DATE_RANGE.DAY_START),
   ];
   const formattedDate = separateArr.join('.');
   return formattedDate;
