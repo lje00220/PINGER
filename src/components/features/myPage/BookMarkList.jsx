@@ -16,7 +16,7 @@ const BookMarkList = () => {
     <div className="flex flex-col items-center gap-4">
       <h1 className="text-2xl">북마크</h1>
       {jobs.map((job) => {
-        return <JobItem key={job.id} job={job} />;
+        return <JobItem key={job.id} job={job} width={600} />;
       })}
     </div>
   );
