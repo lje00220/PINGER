@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { iconSize } from '../../constants/iconSizeConstants';
 import { handleToggleBookMark } from '../../utils/handleToggleBookMark';
+import separateDate from '../../utils/SeparateDate';
 
 // To.지은님
 // jobs를 map로 돌렸을 때 나오는 job과 카드 넓이를 설정하는 width를 props로 넘겨받습니다.
@@ -30,7 +31,9 @@ const JobItem = ({ job, width }) => {
         <h2>{recruit_title.slice(START_NUM, END_NUM) + DOT}</h2>
         <div className="flex gap-4">
           <span className="text-sm font-semibold">채용 날짜</span>
-          <span className="text-sm">{`${start_date} - ${end_date}`}</span>
+          <span className="text-sm">
+            {`${separateDate(start_date)} ~ ${separateDate(end_date)}`}
+          </span>
         </div>
       </div>
       <div className="flex items-center gap-3">
