@@ -1,31 +1,25 @@
-import separateDate from '../assets/utils/separateDate';
+import JobLIstItem from '../components/jobList/JobLIstItem';
+import { useJobsQuery } from '../hooks/useJobsQuerys';
 
 /**
  * 채용 공고 리스트 페이지
  *  - Supabase에 있는 채용 공고 정보를 받아와 UI로 표현
- *  - 현재 목데이터로 작업 진행 중
  *
  * @returns {JSX Element}
  */
 
 const JobListPage = () => {
+  const { data: jobData, isPending, isError } = useJobsQuery();
+
+  if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
+  if (isError)
+    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
+
   return (
-    <div className="h-screen bg-my-bg p-8">
+    <div className="h-max bg-my-bg p-8">
       <div className="flex flex-col items-center gap-5">
-        {MOCK_DATA.map((data) => {
-          return (
-            <div
-              key={data.id}
-              className="flex w-3/5 flex-col gap-2 rounded-2xl bg-white px-8 py-5 shadow-xl"
-            >
-              <span className="text-2xl font-bold">{data.company_name}</span>
-              <span className="text-lg">채용 후기</span>
-              <div className="flex flex-row gap-5">
-                <span className="font-bold">채용 날짜</span>
-                <span>{`${separateDate(data.start_date)} ~ ${separateDate(data.end_date)}`}</span>
-              </div>
-            </div>
-          );
+        {jobData.map((data) => {
+          return <JobLIstItem data={data} key={data.id} />;
         })}
       </div>
     </div>
@@ -33,77 +27,3 @@ const JobListPage = () => {
 };
 
 export default JobListPage;
-
-const MOCK_DATA = [
-  {
-    id: 1,
-    company_name: '경상국립대학교병원',
-    work_type: '보건.의료',
-    hire_type: '정규직',
-    work_region: '경남',
-    recruit_type: '신입',
-    advantage: '해당사항없음',
-    recruit_num: 18,
-    start_date: 20250226,
-    end_date: 20250226,
-    recruit_title:
-      '[창원경상국립대학교병원]2025년도 상반기 전공의(레지던트 상급년차) 2차 추가 모집 공고',
-    url: 'https://recruit.gnuch.co.kr/',
-    edu: '대졸(4년)',
-    lat: 35.176481,
-    lng: 128.09513,
-  },
-  {
-    id: 2,
-    company_name: '한국환경보전원',
-    work_type: '환경.에너지.안전',
-    hire_type: '비정규직',
-    work_region: '광주,전남',
-    recruit_type: '신입+경력',
-    advantage:
-      '국가유공자 등 법정/특별/경력 가점 대상자, 관련자격증 소지자, 동일직무 및 관련 직무 경력자, 상시 운영이 가능한 자동차 소유자, 운전 경력이 5년 이상인 자  - 직무 분야 별 우대 사항이 다르므로 보다 자세한 사항은 채용공고문 참조',
-    recruit_num: 11,
-    start_date: 20250221,
-    end_date: 20250226,
-    recruit_title:
-      '2025년 한국환경보전원 영산강수변생태관리단 기간제 직원 채용 공고',
-    url: 'https://www.keci.or.kr/common/bbs/selectBbs.do?bbs_code=A1003&bbs_seq=7520&sch_sort_col=&sch_sort=&sch_type=&row_per_page=&sch_text=&currentPage=1',
-    edu: '학력무관',
-    lat: 37.5467539,
-    lng: 127.0611466,
-  },
-  {
-    id: 3,
-    company_name: '전남대학교병원',
-    work_type: '보건.의료',
-    hire_type: '정규직',
-    work_region: '광주,전남',
-    recruit_type: '신입',
-    advantage: '취업보호대상자, 장애인',
-    recruit_num: 104,
-    start_date: 20250207,
-    end_date: 20250226,
-    recruit_title: '2025년도 상반기 전공의(레지던트 1년차) 추가모집 기간연장',
-    url: 'https://cnuh.recruiter.co.kr/appsite/company/index',
-    edu: '대졸(4년)',
-    lat: 35.147942,
-    lng: 126.92395,
-  },
-  {
-    id: 4,
-    company_name: '전남대학교병원',
-    work_type: '보건.의료',
-    hire_type: '정규직',
-    work_region: '광주,전남',
-    recruit_type: '경력',
-    advantage: '취업지원대상자, 장애인',
-    recruit_num: 151,
-    start_date: 20250207,
-    end_date: 20250226,
-    recruit_title: '2025년도 상반기 전공의(레지던트 상급년차) 추가모집',
-    url: 'https://cnuh.recruiter.co.kr/appsite/company/index',
-    edu: '대졸(4년)',
-    lat: 35.147942,
-    lng: 126.92395,
-  },
-];
