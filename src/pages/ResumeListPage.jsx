@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { create } from 'zustand';
+import { PATH } from '../constants/RouterPathConstants';
 
 //일단은 칠칠이로
 const useUserStore = create((set) => ({
@@ -25,15 +26,15 @@ const ResumeListPage = () => {
       : dummyData;
 
   //페이지 이동
-  const handleResumeClick = () => {
-    navigate();
+  const handleResumeClick = (id) => {
+    navigate(`${PATH.RESUME_DETAIL}/${id}`);
   };
 
   return (
-    <div className="mt-10 flex flex-col items-center justify-center">
+    <div className="flex h-full w-full flex-col items-center justify-center bg-my-bg">
       <button
         onClick={toggleRole}
-        className="mb-10 bg-blue-500 px-2 py-1 text-white"
+        className="my-10 bg-blue-500 px-2 py-1 text-white"
       >
         모드 : {role}
       </button>
@@ -51,7 +52,7 @@ const ResumeListPage = () => {
               className="w-full cursor-pointer rounded-lg border-2 px-20 py-5"
             >
               <h3 className="text-xl font-semibold">{resume.title}</h3>
-              <p className="text-my-gray">{resume.user_name}</p>
+              <p>{resume.user_name}</p>
             </li>
           ))}
         </ul>
@@ -88,7 +89,43 @@ const dummyData = [
   {
     id: 4,
     title: '기업이름 4',
-    user_name: '유저3',
-    user_id: 'user3',
+    user_name: '칠칠이',
+    user_id: 'user1',
+  },
+  {
+    id: 5,
+    title: '기업이름 5',
+    user_name: '유저4',
+    user_id: 'user4',
+  },
+  {
+    id: 6,
+    title: '기업이름 6',
+    user_name: '유저4',
+    user_id: 'user4',
+  },
+  {
+    id: 7,
+    title: '기업이름 7',
+    user_name: '유저4',
+    user_id: 'user4',
+  },
+  {
+    id: 8,
+    title: '기업이름 8',
+    user_name: '유저5',
+    user_id: 'user5',
+  },
+  {
+    id: 9,
+    title: '기업이름 9',
+    user_name: '유저5',
+    user_id: 'user5',
+  },
+  {
+    id: 10,
+    title: '기업이름 10',
+    user_name: '유저5',
+    user_id: 'user5',
   },
 ];
