@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import separateDate from '../../assets/utils/SeparateDate';
-import sliceTitleLength from '../../assets/utils/SliceTitleLength';
+import separateDate from '../../utils/SeparateDate';
+import sliceTitleLength from '../../utils/SliceTitleLength';
 import { PATH } from '../../constants/RouterPathConstants';
 
 /**

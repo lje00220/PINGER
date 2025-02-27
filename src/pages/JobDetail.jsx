@@ -1,7 +1,16 @@
 import { useParams } from 'react-router-dom';
+import { useJobsQuery } from '../hooks/useJobsQuerys';
+import JobInfo from '../components/common/JobInfo';
 
 const JobDetail = () => {
   const { id } = useParams();
+  const { data: jobData, isPending, isError } = useJobsQuery();
+
+  if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
+  if (isError)
+    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
+
+  const targetJob = jobData.find((job) => job.id === parseInt(id));
 
   return (
     <div className="flex h-screen justify-center bg-my-bg">
@@ -12,24 +21,7 @@ const JobDetail = () => {
             <span className="text-2xl font-bold">기업</span>
             <span className="text-xl">제목</span>
           </div>
-          <div className="w-80 space-y-2">
-            <div className="flex">
-              <span className="mr-5 w-32 font-bold">지역</span>
-              <span className="w-full">서울</span>
-            </div>
-            <div className="flex">
-              <span className="mr-5 w-32 font-bold">NCS 분류</span>
-              <span className="w-full">보건/의료</span>
-            </div>
-            <div className="flex">
-              <span className="mr-5 w-32 font-bold">고용형태</span>
-              <span className="w-full">비정규직</span>
-            </div>
-            <div className="flex">
-              <span className="mr-5 w-32 font-bold">채용날짜</span>
-              <span className="w-full">20250205 - 20250212</span>
-            </div>
-          </div>
+          <JobInfo targetJob={targetJob} />
           <button className="mt-5 w-fit rounded-full bg-my-main px-5 py-2">
             채용 사이트
           </button>
