@@ -8,6 +8,7 @@ import JobDetail from '../pages/JobDetail';
 import MyPage from '../pages/MyPage';
 import ResumeListPage from '../pages/ResumeListPage';
 import ResumeCreate from '../pages/ResumeCreate';
+import ResumeDetail from '../pages/ResumeDetail';
 
 const Router = () => {
   return (
@@ -20,6 +21,7 @@ const Router = () => {
         <Route path={PATH.JOB_DETAIL} element={<JobDetail />} />
         <Route path={PATH.MY_PAGE} element={<MyPage />} />
         <Route path={PATH.RESUME_LIST} element={<ResumeListPage />} />
+        <Route path={PATH.RESUME_DETAIL} element={<ResumeDetail />} />
         <Route path={PATH.RESUME_CREATE} element={<ResumeCreate />} />
       </Routes>
     </BrowserRouter>
