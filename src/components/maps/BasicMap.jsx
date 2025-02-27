@@ -15,8 +15,8 @@ const BasicMap = () => {
 
   return (
     <Map
-      center={{ lat: 37.5665, lng: 126.9780 }}
-      className="w-screen h-screen"
+      center={{ lat: 37.5665, lng: 126.978 }}
+      className="h-screen w-screen"
       level={3}
     >
       {jobData.map((job) => (
@@ -41,7 +41,7 @@ const BasicMap = () => {
             </div>
           )}
         </MapMarker>
-      ))}
+      ))}bc56144d0d98baf7759e59f7d90577528c6
     </Map>
   );
 };
