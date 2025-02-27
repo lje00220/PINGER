@@ -1,7 +1,9 @@
-const JobDetail = () => {
-  return (
-    <div>JobDetail</div>
-  )
-}
+import { useParams } from 'react-router-dom';
 
-export default JobDetail
+const JobDetail = () => {
+  const { id } = useParams();
+
+  return <div className="h-screen bg-my-bg"></div>;
+};
+
+export default JobDetail;
