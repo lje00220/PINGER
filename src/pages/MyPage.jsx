@@ -1,7 +1,11 @@
+import Profile from '../components/features/myPage/profile';
+
 const MyPage = () => {
   return (
-    <div>MyPage</div>
-  )
-}
+    <div className="flex h-screen justify-center bg-my-bg">
+      <Profile />
+    </div>
+  );
+};
 
-export default MyPage
+export default MyPage;
