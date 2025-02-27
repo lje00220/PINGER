@@ -25,7 +25,7 @@ const JobDetail = () => {
     return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
   // 현재 페이지의 id와 jobs 테이블에 있는 id를 비교해 일치하는 것을 가져옴
-  const targetJob = jobData.find((job) => job.id === parseInt(id));
+  const targetJob = jobData.find((job) => job.id === Number(id));
 
   // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
   const handleOpenJobSite = () => {
