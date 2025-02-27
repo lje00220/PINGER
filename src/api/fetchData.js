@@ -21,3 +21,15 @@ export const fetchData = async (table1, table2, ascending = true) => {
     console.error('fetching error', error);
   }
 };
+
+export const fetchJobsData = async (table1) => {
+  try {
+    const { data } = await supabase
+      .from(table1)
+      .select('*');
+
+    return data;
+  } catch (error) {
+    console.error('fetching error', error);
+  }
+};
