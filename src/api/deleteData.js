@@ -23,6 +23,11 @@ export const deleteData = async (tableName, column, id) => {
   }
 };
 
+/**
+ * 북마크 취소 함수
+ * @param {*} jobId
+ * @param {*} userId
+ */
 export const deleteBookMark = async (jobId, userId) => {
   await supabase
     .from('bookmarks')

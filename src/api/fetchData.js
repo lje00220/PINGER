@@ -35,7 +35,7 @@ export const fetchJobsData = async (table1) => {
 /**
  * 해당 사용자가 저장한 북마크 데이터 조회
  * @param {*} userId
- * @returns
+ * @returns bookMarkData
  */
 export const fetchUserBookMark = async (userId) => {
   try {
