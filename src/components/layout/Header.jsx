@@ -4,8 +4,10 @@ import Nav from './Nav';
 
 const Header = () => {
   return (
-    <header className="flex w-full flex-row justify-between bg-red-50 p-4">
-      <Link to={PATH.HOME}>로고</Link>
+    <header className="flex h-20 w-full flex-row flex-wrap items-center justify-between bg-white p-4">
+      <Link to={PATH.HOME} className="ml-3">
+        로고
+      </Link>
       <Nav />
     </header>
   );

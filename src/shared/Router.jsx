@@ -9,7 +9,7 @@ import MyPage from '../pages/MyPage';
 import ResumeListPage from '../pages/ResumeListPage';
 import ResumeCreate from '../pages/ResumeCreate';
 import ResumeDetail from '../pages/ResumeDetail';
-import Header from '../assets/components/Header';
+import Header from '../components/layout/Header';
 
 const Router = () => {
   return (
