@@ -41,7 +41,8 @@ const ResumeListPage = () => {
         </button>
 
         <h1 className="mb-8 text-2xl font-bold">
-          {role === 'seeker' ? '나의 자소서' : '전체 자소서'}
+          {role === 'seeker' ? '나의' : '전체'}
+          <span className="text-my-main"> 자소서</span>
         </h1>
 
         {resumes ? (
@@ -52,9 +53,13 @@ const ResumeListPage = () => {
                 onClick={() => handleResumeClick(resume.id)}
                 className="w-full cursor-pointer rounded-2xl bg-white px-28 py-8 shadow-xl"
               >
-                <div className="flex flex-col">
+                <div className="flex flex-col space-y-4">
                   <span className="text-2xl font-bold">{resume.title}</span>
-                  <span className="text-lg">{resume.recruit_type}</span>
+                  <span>
+                    경력 :
+                    <span className="text-lg"> {resume.recruit_type}</span>
+                  </span>
+
                   <span>
                     구직자 :
                     <span className="font-bold"> {resume.user_name}</span>

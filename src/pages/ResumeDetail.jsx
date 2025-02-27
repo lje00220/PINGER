@@ -54,8 +54,8 @@ const ResumeDetail = () => {
         {/*자기 소개서*/}
         <div className="w-2/3 rounded-2xl bg-white p-10 shadow-xl">
           <div className="mx-4 flex justify-between">
-            <div>
-              <p className="font-bold">
+            <div className="space-y-4">
+              <p className="text-2xl font-bold">
                 <span className="text-my-main">{resume.user_name}</span>님의
                 자기소개서
               </p>
