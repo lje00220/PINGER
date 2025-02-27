@@ -1,4 +1,4 @@
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
 import useKakaoLoader from '../../hooks/useKakaoLoader';
 import { useState } from 'react';
 import { useJobsQuery } from '../../hooks/useJobsQuerys';
@@ -43,7 +43,8 @@ const BasicMap = () => {
             </div>
           )}
         </MapMarker>
-      ))}bc56144d0d98baf7759e59f7d90577528c6
+      ))}
+      <ZoomControl />
     </Map>
   );
 };
