@@ -1,4 +1,4 @@
-import separateDate from '../assets/utils/separateDate';
+import JobLIstItem from '../components/jobList/JobLIstItem';
 
 /**
  * 채용 공고 리스트 페이지
@@ -13,19 +13,7 @@ const JobListPage = () => {
     <div className="h-screen bg-my-bg p-8">
       <div className="flex flex-col items-center gap-5">
         {MOCK_DATA.map((data) => {
-          return (
-            <div
-              key={data.id}
-              className="flex w-3/5 flex-col gap-2 rounded-2xl bg-white px-8 py-5 shadow-xl"
-            >
-              <span className="text-2xl font-bold">{data.company_name}</span>
-              <span className="text-lg">채용 후기</span>
-              <div className="flex flex-row gap-5">
-                <span className="font-bold">채용 날짜</span>
-                <span>{`${separateDate(data.start_date)} ~ ${separateDate(data.end_date)}`}</span>
-              </div>
-            </div>
-          );
+          return <JobLIstItem data={data} key={data.id} />;
         })}
       </div>
     </div>
