@@ -14,7 +14,7 @@ export const handleToggleBookMark = async ({
     if (isBookMarked === false) {
       await createBookMark(newBookMark);
     } else {
-      await deleteBookMark(userId);
+      await deleteBookMark(jobId, userId);
     }
 
     setIsBookmarked((prev) => !prev);

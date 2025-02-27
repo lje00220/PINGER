@@ -23,6 +23,9 @@ export const deleteData = async (tableName, column, id) => {
   }
 };
 
-export const deleteBookMark = async (userId) => {
-  await supabase.from('bookmarks').delete().match({ user_id: userId });
+export const deleteBookMark = async (jobId, userId) => {
+  await supabase
+    .from('bookmarks')
+    .delete()
+    .match({ job_id: jobId, user_id: userId });
 };
