@@ -1,8 +1,11 @@
 import { useState } from 'react';
 
 const Profile = () => {
+  /** 더미 데이터 생성하면 수정해야되는 코드  */
+  // 조건부 렌더링을 위해 잠깐 추가해두었습니다.
   const [isSeeker, setIsSeeker] = useState(true);
 
+  /** 공통 컴포넌트 제작 + 더미 데이터 생성하면 수정해야되는 코드 */
   return (
     <div className="flex flex-col items-center gap-4">
       <h1 className="text-2xl">칠칠이님의 프로필</h1>
