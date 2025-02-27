@@ -25,7 +25,7 @@ const BookMarkList = () => {
 
   /** UI */
   return (
-    <div className="flex flex-col items-center gap-5">
+    <div className="flex w-full flex-col items-center gap-5">
       <h1 className="text-2xl">북마크</h1>
       {!jobs ? (
         <span>북마크한 채용 정보가 없습니다.</span>
