@@ -6,12 +6,16 @@ const BookMarkList = () => {
     {
       id: 1,
       company_name: '서울대학교병원',
+      recruit_title:
+        '[창원경상국립대학교병원]2025년도 상반기 전공의(레지던트 상급년차) 2차 추가 모집 공고',
       start_date: '20250205',
       end_date: '20250212',
     },
     {
       id: 2,
-      company_name: '서울대학교병원',
+      company_name: '경북대학교병원',
+      recruit_title:
+        '칠곡경북대학교병원 2025년도 상반기 레지던트 1년차 추가모집 공고',
       start_date: '20250205',
       end_date: '20250212',
     },
