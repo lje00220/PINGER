@@ -14,6 +14,7 @@ const JobItem = ({ job, width }) => {
 
   const { id: postId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
+  const [resumeCount, setResumeCount] = useState(0);
 
   const START_NUM = 0;
   const END_NUM = 25;
@@ -45,7 +46,7 @@ const JobItem = ({ job, width }) => {
         </button>
         <div className="flex items-center gap-2 rounded-xl bg-my-main p-5">
           <span>지원 자소서</span>
-          <span className="text-lg font-semibold">0건</span>
+          <span className="text-lg font-semibold">{`${resumeCount}건`}</span>
         </div>
       </div>
     </div>
