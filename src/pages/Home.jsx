@@ -1,5 +1,11 @@
+import MapContainer from "../components/MapContainer";
+
 const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <MapContainer />
+    </div>
+  );
 };
 
 export default Home;
