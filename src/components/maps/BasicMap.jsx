@@ -3,6 +3,8 @@ import useKakaoLoader from '../../hooks/useKakaoLoader';
 import { useState } from 'react';
 import { useJobsQuery } from '../../hooks/useJobsQuerys';
 
+const CLOSE_ICON_URL = "https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif";
+
 const BasicMap = () => {
 
   useKakaoLoader();
@@ -33,7 +35,7 @@ const BasicMap = () => {
             <div className="relative min-w-[150px]">
               <img
                 alt="close"
-                src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
+                src={CLOSE_ICON_URL}
                 className="absolute top-1 right-1 w-4 h-4 cursor-pointer"
                 onClick={() => setIsOpen(null)}
               />
