@@ -1,4 +1,4 @@
-import JobLIstItem from '../components/jobList/JobLIstItem';
+import JobItem from '../components/common/JobItem';
 import { useJobsQuery } from '../hooks/useJobsQuerys';
 
 /**
@@ -19,7 +19,7 @@ const JobListPage = () => {
     <div className="h-max bg-my-bg p-8">
       <div className="flex flex-col items-center gap-5">
         {jobData.map((data) => {
-          return <JobLIstItem data={data} key={data.id} />;
+          return <JobItem job={data} key={data.id} width={200} />;
         })}
       </div>
     </div>

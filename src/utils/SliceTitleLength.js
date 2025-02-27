@@ -1,4 +1,6 @@
+const START_INDEX = 0;
 const SLICE_INDEX = 20;
+const DOT = '...';
 
 /**
  * 채용 공고 제목의 길이를 자르기 위한 함수
@@ -8,7 +10,7 @@ const SLICE_INDEX = 20;
  */
 
 const sliceTitleLength = (title) => {
-  const sliceTitle = title.slice(0, SLICE_INDEX) + '...';
+  const sliceTitle = title.slice(START_INDEX, SLICE_INDEX) + DOT;
   return sliceTitle;
 };
 

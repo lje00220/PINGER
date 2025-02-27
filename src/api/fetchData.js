@@ -24,12 +24,30 @@ export const fetchData = async (table1, table2, ascending = true) => {
 
 export const fetchJobsData = async (table1) => {
   try {
-    const { data } = await supabase
-      .from(table1)
-      .select('*');
+    const { data } = await supabase.from(table1).select('*');
 
     return data;
   } catch (error) {
     console.error('fetching error', error);
+  }
+};
+
+/**
+ * 해당 사용자가 저장한 북마크 데이터 조회
+ * @param {*} userId
+ * @returns bookMarkData
+ */
+export const fetchUserBookMark = async (userId) => {
+  try {
+    const { data: bookMarkData, error } = await supabase
+      .from('bookmarks')
+      .select('*')
+      .eq({ user_id: userId });
+
+    if (error) throw error;
+
+    return bookMarkData || [];
+  } catch (error) {
+    console.error('북마크 조회 오류', error);
   }
 };
