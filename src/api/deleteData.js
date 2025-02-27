@@ -22,3 +22,15 @@ export const deleteData = async (tableName, column, id) => {
     console.error('서버오류가 발생하였습니다.: ', error);
   }
 };
+
+/**
+ * 북마크 취소 함수
+ * @param {*} jobId
+ * @param {*} userId
+ */
+export const deleteBookMark = async (jobId, userId) => {
+  await supabase
+    .from('bookmarks')
+    .delete()
+    .match({ job_id: jobId, user_id: userId });
+};
