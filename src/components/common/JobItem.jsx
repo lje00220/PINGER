@@ -3,6 +3,7 @@ import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { iconSize } from '../../constants/iconSizeConstants';
 import { handleToggleBookMark } from '../../utils/handleToggleBookMark';
 import separateDate from '../../utils/SeparateDate';
+import sliceTitleLength from '../../utils/SliceTitleLength';
 
 // To.지은님
 // jobs를 map로 돌렸을 때 나오는 job과 카드 넓이를 설정하는 width를 props로 넘겨받습니다.
@@ -18,17 +19,13 @@ const JobItem = ({ job, width }) => {
   const [isBookMarked, setIsBookmarked] = useState(false);
   const [resumeCount, setResumeCount] = useState(0);
 
-  const START_NUM = 0;
-  const END_NUM = 25;
-  const DOT = '...';
-
   return (
     <div
       className={`flex max-w-[${width}px] mx-auto items-center justify-between gap-4 rounded-xl bg-white p-10`}
     >
       <div className="flex flex-col gap-2">
         <h1 className="text-xl font-semibold">{company_name}</h1>
-        <h2>{recruit_title.slice(START_NUM, END_NUM) + DOT}</h2>
+        <h2>{sliceTitleLength(recruit_title)}</h2>
         <div className="flex gap-4">
           <span className="text-sm font-semibold">채용 날짜</span>
           <span className="text-sm">
