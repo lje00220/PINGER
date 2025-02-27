@@ -74,22 +74,24 @@ const MOCK_DATA = [
 
 const JobListPage = () => {
   return (
-    <div className="flex h-screen flex-col items-center gap-10 bg-my-bg">
-      {MOCK_DATA.map((data) => {
-        return (
-          <div
-            key={data.id}
-            className="flex w-2/3 flex-col gap-2 rounded-2xl bg-white px-8 py-5"
-          >
-            <span className="text-2xl font-bold">{data.company_name}</span>
-            <span>채용 후기</span>
-            <div className="flex flex-row gap-3">
-              <span>채용 날짜</span>
-              <span>{`${data.start_date} ~ ${data.end_date}`}</span>
+    <div className="h-screen bg-my-bg">
+      <div className="flex flex-col items-center gap-5">
+        {MOCK_DATA.map((data) => {
+          return (
+            <div
+              key={data.id}
+              className="flex w-3/5 flex-col gap-2 rounded-2xl bg-white px-8 py-5 shadow-xl"
+            >
+              <span className="text-2xl font-bold">{data.company_name}</span>
+              <span className="text-lg">채용 후기</span>
+              <div className="flex flex-row gap-3">
+                <span>채용 날짜</span>
+                <span>{`${data.start_date} ~ ${data.end_date}`}</span>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
