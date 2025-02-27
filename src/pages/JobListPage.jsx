@@ -1,3 +1,39 @@
+import separateDate from '../assets/utils/separateDate';
+
+/**
+ * 채용 공고 리스트 페이지
+ *  - Supabase에 있는 채용 공고 정보를 받아와 UI로 표현
+ *  - 현재 목데이터로 작업 진행 중
+ *
+ * @returns {JSX Element}
+ */
+
+const JobListPage = () => {
+  return (
+    <div className="h-screen bg-my-bg p-8">
+      <div className="flex flex-col items-center gap-5">
+        {MOCK_DATA.map((data) => {
+          return (
+            <div
+              key={data.id}
+              className="flex w-3/5 flex-col gap-2 rounded-2xl bg-white px-8 py-5 shadow-xl"
+            >
+              <span className="text-2xl font-bold">{data.company_name}</span>
+              <span className="text-lg">채용 후기</span>
+              <div className="flex flex-row gap-5">
+                <span className="font-bold">채용 날짜</span>
+                <span>{`${separateDate(data.start_date)} ~ ${separateDate(data.end_date)}`}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default JobListPage;
+
 const MOCK_DATA = [
   {
     id: 1,
@@ -71,29 +107,3 @@ const MOCK_DATA = [
     lng: 126.92395,
   },
 ];
-
-const JobListPage = () => {
-  return (
-    <div className="h-screen bg-my-bg">
-      <div className="flex flex-col items-center gap-5">
-        {MOCK_DATA.map((data) => {
-          return (
-            <div
-              key={data.id}
-              className="flex w-3/5 flex-col gap-2 rounded-2xl bg-white px-8 py-5 shadow-xl"
-            >
-              <span className="text-2xl font-bold">{data.company_name}</span>
-              <span className="text-lg">채용 후기</span>
-              <div className="flex flex-row gap-3">
-                <span>채용 날짜</span>
-                <span>{`${data.start_date} ~ ${data.end_date}`}</span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-export default JobListPage;
