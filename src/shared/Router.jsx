@@ -9,10 +9,12 @@ import MyPage from '../pages/MyPage';
 import ResumeListPage from '../pages/ResumeListPage';
 import ResumeCreate from '../pages/ResumeCreate';
 import ResumeDetail from '../pages/ResumeDetail';
+import Header from '../assets/components/Header';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path={PATH.HOME} element={<Home />} />
         <Route path={PATH.LOGIN} element={<Login />} />
