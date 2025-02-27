@@ -42,6 +42,7 @@ const Profile = () => {
             />
           </label>
         </div>
+        <hr className="w-full rounded-full border-2 border-my-gray" />
         <button className="h-[50px] w-[300px] rounded-full bg-my-main">
           수정하기
         </button>
