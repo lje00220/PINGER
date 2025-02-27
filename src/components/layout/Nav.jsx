@@ -9,6 +9,7 @@ const Nav = () => {
     setIsLogin(false);
   };
 
+  // 로그인 여부에 따른 링크 생성 리스트 분리
   const menuItems = isLogin
     ? [
         { to: PATH.MY_PAGE, label: '칠칠이님' },
