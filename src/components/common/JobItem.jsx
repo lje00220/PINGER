@@ -24,7 +24,7 @@ const JobItem = ({ job, width }) => {
         <h2>채용후기</h2>
         <div className="flex gap-4">
           <span className="text-sm font-semibold">채용 날짜</span>
-          <span className="text-sm">{start_date + end_date}</span>
+          <span className="text-sm">{`${start_date} - ${end_date}`}</span>
         </div>
       </div>
       <div className="flex items-center gap-3">
