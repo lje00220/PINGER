@@ -21,7 +21,7 @@ const JobItem = ({ job, width }) => {
 
   return (
     <div
-      className={`flex max-w-[${width}px] mx-auto items-center justify-between gap-4 rounded-xl bg-white p-10`}
+      className={`flex w-full max-w-[${width}px] mx-auto items-center justify-between gap-4 rounded-xl bg-white p-10`}
     >
       <div className="flex flex-col gap-2">
         <h1 className="text-xl font-semibold">{company_name}</h1>
