@@ -16,6 +16,7 @@ import { PATH } from '../../constants/RouterPathConstants';
 const JobItem = ({ job, width }) => {
   /** 추가해야되는 data */
   // 유저 정보 -> user_id 가져오기
+  // 등록된 자소서 개수 가져오기
 
   const { id: postId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
