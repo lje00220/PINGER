@@ -6,10 +6,11 @@ import { handleToggleBookMark } from '../../utils/handleToggleBookMark';
 // To.지은님
 // jobs를 map로 돌렸을 때 나오는 job과 카드 넓이를 설정하는 width를 props로 넘겨받습니다.
 // width는 원하시는 값으로 설정하시면 됩니다.
+// map 돌리는 컴포넌트에서 div의 width값을 설정하시면 원하는 넓이로 조정가능합니다.
 // job 관련 정보들은 따로 수정할 필요없으실거예요~!
 
 const JobItem = ({ job, width }) => {
-  /** 추가해야되는 정보 */
+  /** 추가해야되는 data */
   // 유저 정보 -> user_id 가져오기
 
   const { id: postId, company_name, recruit_title, start_date, end_date } = job;
