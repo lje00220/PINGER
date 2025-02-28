@@ -1,3 +1,4 @@
+import { QUERY_KEY } from '../constants/queryKeys';
 import supabase from '../supabase/client';
 
 /** 해당 table의 데이터를 join해서 가져오는 로직
@@ -34,19 +35,19 @@ export const fetchJobsData = async (table1) => {
 
 /**
  * 해당 사용자가 저장한 북마크 데이터 조회
- * @param {*} userId
+ * @param {string} userId - 로그인한 사용자 아이디
  * @returns bookMarkData
  */
 export const fetchUserBookMarks = async (userId) => {
   try {
-    const { data: bookMarkData, error } = await supabase
-      .from('bookmarks')
-      .select('*')
-      .eq({ user_id: userId });
+    const { data: bookMarkList, error } = await supabase
+      .from(QUERY_KEY.BOOKMARKS)
+      .select(`*, ${QUERY_KEY.JOBS}(*)`)
+      .eq('user_id', userId);
 
     if (error) throw error;
 
-    return bookMarkData || [];
+    return bookMarkList || [];
   } catch (error) {
     console.error('북마크 조회 오류', error);
   }
