@@ -1,16 +1,16 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useForm from '../hooks/useForm';
 import { toast } from 'react-toastify';
-import supabase from '../supabase/client';
-import { PATH } from '../constants/routerPath';
 import AuthForm from '../components/auth/AuthForm';
 import { AUTH_MODE } from '../constants/mode';
+import { PATH } from '../constants/routerPath';
 import {
   AUTH_ERROR_MESSAGES,
   AUTH_SUCCESS_MESSAGES,
 } from '../constants/toastMessages';
+import useForm from '../hooks/useForm';
+import supabase from '../supabase/client';
 import { validateSignUpForm } from '../utils/validate';
-import { useState } from 'react';
 
 const Signup = () => {
   //-----navigate-----
