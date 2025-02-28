@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
-import { PATH } from '../constants/RouterPathConstants';
+import { PATH } from '../constants/routerPathConstants';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
 import JobListPage from '../pages/JobListPage';

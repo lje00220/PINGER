@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { iconSize } from '../../constants/iconSizeConstants';
 import { handleToggleBookMark } from '../../utils/handleToggleBookMark';
-import separateDate from '../../utils/SeparateDate';
-import sliceTitleLength from '../../utils/SliceTitleLength';
+import separateDate from '../../utils/separateDate';
+import sliceTitleLength from '../../utils/sliceTitleLength';
 import { Link } from 'react-router-dom';
-import { PATH } from '../../constants/RouterPathConstants';
+import { PATH } from '../../constants/routerPathConstants';
 
 // To.지은님
 // jobs를 map로 돌렸을 때 나오는 job과 카드 넓이를 설정하는 width를 props로 넘겨받습니다.
