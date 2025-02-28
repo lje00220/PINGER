@@ -3,6 +3,7 @@
  * @param {object} resume - props로 넘겨 받은 자소서 정보
  * @returns {JSX.Element}
  */
+
 const ResumeItem = ({ resume }) => {
   const { title, recruit_type, user_name } = resume;
 
