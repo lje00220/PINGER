@@ -4,6 +4,7 @@ import JobInfo from '../components/common/JobInfo';
 import { useJobsQuery } from '../hooks/useJobsQuerys';
 import ResumeContent from '../components/features/Resume/ResumeContent';
 import useResumeStore from '../zustand/useResumeStore';
+import ResumeButtons from '../components/features/Resume/ResumeButtons';
 
 const ResumeDetail = () => {
   const { id } = useParams();
@@ -59,6 +60,8 @@ const ResumeDetail = () => {
         </div>
 
         {/*자기 소개서*/}
+
+        {/*기업 정보 */}
         <div className="w-2/3 rounded-2xl bg-white p-10 shadow-xl">
           <div className="mx-4 flex justify-between">
             <div>
@@ -74,31 +77,12 @@ const ResumeDetail = () => {
           {/* 자기소개서 내용 */}
           <div className="mx-4 mt-8 flex flex-col items-center gap-4">
             <ResumeContent sections={sections} editable={false} />
-            <div className="flex space-x-4">
-              {role === 'seeker' ? (
-                <>
-                  <button
-                    onClick={handleEdit}
-                    className="rounded-full bg-my-main px-4 py-2 text-white"
-                  >
-                    수정
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="rounded-full bg-my-main px-4 py-2 text-white"
-                  >
-                    삭제
-                  </button>
-                </>
-              ) : (
-                <button
-                  onClick={handleReview}
-                  className="rounded bg-my-main px-4 py-2 text-white"
-                >
-                  검토
-                </button>
-              )}
-            </div>
+            <ResumeButtons
+              role={role}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onReview={handleReview}
+            />
           </div>
         </div>
         <button
