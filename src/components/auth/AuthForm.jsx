@@ -17,7 +17,7 @@ const AuthForm = ({
   handleCheckNickname,
 }) => {
   //-----props-----
-  const { email, password, checkpassword, nickname, role } = formData;
+  const { email, password, checkpassword, nickname, role, address } = formData;
 
   const loginInputContents = [
     {
@@ -136,7 +136,11 @@ const AuthForm = ({
             {/* 주소 */}
             <label>
               <h4>ADDRESS</h4>
-              <SignupAddressSelect name="address" onChange={handleChange} />
+              <SignupAddressSelect
+                value={address}
+                name="address"
+                onChange={handleChange}
+              />
             </label>
             {/* 권한 */}
             <div>
