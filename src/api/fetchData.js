@@ -37,7 +37,7 @@ export const fetchJobsData = async (table1) => {
  * @param {*} userId
  * @returns bookMarkData
  */
-export const fetchUserBookMark = async (userId) => {
+export const fetchUserBookMarks = async (userId) => {
   try {
     const { data: bookMarkData, error } = await supabase
       .from('bookmarks')
