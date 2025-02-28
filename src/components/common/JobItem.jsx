@@ -8,12 +8,10 @@ import separateDate from '../../utils/SeparateDate';
 import sliceTitleLength from '../../utils/SliceTitleLength';
 
 // To.지은님
-// jobs를 map로 돌렸을 때 나오는 job과 카드 넓이를 설정하는 width를 props로 넘겨받습니다.
-// width는 원하시는 값으로 설정하시면 됩니다.
-// map 돌리는 컴포넌트에서 div의 width값을 설정하시면 원하는 넓이로 조정가능합니다.
+// jobs를 map로 돌렸을 때 나오는 job을 props로 넘겨받습니다.
 // job 관련 정보들은 따로 수정할 필요없으실거예요~!
 
-const JobItem = ({ job, width }) => {
+const JobItem = ({ job }) => {
   /** 추가해야되는 data */
   // 유저 정보 -> user_id 가져오기
   // 등록된 자소서 개수 가져오기
@@ -25,7 +23,7 @@ const JobItem = ({ job, width }) => {
   return (
     <Link to={`${PATH.JOB_DETAIL}/${postId}`}>
       <div
-        className={`flex w-[${width}px] mx-auto items-center justify-between gap-4 rounded-xl bg-white p-10`}
+        className={`mx-auto flex w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10`}
       >
         <div className="flex flex-col gap-2">
           <h1 className="text-xl font-semibold">{company_name}</h1>

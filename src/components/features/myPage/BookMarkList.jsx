@@ -21,8 +21,6 @@ const BookMarkList = () => {
     },
   ];
 
-  const JOB_ITEM_WIDTH = 600;
-
   /** UI */
   return (
     <div className="flex w-full flex-col items-center gap-5">
@@ -31,7 +29,7 @@ const BookMarkList = () => {
         <span>북마크한 채용 정보가 없습니다.</span>
       ) : (
         jobs.map((job) => {
-          return <JobItem key={job.id} job={job} width={JOB_ITEM_WIDTH} />;
+          return <JobItem key={job.id} job={job} />;
         })
       )}
     </div>
