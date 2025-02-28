@@ -3,7 +3,7 @@ import { useJobsQuery } from '../hooks/useJobsQuerys';
 import JobInfo from '../components/common/JobInfo';
 import { useState } from 'react';
 import { PATH } from '../constants/RouterPathConstants';
-import JobCommentTable from '../components/features/myPage/jobDetail/JobCommentTable';
+import JobCommentTable from '../components/features/jobDetail/JobCommentTable';
 
 /**
  * 채용 정보 디테일 페이지
