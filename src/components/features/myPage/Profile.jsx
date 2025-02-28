@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { BUTTON_MODE } from '../../../constants/mode';
 import supabase from '../../../supabase/client';
-import { LongButton } from '../../common/Button';
+import { Button } from '../../common/Button';
 import { InputBar } from '../../common/Input';
 
 const Profile = ({ isSeeker }) => {
@@ -77,7 +78,9 @@ const Profile = ({ isSeeker }) => {
           </label>
         </div>
         <hr className="mx-auto w-full rounded-full border-2 border-my-gray" />
-        <LongButton type="button">수정하기</LongButton>
+        <Button mode={BUTTON_MODE.L} type="button">
+          수정하기
+        </Button>
       </div>
     </div>
   );
