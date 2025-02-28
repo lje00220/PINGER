@@ -8,7 +8,7 @@ import supabase from '../supabase/client';
 export const createBookMark = async (jobId, userId) => {
   try {
     const { error } = await supabase
-      .from('bookmarks')
+      .from(QUERY_KEY.BOOKMARKS)
       .insert([{ job_id: jobId, user_id: userId }]);
 
     if (error) throw error;
@@ -44,7 +44,7 @@ export const fetchUserBookMarks = async (userId) => {
  */
 export const deleteBookMark = async (jobId, userId) => {
   await supabase
-    .from('bookmarks')
+    .from(QUERY_KEY.BOOKMARKS)
     .delete()
     .eq('job_id', jobId)
     .eq('user_id', userId);
