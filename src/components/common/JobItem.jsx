@@ -7,20 +7,22 @@ import { handleToggleBookMark } from '../../utils/handleToggleBookMark';
 import separateDate from '../../utils/SeparateDate';
 import sliceTitleLength from '../../utils/SliceTitleLength';
 
-// To.지은님
-// jobs를 map로 돌렸을 때 나오는 job을 props로 넘겨받습니다.
-// job 관련 정보들은 따로 수정할 필요없으실거예요~!
-
+/**
+ * 채용 정보를 보여주는 카드
+ * @param {*} job - props로 넘겨 받은 채용 정보
+ * @returns {JSX.Element}
+ */
 const JobItem = ({ job }) => {
   /** 추가해야되는 data */
   // 유저 정보 -> user_id 가져오기
   // 등록된 자소서 개수 가져오기
 
+  // 지워야되는 부분
+  const userId = '544a3df2-13c9-4cb0-a396-f5ad773cce68';
+
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
   const [resumeCount, setResumeCount] = useState(0);
-
-  const userId = '544a3df2-13c9-4cb0-a396-f5ad773cce68';
 
   return (
     <Link to={`${PATH.JOB_DETAIL}/${jobId}`}>
