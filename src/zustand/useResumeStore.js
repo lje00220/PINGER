@@ -7,13 +7,13 @@ const useResumeStore = create((set) => ({
     { title: '성과 및 장단점', content: '' },
     { title: '경력사항 및 사회경험', content: '' },
   ],
-  updateSection: (index, newContent) =>
+  updateResumeContent: (index, newContent) =>
     set((state) => ({
       sections: state.sections.map((section, idx) =>
         idx === index ? { ...section, content: newContent } : section,
       ),
     })),
-  resetSections: () =>
+  resetResumeContent: () =>
     set((state) => ({
       sections: state.sections.map((section) => ({ ...section, content: '' })),
     })),

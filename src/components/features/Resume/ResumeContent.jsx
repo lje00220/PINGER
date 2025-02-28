@@ -1,4 +1,4 @@
-const ResumeContent = ({ sections, editable, onSectionChange }) => {
+const ResumeContent = ({ sections, editable, onResumeChange }) => {
   return (
     <>
       {sections.map((section, idx) => (
@@ -7,7 +7,7 @@ const ResumeContent = ({ sections, editable, onSectionChange }) => {
           {editable ? (
             <textarea
               value={section.content}
-              onChange={(e) => onSectionChange(idx, e.target.value)}
+              onChange={(e) => onResumeChange(idx, e.target.value)}
               className="h-32 w-full rounded-2xl bg-my-bg p-3 shadow-sm"
               placeholder="내용을 입력하세요."
             />

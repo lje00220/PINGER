@@ -4,30 +4,39 @@ import ResumeContent from '../components/features/Resume/ResumeContent';
 import useResumeStore from '../zustand/useResumeStore';
 import ResumeButtons from '../components/features/Resume/ResumeButtons';
 import JobInfo from '../components/common/JobInfo';
+import { useState } from 'react';
 
 const ResumeDetail = () => {
   const { id } = useParams();
-
   const navigate = useNavigate();
 
   const { user } = useUserStore();
-
   const sections = useResumeStore((state) => state.sections);
+  const updateResumeContent = useResumeStore(
+    (state) => state.updateResumeContent,
+  );
+
+  const [isEditing, setIsEditing] = useState(false);
 
   //일단 예시 핸들러
+  //수정
   const handleEdit = () => {
-    // 수정
-    alert('자소서를 수정합니다');
+    setIsEditing(true);
+  };
+  //삭제
+  const handleDelete = () => {};
+
+  //검토
+  const handleReview = () => {};
+
+  //변경할 때 호출 핸들러
+  const handleEditResume = (index, newContent) => {
+    updateResumeContent(index, newContent);
   };
 
-  const handleDelete = () => {
-    // 삭제
-    alert('자소서를 삭제합니다.');
-  };
-
-  const handleReview = () => {
-    // 검토
-    alert('자소서를 검토합니다.');
+  //변경 내용 저장 핸들러
+  const handleSave = () => {
+    setIsEditing(false);
   };
 
   //더미데이터찾기위해 임시
@@ -62,19 +71,32 @@ const ResumeDetail = () => {
                 자기소개서
               </p>
 
-              <p>거주지 : {user.region}</p>
+              <p>희망 근무 지역 : {user.region}</p>
             </div>
             <div className="h-[200px] w-[200px] border-2">지도</div>
           </div>
           {/* 작성내용 */}
           <div className="mx-4 mt-8 flex flex-col items-center gap-4">
-            <ResumeContent sections={sections} editable={false} />
-            <ResumeButtons
-              role={user.role}
-              onEdit={handleEdit}
-              onDelete={handleDelete}
-              onReview={handleReview}
+            <ResumeContent
+              sections={sections}
+              editable={isEditing}
+              onResumeChange={handleEditResume}
             />
+            {isEditing ? (
+              <button
+                onClick={handleSave}
+                className="rounded-full bg-my-main px-4 py-2 text-white"
+              >
+                저장
+              </button>
+            ) : (
+              <ResumeButtons
+                role={user.role}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                onReview={handleReview}
+              />
+            )}
           </div>
         </div>
         <button
