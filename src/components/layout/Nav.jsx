@@ -1,16 +1,19 @@
-import { useState } from 'react';
 import { PATH } from '../../constants/RouterPathConstants';
 import { Link } from 'react-router-dom';
+import supabase from '../../supabase/client';
+import useAuthStore from '../../zustand/useAuthStore';
 
 const Nav = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  //-----zustand-----
+  const { isAuthenticated, setLogout } = useAuthStore((state) => state);
 
-  const handleLogout = () => {
-    setIsLogin(false);
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setLogout();
   };
 
   // 로그인 여부에 따른 링크 생성 리스트 분리
-  const menuItems = isLogin
+  const menuItems = isAuthenticated
     ? [
         { to: PATH.MY_PAGE, label: '칠칠이님' },
         { to: PATH.JOB_LIST, label: '채용 리스트' },
