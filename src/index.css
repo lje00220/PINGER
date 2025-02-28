@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.S {
+  @apply h-[30px] w-24 rounded-3xl bg-my-main;
+}
+
+.M {
+  @apply h-[30px] w-40 rounded-3xl bg-my-main;
+}
+
+.L {
+  @apply h-[40px] w-64 rounded-3xl bg-my-main;
+}
+
+.S:hover {
+  @apply bg-my-hover;
+}
