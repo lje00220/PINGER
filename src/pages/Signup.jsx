@@ -32,7 +32,7 @@ const Signup = () => {
     validateSignUpForm,
   );
   //formData 구조분해할당
-  const { email, password, nickname, address, role } = formData;
+  const { email, password, checkpassword, nickname, address, role } = formData;
 
   //닉네임 중복 검사
   const checkNicknameExsited = async () => {
@@ -65,6 +65,12 @@ const Signup = () => {
   //유저 데이터 등록
   const handleSubmitSignUp = async (e) => {
     e.preventDefault();
+
+    //예외처리 : 누락된 정보 확인
+    if (!email || !password || !checkpassword) {
+      toast.warn(AUTH_ERROR_MESSAGES.ALL_BLANK);
+      return;
+    }
     //예외처리 : 닉네임 중복 확인
     if (isNicknameExisted) {
       toast.warn(AUTH_ERROR_MESSAGES.NICKNAME.CHECK);
