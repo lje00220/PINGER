@@ -4,6 +4,7 @@ import Profile from '../components/features/myPage/Profile';
 import ResumeList from '../components/features/myPage/ResumeList';
 
 const MyPage = () => {
+  // 수정해야되는 부분
   const [isSeeker] = useState(true);
 
   return (
