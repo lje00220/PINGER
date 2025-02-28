@@ -3,9 +3,9 @@ import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { iconSize } from '../../constants/iconSizeConstants';
 import { PATH } from '../../constants/RouterPathConstants';
-import { handleToggleBookMark } from '../../utils/handleToggleBookMark';
 import separateDate from '../../utils/SeparateDate';
 import sliceTitleLength from '../../utils/SliceTitleLength';
+import { toggleBookMark } from '../../utils/toggleBookMark';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -24,6 +24,16 @@ const JobItem = ({ job }) => {
   const [isBookMarked, setIsBookmarked] = useState(false);
   const [resumeCount, setResumeCount] = useState(0);
 
+  const handleToggleBookMark = (e) => {
+    e.preventDefault();
+    toggleBookMark({
+      isBookMarked,
+      setIsBookmarked,
+      jobId,
+      userId,
+    });
+  };
+
   return (
     <Link to={`${PATH.JOB_DETAIL}/${jobId}`}>
       <div
@@ -40,17 +50,7 @@ const JobItem = ({ job }) => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleToggleBookMark({
-                isBookMarked,
-                setIsBookmarked,
-                jobId,
-                userId,
-              });
-            }}
-          >
+          <button onClick={handleToggleBookMark}>
             {isBookMarked ? (
               <IoBookmark size={iconSize.BASE} className="text-my-main" />
             ) : (

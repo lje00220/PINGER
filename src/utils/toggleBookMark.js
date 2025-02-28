@@ -8,7 +8,7 @@ import { deleteBookMark } from '../api/deleteData';
  * @param {number} jobId
  * @param {string} userId
  */
-export const handleToggleBookMark = async ({
+export const toggleBookMark = async ({
   isBookMarked,
   setIsBookmarked,
   jobId,
