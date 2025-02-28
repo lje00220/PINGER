@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { BUTTON_MODE } from '../../../constants/mode';
 import supabase from '../../../supabase/client';
-import SignupAddressSelect from '../../auth/SignupAddressInput';
-import { Button } from '../../common/Button';
 import { InputBar } from '../../common/Input';
+import { Button } from '../../common/Button';
+import { BUTTON_MODE } from '../../../constants/mode';
 
 const Profile = ({ isSeeker }) => {
   /** 전역으로 user 정보 생기면 수정해야 되는 부분  */

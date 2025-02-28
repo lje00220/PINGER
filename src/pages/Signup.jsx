@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import supabase from '../supabase/client';
 import AuthForm from '../components/auth/AuthForm';
 import { AUTH_MODE } from '../constants/mode';
 import { PATH } from '../constants/routerPath';
