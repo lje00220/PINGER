@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import BookMarkList from '../components/features/myPage/BookMarkList';
-import Profile from '../components/features/myPage/profile';
+import Profile from '../components/features/myPage/Profile';
 import ResumeList from '../components/features/myPage/ResumeList';
 
 const MyPage = () => {
