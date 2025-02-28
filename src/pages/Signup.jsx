@@ -199,6 +199,9 @@ const Signup = () => {
             checked={role === 'seeker'}
           />
           구직자
+        </label>
+
+        <label htmlFor="">
           <input
             className="h-4 w-4 accent-my-main focus:ring-my-main"
             name="role"
