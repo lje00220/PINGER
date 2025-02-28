@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import supabase from '../../../supabase/client';
+import { LongButton } from '../../common/Button';
 
 const Profile = () => {
   /** 더미 데이터 생성하면 수정해야되는 코드  */
@@ -33,6 +33,7 @@ const Profile = () => {
   return (
     <div className="flex w-full flex-col items-center gap-4">
       <h1 className="text-2xl">{`${userInfo.nickname}님의 프로필`}</h1>
+
       <div className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20">
         <div className="flex flex-col gap-4">
           <div className="flex justify-between">
@@ -44,6 +45,7 @@ const Profile = () => {
               </span>
             </div>
           </div>
+
           <label
             htmlFor="nickname"
             className="flex items-center justify-between gap-4"
@@ -57,6 +59,7 @@ const Profile = () => {
               className="h-[50px] w-[300px] rounded-full border-2 border-my-main px-5"
             />
           </label>
+
           <label
             htmlFor="address"
             className="flex items-center justify-between gap-4"
@@ -72,9 +75,7 @@ const Profile = () => {
           </label>
         </div>
         <hr className="mx-auto w-full rounded-full border-2 border-my-gray" />
-        <button className="h-[50px] w-[300px] rounded-full bg-my-main">
-          수정하기
-        </button>
+        <LongButton type="button">수정하기</LongButton>
       </div>
     </div>
   );
