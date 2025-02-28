@@ -3,6 +3,7 @@ import { useJobsQuery } from '../hooks/useJobsQuerys';
 import JobInfo from '../components/common/JobInfo';
 import { useState } from 'react';
 import { PATH } from '../constants/RouterPathConstants';
+import JobComments from '../components/features/myPage/JobComments';
 
 /**
  * 채용 정보 디테일 페이지
@@ -43,8 +44,8 @@ const JobDetail = () => {
   };
 
   return (
-    <div className="flex h-screen justify-center bg-my-bg">
-      <div className="mt-10 flex h-max w-3/5 flex-col items-center rounded-xl bg-white px-20 py-10">
+    <div className="flex min-h-fit justify-center bg-my-bg pb-8">
+      <div className="mt-10 flex min-h-fit w-3/5 flex-col items-center rounded-xl bg-white px-20 py-10">
         <div className="flex flex-row">
           <div className="h-80 w-1/3 bg-my-gray">지도 영역</div>
           <div className="mx-10 flex flex-col">
@@ -72,6 +73,7 @@ const JobDetail = () => {
           </button>
         </div>
         <hr className="mx-auto w-full rounded-full border-2 border-black" />
+        <JobComments />
       </div>
     </div>
   );
