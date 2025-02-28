@@ -41,6 +41,7 @@ const Profile = ({ isSeeker }) => {
 
       <div className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20">
         <div className="flex w-full flex-col gap-4">
+          {/** ID */}
           <div className="flex justify-between">
             <span className="text-lg font-semibold">ID</span>
             <div className="flex gap-4">
@@ -51,7 +52,8 @@ const Profile = ({ isSeeker }) => {
             </div>
           </div>
 
-          <label className="flex items-center justify-between">
+          {/** NICKNAME */}
+          <label className={labelStyle}>
             <span className="text-lg font-semibold">NICKNAME</span>
             <InputBar
               type="text"
@@ -64,7 +66,8 @@ const Profile = ({ isSeeker }) => {
             />
           </label>
 
-          <label className="flex items-center justify-between">
+          {/** ADDRESS */}
+          <label className={labelStyle}>
             <span className="text-lg font-semibold">ADDRESS</span>
             <SignupAddressSelect
               value={address}
@@ -83,3 +86,6 @@ const Profile = ({ isSeeker }) => {
 };
 
 export default Profile;
+
+/** 공통되는 Tailwind Style */
+const labelStyle = 'flex items-center justify-between';
