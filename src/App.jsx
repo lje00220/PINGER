@@ -1,8 +1,10 @@
 import { ToastContainer } from 'react-toastify';
 import Router from './shared/Router';
 import { Bounce } from 'react-toastify';
+import useAuthListener from './hooks/useAuthListener';
 
 function App() {
+  useAuthListener();
   return (
     <>
       <Router />
