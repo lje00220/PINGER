@@ -7,7 +7,7 @@ const Profile = () => {
 
   /** 공통 컴포넌트 제작 + 더미 데이터 생성하면 수정해야되는 코드 */
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex w-full flex-col items-center gap-4">
       <h1 className="text-2xl">칠칠이님의 프로필</h1>
       <div className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20">
         <div className="flex flex-col gap-4">

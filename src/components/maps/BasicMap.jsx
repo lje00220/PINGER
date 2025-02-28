@@ -34,8 +34,9 @@ const BasicMap = () => {
     }
   }, [keyword, map, jobData]);
 
-  if (isPending) return <div className="text-center p-4">로딩 중...</div>;
-  if (isError) return <div className="text-center p-4">데이터 불러오기 실패</div>;
+  if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
+  if (isError)
+    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
   const handleSearchJob = (job) => {
     setSelectedCompany(job);
