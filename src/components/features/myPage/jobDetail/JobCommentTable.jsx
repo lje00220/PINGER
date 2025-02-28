@@ -1,29 +1,27 @@
-const JobComments = () => {
+/**
+ * 채용 공고 디테일 페이지의 댓글창 테이블 컴포넌트
+ *  - 댓글창의 컨테이너 역할을 합니다.
+ *  - 댓글을 달 수 있는 input창이 있습니다.
+ *
+ * @returns {JSX.Element}
+ */
+
+import JobComment from './JobComment';
+
+const JobCommentTable = () => {
   return (
-    <div className="ml-auto flex w-full max-w-[800px] flex-col">
+    <div className="ml-auto flex w-full max-w-[800px] flex-col px-3">
       <h2 className="mt-5 text-2xl font-bold">채용 후기</h2>
-      <div className="mt-3">
+      <div className="mt-6">
+        {/* 댓글 전체 배열에서 map을 돌려 JobComment 컴포넌트로 하나씩 출력 */}
         {MOCK_DATA.map((data) => (
-          <div key={data.id} className="flex items-center justify-between py-3">
-            <div className="flex items-center gap-x-8">
-              <span className="min-w-[100px] font-bold">{data.writed_id}</span>
-              <span className="text-gray-700">{data.review_content}</span>
-            </div>
-            <div className="flex space-x-3">
-              <button className="rounded-full bg-my-main px-6 py-2">
-                수정
-              </button>
-              <button className="rounded-full bg-my-main px-6 py-2">
-                삭제
-              </button>
-            </div>
-          </div>
+          <JobComment data={data} key={data.id} />
         ))}
       </div>
       <div className="mt-5 flex flex-row items-center justify-center space-x-4">
         <input
           type="text"
-          placeholder="채용 후기 한줄평을 입력해주세요 (200자 이하)"
+          placeholder="채용 후기 한줄평을 입력해주세요 (50자 이하)"
           className="w-2/3 rounded-full border px-5 py-3"
         />
         <button className="rounded-full bg-my-main px-6 py-2">등록</button>
@@ -32,8 +30,9 @@ const JobComments = () => {
   );
 };
 
-export default JobComments;
+export default JobCommentTable;
 
+// 임시 데이터 -> 로그인 기능 구현 후 Supabase에서 가져올 예정
 const MOCK_DATA = [
   { id: 1, writed_id: 'ㄹㅇㅋㅋ', review_content: '밥이 맛있어요', job_id: 1 },
   {

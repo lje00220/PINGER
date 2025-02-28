@@ -3,7 +3,7 @@ import { useJobsQuery } from '../hooks/useJobsQuerys';
 import JobInfo from '../components/common/JobInfo';
 import { useState } from 'react';
 import { PATH } from '../constants/RouterPathConstants';
-import JobComments from '../components/features/myPage/JobComments';
+import JobCommentTable from '../components/features/myPage/jobDetail/JobCommentTable';
 
 /**
  * 채용 정보 디테일 페이지
@@ -73,7 +73,7 @@ const JobDetail = () => {
           </button>
         </div>
         <hr className="mx-auto w-full rounded-full border-2 border-black" />
-        <JobComments />
+        <JobCommentTable />
       </div>
     </div>
   );
