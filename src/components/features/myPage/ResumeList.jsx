@@ -4,6 +4,7 @@ const ResumeList = () => {
   return (
     <div className="flex w-full flex-col items-center gap-5">
       <h1 className="text-2xl">검토한 자소서</h1>
+
       <ul className="grid grid-cols-2 gap-8">
         {dummyData.map((resume) => {
           return <ResumeItem key={resume.id} resume={resume} />;

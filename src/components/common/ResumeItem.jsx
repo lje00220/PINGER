@@ -1,6 +1,6 @@
 /**
- *
- * @param {object} resume
+ * 자소서 정보를 보여주는 카드
+ * @param {object} resume - props로 넘겨 받은 자소서 정보
  * @returns {JSX.Element}
  */
 const ResumeItem = ({ resume }) => {
