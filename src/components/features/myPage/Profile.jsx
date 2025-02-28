@@ -3,10 +3,10 @@ import supabase from '../../../supabase/client';
 import { LongButton } from '../../common/Button';
 import { InputBar } from '../../common/Input';
 
-const Profile = ({ isSeeker, setIsSeeker }) => {
+const Profile = ({ isSeeker }) => {
   /** 전역으로 user 정보 생기면 수정해야 되는 부분  */
   const [userInfo, setUserInfo] = useState([]);
-  const { nickname, email, role, address } = userInfo;
+  const { nickname, email, address } = userInfo;
 
   const userId = '544a3df2-13c9-4cb0-a396-f5ad773cce68';
 
@@ -20,7 +20,6 @@ const Profile = ({ isSeeker, setIsSeeker }) => {
           .single();
 
         setUserInfo(users);
-        if (role !== 'seeker') setIsSeeker(false);
       } catch (error) {
         console.error(error);
       }

@@ -4,11 +4,11 @@ import Profile from '../components/features/myPage/Profile';
 import ResumeList from '../components/features/myPage/ResumeList';
 
 const MyPage = () => {
-  const [isSeeker, setIsSeeker] = useState(true);
+  const [isSeeker] = useState(true);
 
   return (
     <div className="flex h-full w-full flex-col gap-10 bg-my-bg py-8">
-      <Profile isSeeker={isSeeker} setIsSeeker={setIsSeeker} />
+      <Profile isSeeker={isSeeker} />
       {isSeeker ? <BookMarkList /> : <ResumeList />}
     </div>
   );
