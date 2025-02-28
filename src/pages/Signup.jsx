@@ -89,23 +89,39 @@ const Signup = () => {
         },
       },
     };
-    const { data, error } = await supabase.auth.signUp(newUserData);
 
-    console.log('newUserData', newUserData);
-    //회원가입 성공
-    if (data.user) {
-      //유저 알람
-      toast.success(AUTH_SUCCESS_MESSAGES.SIGNUP.NEW);
-      //로그인 페이지로 이동
-      navigate(PATH.LOGIN);
-      //폼 리셋
-      resetForm();
-    }
+    try {
+      const { data, error } = await supabase.auth.signUp(newUserData);
 
-    //회원가입 실패
-    if (error) {
-      console.log('error', error.message);
-      console.log('error type', typeof error.message);
+      //회원가입 성공
+      if (data.user) {
+        //유저 알람
+        toast.success(AUTH_SUCCESS_MESSAGES.SIGNUP.NEW);
+        //로그인 페이지로 이동
+        navigate(PATH.LOGIN);
+        //폼 리셋
+        resetForm();
+      }
+
+      //회원가입 실패
+      if (error) {
+        switch (error.message) {
+          case 'User already registered':
+            return toast.error(AUTH_ERROR_MESSAGES.EMAIL.SAME);
+
+          case 'Unable to validate email address: invalid format':
+            return toast.error(AUTH_ERROR_MESSAGES.EMAIL.INVALIDATE);
+
+          case 'Network request failed':
+            return toast.error(AUTH_ERROR_MESSAGES.ERROR);
+
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      toast.error(AUTH_ERROR_MESSAGES.ERROR);
+      console.error('회원가입 error : ', error);
     }
   };
 
