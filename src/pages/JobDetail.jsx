@@ -1,9 +1,9 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useJobsQuery } from '../hooks/useJobsQuerys';
-import JobInfo from '../components/common/JobInfo';
 import { useState } from 'react';
-import { PATH } from '../../constants/routerPath';
+import { useNavigate, useParams } from 'react-router-dom';
+import JobInfo from '../components/common/JobInfo';
 import JobCommentTable from '../components/features/jobDetail/JobCommentTable';
+import { PATH } from '../constants/routerPath';
+import { useJobsQuery } from '../hooks/useJobsQuerys';
 
 /**
  * 채용 정보 디테일 페이지

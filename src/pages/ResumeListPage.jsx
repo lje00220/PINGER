@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { create } from 'zustand';
-import { PATH } from '../../constants/routerPath';
+import { PATH } from '../constants/routerPath';
 
 //일단은 칠칠이로
 export const useUserStore = create((set) => ({

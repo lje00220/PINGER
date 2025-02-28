@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchUserBookMarks } from '../api/fetchData';
+import { fetchUserBookMarks } from '../api/bookMarks';
 import { QUERY_KEY } from '../constants/queryKeys';
 
 export const useBookMarksQuery = () => {
