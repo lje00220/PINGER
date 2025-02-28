@@ -4,26 +4,29 @@ import { PATH } from '../constants/RouterPathConstants';
 
 //일단은 칠칠이로
 export const useUserStore = create((set) => ({
-  user: { id: 'user1', name: '칠칠이' },
-  role: 'seeker',
+  user: {
+    user_id: 'user1',
+    nickname: '칠칠이',
+    role: 'seeker',
+    region: '서울 강남구',
+  },
   setUser: (user) => set({ user }),
-  setRole: (role) => set({ role }),
 }));
 
 const ResumeListPage = () => {
-  const { user, role, setRole } = useUserStore();
+  const { user, setUser } = useUserStore();
   const navigate = useNavigate();
 
   //test용
-  // 모드 정하기
+  // 구직자/멘토 정하기
   const toggleRole = () => {
-    setRole(role === 'seeker' ? 'recruiter' : 'seeker');
+    setUser({ ...user, role: user.role === 'seeker' ? 'recruiter' : 'seeker' });
   };
 
   // 역할 자소서 필터링
   const resumes =
-    role === 'seeker'
-      ? dummyData.filter((resume) => resume.user_id === user.id)
+    user.role === 'seeker'
+      ? dummyData.filter((resume) => resume.user_id === user.user_id)
       : dummyData;
 
   //페이지 이동
@@ -42,11 +45,11 @@ const ResumeListPage = () => {
           onClick={toggleRole}
           className="mb-10 bg-blue-500 px-2 py-1 text-white"
         >
-          모드 : {role}
+          모드 : {user.role}
         </button>
 
         <h1 className="mb-8 text-2xl font-bold">
-          {role === 'seeker' ? '나의' : '전체'}
+          {user.role === 'seeker' ? '나의' : '전체'}
           <span className="text-my-main"> 자소서</span>
         </h1>
 
@@ -89,73 +92,83 @@ export default ResumeListPage;
 // 더미 데이터
 export const dummyData = [
   {
-    id: 1,
-    title: '기업이름 1',
+    id: 'resume1',
+    title: '서울대학교병원',
     user_name: '칠칠이',
     user_id: 'user1',
     recruit_type: '신입',
+    companyId: 1,
   },
   {
-    id: 2,
+    id: 'resume2',
     title: '기업이름 2',
     user_name: '유저2',
     user_id: 'user2',
     recruit_type: '신입',
+    companyId: 2,
   },
   {
-    id: 3,
+    id: 'resume3',
     title: '기업이름 3',
     user_name: '칠칠이',
     user_id: 'user1',
     recruit_type: '신입',
+    companyId: 3,
   },
   {
-    id: 4,
+    id: 'resume4',
     title: '기업이름 4',
     user_name: '칠칠이',
     user_id: 'user1',
     recruit_type: '신입',
+    companyId: 4,
   },
   {
-    id: 5,
+    id: 'resume5',
     title: '기업이름 5',
     user_name: '유저4',
     user_id: 'user4',
     recruit_type: '신입+경력',
+    companyId: 5,
   },
   {
-    id: 6,
+    id: 'resume6',
     title: '기업이름 6',
     user_name: '유저4',
     user_id: 'user4',
     recruit_type: '신입',
+    companyId: 6,
   },
   {
-    id: 7,
+    id: 'resume7',
     title: '기업이름 7',
     user_name: '유저4',
     user_id: 'user4',
     recruit_type: '신입+경력',
+    companyId: 7,
   },
   {
-    id: 8,
+    id: 'resume8',
     title: '기업이름 8',
     user_name: '유저5',
     user_id: 'user5',
     recruit_type: '신입+경력',
+    companyId: 8,
   },
   {
-    id: 9,
+    id: 'resume9',
     title: '기업이름 9',
     user_name: '유저5',
     user_id: 'user5',
     recruit_type: '신입',
+    companyId: 9,
   },
   {
-    id: 10,
+    id: 'resume10',
     title: '기업이름 10',
     user_name: '유저5',
     user_id: 'user5',
     recruit_type: '신입',
+    companyId: 10,
   },
 ];
