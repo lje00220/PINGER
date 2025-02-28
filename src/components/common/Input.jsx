@@ -20,3 +20,16 @@ export const InputBar = ({
     />
   );
 };
+
+export const InputRadio = ({ name, value, onChange, checked }) => {
+  return (
+    <input
+      className="h-4 w-4 accent-my-main focus:ring-my-main"
+      type="radio"
+      name={name}
+      value={value}
+      onChange={onChange}
+      checked={checked}
+    />
+  );
+};
