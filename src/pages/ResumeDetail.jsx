@@ -2,12 +2,18 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { dummyData, useUserStore } from './ResumeListPage';
 import JobInfo from '../components/common/JobInfo';
 import { useJobsQuery } from '../hooks/useJobsQuerys';
+import ResumeContent from '../components/features/Resume/ResumeContent';
+import useResumeStore from '../zustand/useResumeStore';
 
 const ResumeDetail = () => {
   const { id } = useParams();
+
   const navigate = useNavigate();
+
   const { role } = useUserStore();
   const { data: jobData, isPending, isError } = useJobsQuery();
+
+  const sections = useResumeStore((state) => state.sections);
 
   if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
   if (isError)
@@ -16,7 +22,7 @@ const ResumeDetail = () => {
   const targetJob = jobData.find((job) => job.id === parseInt(id));
 
   const handleEdit = () => {
-    // 수정 페이지로 이동
+    // 수정
     alert('자소서를 수정합니다');
   };
 
@@ -30,6 +36,7 @@ const ResumeDetail = () => {
     alert('자소서를 검토합니다.');
   };
 
+  //더미데이터찾기위해 임시
   const resume = dummyData.find((item) => item.id === Number(id));
 
   return (
@@ -54,8 +61,8 @@ const ResumeDetail = () => {
         {/*자기 소개서*/}
         <div className="w-2/3 rounded-2xl bg-white p-10 shadow-xl">
           <div className="mx-4 flex justify-between">
-            <div className="space-y-4">
-              <p className="text-2xl font-bold">
+            <div>
+              <p className="font-bold">
                 <span className="text-my-main">{resume.user_name}</span>님의
                 자기소개서
               </p>
@@ -66,19 +73,7 @@ const ResumeDetail = () => {
 
           {/* 자기소개서 내용 */}
           <div className="mx-4 mt-8 flex flex-col items-center gap-4">
-            {[
-              '상담 과정',
-              '입사 후 포부',
-              '성과 및 장단점',
-              '경력사항 및 사회경험',
-            ].map((title, idx) => (
-              <div key={idx} className="w-full">
-                <span className="mb-2 block font-bold">{title}</span>
-                <div className="h-32 w-full rounded-2xl bg-my-gray p-3 shadow-sm">
-                  내용...
-                </div>
-              </div>
-            ))}
+            <ResumeContent sections={sections} editable={false} />
             <div className="flex space-x-4">
               {role === 'seeker' ? (
                 <>

@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { create } from 'zustand';
 import { PATH } from '../constants/RouterPathConstants';
 
@@ -14,6 +14,7 @@ const ResumeListPage = () => {
   const { user, role, setRole } = useUserStore();
   const navigate = useNavigate();
 
+  //test용
   // 모드 정하기
   const toggleRole = () => {
     setRole(role === 'seeker' ? 'recruiter' : 'seeker');
@@ -33,6 +34,10 @@ const ResumeListPage = () => {
   return (
     <div className="min-h-screen w-full bg-my-bg p-8">
       <div className="flex flex-col items-center">
+        {/*테스트용 버튼들*/}
+        <Link to={PATH.RESUME_CREATE}>
+          <button>자소서 생성</button>
+        </Link>
         <button
           onClick={toggleRole}
           className="mb-10 bg-blue-500 px-2 py-1 text-white"
