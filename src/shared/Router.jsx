@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Header from '../components/layout/Header';
+import { PATH } from '../constants/routerPath';
 import Home from '../pages/Home';
-import { PATH } from '../constants/routerPathConstants';
-import Login from '../pages/Login';
-import Signup from '../pages/Signup';
-import JobListPage from '../pages/JobListPage';
 import JobDetail from '../pages/JobDetail';
+import JobListPage from '../pages/JobListPage';
+import Login from '../pages/Login';
 import MyPage from '../pages/MyPage';
-import ResumeListPage from '../pages/ResumeListPage';
 import ResumeCreate from '../pages/ResumeCreate';
 import ResumeDetail from '../pages/ResumeDetail';
-import Header from '../components/layout/Header';
+import ResumeListPage from '../pages/ResumeListPage';
+import Signup from '../pages/Signup';
 
 const Router = () => {
   return (
