@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { BUTTON_MODE } from '../../../constants/mode';
 import supabase from '../../../supabase/client';
-import { InputBar } from '../../common/Input';
 import { Button } from '../../common/Button';
-import { BUTTON_MODE } from '../../../constants/mode';
+import { InputBar } from '../../common/Input';
+import SignupAddressSelect from '../../auth/SignupAddressInput';
 
 const Profile = ({ isSeeker }) => {
   /** 전역으로 user 정보 생기면 수정해야 되는 부분  */
@@ -41,7 +41,7 @@ const Profile = ({ isSeeker }) => {
 
       <div className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20">
         <div className="flex w-full flex-col gap-4">
-          <div className="1 flex justify-between">
+          <div className="flex justify-between">
             <span className="text-lg font-semibold">ID</span>
             <div className="flex gap-4">
               <span>{email}</span>
