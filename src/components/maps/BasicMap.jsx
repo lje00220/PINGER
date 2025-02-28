@@ -1,7 +1,8 @@
 import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
 import useKakaoLoader from '../../hooks/useKakaoLoader';
-import { useState, useEffect } from 'react';
 import { useJobsQuery } from '../../hooks/useJobsQuerys';
+import { useMapStore } from '../../zustand/useMapStore';
+import { useEffect } from 'react';
 
 const CLOSE_ICON_URL = 'https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif';
 
@@ -9,38 +10,20 @@ const BasicMap = () => {
   useKakaoLoader();
 
   const { data: jobData, isPending, isError } = useJobsQuery();
-
-  const [map, setMap] = useState(null);
-  const [isOpen, setIsOpen] = useState(null);
-  const [keyword, setKeyword] = useState('');
-  const [filteredJobs, setFilteredJobs] = useState([]);
-  const [selectedCompany, setSelectedCompany] = useState(null);
+  const { 
+    isOpen, keyword, filteredJobs, selectedCompany, 
+    setMap, setKeyword, setIsOpen, setSelectedCompany, setJobData 
+  } = useMapStore();
 
   useEffect(() => {
-    if (!map || !jobData) return;
-
-    if (keyword.trim() === '') {
-      setFilteredJobs([]);
-      return;
+    if (jobData) {
+      setJobData(jobData);
     }
-
-    const filtered = jobData.filter((job) => job.company_name.includes(keyword) || job.adress.includes(keyword));
-    setFilteredJobs(filtered);
-
-    if (filtered.length > 0) {
-      const bounds = new window.kakao.maps.LatLngBounds();
-      filtered.forEach((job) => bounds.extend(new window.kakao.maps.LatLng(job.lat, job.lng)));
-      map.setBounds(bounds);
-    }
-  }, [keyword, map, jobData]);
+  }, [jobData, setJobData]);
 
   if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
   if (isError) return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
-  const handleSearchJob = (job) => {
-    setSelectedCompany(job);
-    map.setCenter(new window.kakao.maps.LatLng(job.lat, job.lng));
-  };
 
   return (
     <div className="flex">
@@ -64,7 +47,7 @@ const BasicMap = () => {
               <li
                 key={job.id}
                 className="p-2 border-b cursor-pointer hover:bg-gray-200"
-                onClick={() => handleSearchJob(job)}
+                onClick={() => setSelectedCompany(job)}
               >
                 <strong>{job.company_name}</strong>
               </li>
@@ -104,10 +87,10 @@ const BasicMap = () => {
               key={`filtered-${job.id}`}
               position={{ lat: job.lat, lng: job.lng }}
               clickable={true}
-              onClick={() => setSelectedCompany(job)}
+              onClick={() => setIsOpen(job.id)}
             >
               {selectedCompany && selectedCompany.id === job.id && (
-                <div className="relative min-w-[150px] bg-white p-2 rounded-md shadow-md">
+                <div className="relative min-w-[150px]">
                   <strong>{job.company_name}</strong>
                 </div>
               )}

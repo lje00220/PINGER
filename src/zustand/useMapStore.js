@@ -1,17 +1,15 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 export const useMapStore = create(
-  persist(
     (set, get) => ({
-      map: null,
+      map: null, 
       isOpen: null,
       keyword: "",
       filteredJobs: [],
       selectedCompany: null,
       jobData: [],
-      
-      setMap: (map) => set({ map }),
+
+      setMap: (map) => set({ map }), 
       setKeyword: (keyword) => {
         set({ keyword });
 
@@ -46,6 +44,4 @@ export const useMapStore = create(
       },
       setJobData: (data) => set({ jobData: data }),
     }),
-    { name: "map-store" }
-  )
 );
