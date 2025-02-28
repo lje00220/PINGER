@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PATH } from '../../constants/RouterPathConstants';
+import { PATH } from '../../constants/routerPath';
 import { Link } from 'react-router-dom';
 
 const Nav = () => {

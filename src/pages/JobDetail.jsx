@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useJobsQuery } from '../hooks/useJobsQuerys';
 import JobInfo from '../components/common/JobInfo';
 import { useState } from 'react';
-import { PATH } from '../constants/RouterPathConstants';
+import { PATH } from '../../constants/routerPath';
 import JobCommentTable from '../components/features/jobDetail/JobCommentTable';
 
 /**
