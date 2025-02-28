@@ -35,7 +35,7 @@ const JobDetail = () => {
     lng: Number(targetJob.lng),
   };
 
-  console.log(targetPlace);
+  console.log(targetJob.company_name, targetPlace);
   // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
   const handleOpenJobSite = () => {
     window.open(targetJob.url);
@@ -55,8 +55,8 @@ const JobDetail = () => {
     <div className="flex min-h-fit justify-center bg-my-bg pb-8">
       <div className="mt-10 flex min-h-fit w-3/5 flex-col items-center rounded-xl bg-white px-20 py-10">
         <div className="flex flex-row">
-          <StaticKakaoMap targetPlace={targetPlace} size={300} />
-          <div className="mx-10 flex flex-col">
+          <StaticKakaoMap targetPlace={targetPlace} size={330} />
+          <div className="mx-10 flex max-w-[300px] flex-col">
             <div className="mb-10 flex flex-col">
               <span className="text-2xl font-bold">
                 {targetJob.company_name}
