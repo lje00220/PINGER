@@ -9,7 +9,7 @@ import { toggleBookMark } from '../../utils/toggleBookMark';
 
 /**
  * 채용 정보를 보여주는 카드
- * @param {*} job - props로 넘겨 받은 채용 정보
+ * @param {object} job - props로 넘겨 받은 채용 정보
  * @returns {JSX.Element}
  */
 const JobItem = ({ job }) => {
