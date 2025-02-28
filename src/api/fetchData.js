@@ -32,23 +32,3 @@ export const fetchJobsData = async (table1) => {
     console.error('fetching error', error);
   }
 };
-
-/**
- * 해당 사용자가 저장한 북마크 데이터 조회
- * @param {string} userId - 로그인한 사용자 아이디
- * @returns bookMarkData
- */
-export const fetchUserBookMarks = async (userId) => {
-  try {
-    const { data: bookMarkList, error } = await supabase
-      .from(QUERY_KEY.BOOKMARKS)
-      .select(`*, ${QUERY_KEY.JOBS}(*)`)
-      .eq('user_id', userId);
-
-    if (error) throw error;
-
-    return bookMarkList || [];
-  } catch (error) {
-    console.error('북마크 조회 오류', error);
-  }
-};

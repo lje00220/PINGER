@@ -14,24 +14,11 @@ export const deleteData = async (tableName, column, id) => {
   }
   try {
     const { error } = await supabase.from(tableName).delete().eq(column, id);
-
+    1;
     if (error) {
       console.error('데이터 삭제 실패: ', error);
     }
   } catch (error) {
     console.error('서버오류가 발생하였습니다.: ', error);
   }
-};
-
-/**
- * 북마크 취소 함수
- * @param {number} jobId
- * @param {string} userId
- */
-export const deleteBookMark = async (jobId, userId) => {
-  await supabase
-    .from('bookmarks')
-    .delete()
-    .eq('job_id', jobId)
-    .eq('user_id', userId);
 };
