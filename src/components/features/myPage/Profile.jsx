@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import supabase from '../../../supabase/client';
-import { LongButton } from '../../common/Button';
 import { InputBar } from '../../common/Input';
+import { Button } from '../../common/Button';
+import { BUTTON_MODE } from '../../../constants/mode';
 
 const Profile = ({ isSeeker }) => {
   /** 전역으로 user 정보 생기면 수정해야 되는 부분  */
@@ -77,7 +78,9 @@ const Profile = ({ isSeeker }) => {
           </label>
         </div>
         <hr className="mx-auto w-full rounded-full border-2 border-my-gray" />
-        <LongButton type="button">수정하기</LongButton>
+        <Button mode={BUTTON_MODE.L} type="button">
+          수정하기
+        </Button>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { AUTH_MODE, BUTTON_MODE } from '../../constants/mode';
 import { Button } from '../common/Button';
 import { InputBar, InputRadio } from '../common/Input';
 import { Link } from 'react-router-dom';
-import { PATH } from '../../constants/RouterPathConstants';
+import { PATH } from '../../constants/routerPath';
 import ErrorText from '../common/ErrorText';
 import SignupAddressSelect from './SignupAddressInput';
 

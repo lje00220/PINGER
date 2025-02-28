@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import useForm from '../hooks/useForm';
 import { toast } from 'react-toastify';
 import supabase from '../supabase/client';
-import { PATH } from '../constants/RouterPathConstants';
+import { PATH } from '../constants/routerPath';
 import AuthForm from '../components/auth/AuthForm';
 import { AUTH_MODE } from '../constants/mode';
 import {

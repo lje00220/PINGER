@@ -3,7 +3,7 @@ import AuthForm from '../components/auth/AuthForm';
 import { AUTH_MODE } from '../constants/mode';
 import useForm from '../hooks/useForm';
 import { validateLoginForm } from '../utils/validate';
-import { PATH } from '../constants/RouterPathConstants';
+import { PATH } from '../constants/routerPath';
 
 const Login = () => {
   //-----navigate-----

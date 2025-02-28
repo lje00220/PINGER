@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import JobCommentTable from '../components/features/jobDetail/JobCommentTable';
+import StaticKakaoMap from '../components/maps/StaticKakaoMap';
 import { useNavigate, useParams } from 'react-router-dom';
 import JobInfo from '../components/common/JobInfo';
-import JobCommentTable from '../components/features/jobDetail/JobCommentTable';
 import { PATH } from '../constants/routerPath';
 import { useJobsQuery } from '../hooks/useJobsQuerys';
 
@@ -28,6 +29,12 @@ const JobDetail = () => {
   // 현재 페이지의 id와 jobs 테이블에 있는 id를 비교해 일치하는 것을 가져옴
   const targetJob = jobData.find((job) => job.id === Number(id));
 
+  // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
+  const targetPlace = {
+    lat: Number(targetJob.lat),
+    lng: Number(targetJob.lng),
+  };
+
   // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
   const handleOpenJobSite = () => {
     window.open(targetJob.url);
@@ -47,8 +54,8 @@ const JobDetail = () => {
     <div className="flex min-h-fit justify-center bg-my-bg pb-8">
       <div className="mt-10 flex min-h-fit w-3/5 flex-col items-center rounded-xl bg-white px-20 py-10">
         <div className="flex flex-row">
-          <div className="h-80 w-1/3 bg-my-gray">지도 영역</div>
-          <div className="mx-10 flex flex-col">
+          <StaticKakaoMap targetPlace={targetPlace} size={330} />
+          <div className="mx-10 flex max-w-[300px] flex-col">
             <div className="mb-10 flex flex-col">
               <span className="text-2xl font-bold">
                 {targetJob.company_name}
