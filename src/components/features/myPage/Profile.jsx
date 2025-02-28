@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import supabase from '../../../supabase/client';
 import { LongButton } from '../../common/Button';
+import { InputBar } from '../../common/Input';
 
 const Profile = ({ isSeeker, setIsSeeker }) => {
   /** 전역으로 user 정보 생기면 수정해야 되는 부분  */
@@ -39,10 +40,10 @@ const Profile = ({ isSeeker, setIsSeeker }) => {
       <h1 className="text-2xl">{`${nickname}님의 프로필`}</h1>
 
       <div className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20">
-        <div className="flex flex-col gap-4">
+        <div className="flex w-full flex-col gap-4">
           <div className="flex justify-between">
             <span className="text-lg font-semibold">ID</span>
-            <div className="flex w-[300px] justify-between">
+            <div className="flex gap-4">
               <span>{email}</span>
               <span className="flex h-[30px] w-[80px] items-center justify-center rounded-full bg-my-main">
                 {isSeeker ? '구직자' : '담당자'}
@@ -50,33 +51,29 @@ const Profile = ({ isSeeker, setIsSeeker }) => {
             </div>
           </div>
 
-          <label
-            htmlFor="nickname"
-            className="flex items-center justify-between gap-4"
-          >
-            <span className="text-lg font-semibold">닉네임</span>
-            <input
+          <label className="flex items-center justify-between">
+            <span className="text-lg font-semibold">NICKNAME</span>
+            <InputBar
               type="text"
-              id="nickname"
+              name="nickname"
               placeholder="닉네임"
               value={nickname}
               onChange={handleChange}
-              className="h-[50px] w-[300px] rounded-full border-2 border-my-main px-5"
+              minLength={2}
+              maxLength={6}
             />
           </label>
 
-          <label
-            htmlFor="address"
-            className="flex items-center justify-between gap-4"
-          >
-            <span className="text-lg font-semibold">주소</span>
-            <input
+          <label className="flex items-center justify-between">
+            <span className="text-lg font-semibold">ADDRESS</span>
+            <InputBar
               type="text"
-              id="address"
+              name="address"
               placeholder="주소"
               value={address}
               onChange={handleChange}
-              className="h-[50px] w-[300px] rounded-full border-2 border-my-main px-5"
+              minLength={2}
+              maxLength={6}
             />
           </label>
         </div>
