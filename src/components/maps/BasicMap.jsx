@@ -3,17 +3,18 @@ import useKakaoLoader from '../../hooks/useKakaoLoader';
 import { useState } from 'react';
 import { useJobsQuery } from '../../hooks/useJobsQuerys';
 
-const CLOSE_ICON_URL = "https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif";
+const CLOSE_ICON_URL =
+  'https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif';
 
 const BasicMap = () => {
-
   useKakaoLoader();
 
   const { data: jobData, isPending, isError } = useJobsQuery();
   const [isOpen, setIsOpen] = useState(null);
 
-  if (isPending) return <div className="text-center p-4">로딩 중...</div>;
-  if (isError) return <div className="text-center p-4">데이터 불러오기 실패</div>;
+  if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
+  if (isError)
+    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
   return (
     <Map
@@ -36,14 +37,14 @@ const BasicMap = () => {
               <img
                 alt="close"
                 src={CLOSE_ICON_URL}
-                className="absolute top-1 right-1 w-4 h-4 cursor-pointer"
+                className="absolute right-1 top-1 h-4 w-4 cursor-pointer"
                 onClick={() => setIsOpen(null)}
               />
-              <div className="text-black p-1">{job.company_name}</div>
+              <div className="p-1 text-black">{job.company_name}</div>
             </div>
           )}
         </MapMarker>
-      ))}bc56144d0d98baf7759e59f7d90577528c6
+      ))}
     </Map>
   );
 };
