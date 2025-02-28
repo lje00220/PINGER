@@ -1,7 +1,7 @@
-import { PATH } from '../../constants/RouterPathConstants';
 import { Link } from 'react-router-dom';
 import supabase from '../../supabase/client';
 import useAuthStore from '../../zustand/useAuthStore';
+import { PATH } from '../../constants/routerPath';
 
 const Nav = () => {
   //-----zustand-----

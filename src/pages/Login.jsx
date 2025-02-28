@@ -3,13 +3,13 @@ import AuthForm from '../components/auth/AuthForm';
 import { AUTH_MODE } from '../constants/mode';
 import useForm from '../hooks/useForm';
 import { validateLoginForm } from '../utils/validate';
-import { PATH } from '../constants/RouterPathConstants';
 import { toast } from 'react-toastify';
 import {
   AUTH_ERROR_MESSAGES,
   AUTH_SUCCESS_MESSAGES,
 } from '../constants/toastMessages';
 import supabase from '../supabase/client';
+import { PATH } from '../constants/routerPath';
 
 const Login = () => {
   //-----navigate-----
