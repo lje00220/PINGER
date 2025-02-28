@@ -24,7 +24,7 @@ const BasicMap = () => {
       return;
     }
 
-    const filtered = jobData.filter((job) => job.company_name.includes(keyword));
+    const filtered = jobData.filter((job) => job.company_name.includes(keyword) || job.adress.includes(keyword));
     setFilteredJobs(filtered);
 
     if (filtered.length > 0) {
@@ -36,6 +36,11 @@ const BasicMap = () => {
 
   if (isPending) return <div className="text-center p-4">로딩 중...</div>;
   if (isError) return <div className="text-center p-4">데이터 불러오기 실패</div>;
+
+  const handleSearchJob = (job) => {
+    setSelectedCompany(job);
+    map.setCenter(new window.kakao.maps.LatLng(job.lat, job.lng));
+  };
 
   return (
     <div className="flex">
@@ -59,10 +64,7 @@ const BasicMap = () => {
               <li
                 key={job.id}
                 className="p-2 border-b cursor-pointer hover:bg-gray-200"
-                onClick={() => {
-                  setSelectedCompany(job);
-                  map.setCenter(new window.kakao.maps.LatLng(job.lat, job.lng));
-                }}
+                onClick={() => handleSearchJob(job)}
               >
                 <strong>{job.company_name}</strong>
               </li>
