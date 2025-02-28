@@ -1,31 +1,43 @@
 import { useState } from 'react';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
-import { iconSize } from '../../constants/iconSizeConstants';
-import { handleToggleBookMark } from '../../utils/handleToggleBookMark';
-import separateDate from '../../utils/SeparateDate';
-import sliceTitleLength from '../../utils/SliceTitleLength';
 import { Link } from 'react-router-dom';
-import { PATH } from '../../constants/RouterPathConstants';
+import { iconSize } from '../../constants/iconSize';
+import { PATH } from '../../constants/routerPath';
+import separateDate from '../../utils/separateDate';
+import sliceTitleLength from '../../utils/sliceTitleLength';
+import { toggleBookMark } from '../../utils/toggleBookMark';
 
-// To.지은님
-// jobs를 map로 돌렸을 때 나오는 job과 카드 넓이를 설정하는 width를 props로 넘겨받습니다.
-// width는 원하시는 값으로 설정하시면 됩니다.
-// map 돌리는 컴포넌트에서 div의 width값을 설정하시면 원하는 넓이로 조정가능합니다.
-// job 관련 정보들은 따로 수정할 필요없으실거예요~!
-
-const JobItem = ({ job, width }) => {
+/**
+ * 채용 정보를 보여주는 카드
+ * @param {*} job - props로 넘겨 받은 채용 정보
+ * @returns {JSX.Element}
+ */
+const JobItem = ({ job }) => {
   /** 추가해야되는 data */
   // 유저 정보 -> user_id 가져오기
   // 등록된 자소서 개수 가져오기
 
-  const { id: postId, company_name, recruit_title, start_date, end_date } = job;
+  // 지워야되는 부분
+  const userId = '544a3df2-13c9-4cb0-a396-f5ad773cce68';
+
+  const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
   const [resumeCount, setResumeCount] = useState(0);
 
+  const handleToggleBookMark = (e) => {
+    e.preventDefault();
+    toggleBookMark({
+      isBookMarked,
+      setIsBookmarked,
+      jobId,
+      userId,
+    });
+  };
+
   return (
-    <Link to={`${PATH.JOB_DETAIL}/${postId}`}>
+    <Link to={`${PATH.JOB_DETAIL}/${jobId}`}>
       <div
-        className={`flex w-[${width}px] mx-auto items-center justify-between gap-4 rounded-xl bg-white p-10`}
+        className={`mx-auto flex w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10`}
       >
         <div className="flex flex-col gap-2">
           <h1 className="text-xl font-semibold">{company_name}</h1>
@@ -38,12 +50,7 @@ const JobItem = ({ job, width }) => {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              handleToggleBookMark(isBookMarked, setIsBookmarked, postId);
-            }}
-          >
+          <button onClick={handleToggleBookMark}>
             {isBookMarked ? (
               <IoBookmark size={iconSize.BASE} className="text-my-main" />
             ) : (

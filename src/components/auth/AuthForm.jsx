@@ -3,9 +3,9 @@ import { AUTH_MODE, BUTTON_MODE } from '../../constants/mode';
 import { Button } from '../common/Button';
 import { InputBar, InputRadio } from '../common/Input';
 import { Link } from 'react-router-dom';
-import { PATH } from '../../constants/RouterPathConstants';
 import ErrorText from '../common/ErrorText';
 import SignupAddressSelect from './SignupAddressInput';
+import { PATH } from '../../constants/routerPath';
 
 const AuthForm = ({
   mode,
@@ -16,7 +16,7 @@ const AuthForm = ({
   handleCheckNickname,
 }) => {
   //-----props-----
-  const { email, password, checkpassword, nickname, role } = formData;
+  const { email, password, checkpassword, nickname, role, address } = formData;
 
   const loginInputContents = [
     {
@@ -135,7 +135,11 @@ const AuthForm = ({
             {/* 주소 */}
             <label>
               <h4>ADDRESS</h4>
-              <SignupAddressSelect name="address" onChange={handleChange} />
+              <SignupAddressSelect
+                value={address}
+                name="address"
+                onChange={handleChange}
+              />
             </label>
             {/* 권한 */}
             <div>

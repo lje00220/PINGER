@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const useForm = (initailState = {}, validate) => {
-  const [formData, setFormData] = useState(initailState);
+const useForm = (initialState = {}, validate) => {
+  const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState({});
 
   const handleChange = (event) => {
@@ -25,7 +25,7 @@ const useForm = (initailState = {}, validate) => {
   };
 
   const resetForm = () => {
-    setFormData(initailState);
+    setFormData(initialState);
     setFormError({});
   };
 

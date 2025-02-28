@@ -9,6 +9,10 @@ import DATE_RANGE from '../constants/DateRange';
  */
 
 const separateDate = (date) => {
+  // 만약 date가 falsy한 값일 경우 빈 문자열 반환 (날짜가 null인 경우가 있음)
+  if (!date) {
+    return '';
+  }
   const strDate = String(date);
   const separateArr = [
     strDate.slice(DATE_RANGE.YEAR_START, DATE_RANGE.YEAR_END),

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { PATH } from '../../constants/RouterPathConstants';
+import { PATH } from '../../constants/routerPath';
 import Nav from './Nav';
 
 const Header = () => {
