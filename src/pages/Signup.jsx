@@ -27,8 +27,6 @@ const Signup = () => {
   );
   const { email, password, checkpassword, nickname, address, role } = formData;
 
-  console.log('formData', formData);
-
   //-----회원가입 로직-----
   //닉네임 중복 검사
   const checkNicknameExsited = async () => {
@@ -82,10 +80,6 @@ const Signup = () => {
 
     const { data, error } = await supabase.auth.signUp(newUserData);
 
-    console.log('newUserData', newUserData);
-    console.log('data', data);
-    console.log('error', error);
-
     //회원가입 에러코드별 예외처리
     if (error) {
       switch (error.message) {
@@ -106,13 +100,13 @@ const Signup = () => {
 
     //회원가입 성공
     if (data) {
+      alert('회원가입 성공');
+      //알랏은 뜨는데 토스트 문제! 왜일까
       toast.success('PINGER 회원이 되신 것을 환영합니다!');
-      navigate('/home');
+      navigate('/');
       resetForm();
     }
   };
-
-  console.log('formData', formData);
 
   return (
     <div>

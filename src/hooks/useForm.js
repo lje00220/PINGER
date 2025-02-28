@@ -5,7 +5,6 @@ const useForm = (initailState = {}, validate) => {
   const [formError, setFormError] = useState({});
 
   const handleChange = (event) => {
-    console.log('onChange 작동중!');
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
