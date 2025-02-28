@@ -16,12 +16,14 @@ const JobItem = ({ job }) => {
   // 유저 정보 -> user_id 가져오기
   // 등록된 자소서 개수 가져오기
 
-  const { id: postId, company_name, recruit_title, start_date, end_date } = job;
+  const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
   const [resumeCount, setResumeCount] = useState(0);
 
+  const userId = '544a3df2-13c9-4cb0-a396-f5ad773cce68';
+
   return (
-    <Link to={`${PATH.JOB_DETAIL}/${postId}`}>
+    <Link to={`${PATH.JOB_DETAIL}/${jobId}`}>
       <div
         className={`mx-auto flex w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10`}
       >
@@ -39,7 +41,12 @@ const JobItem = ({ job }) => {
           <button
             onClick={(e) => {
               e.preventDefault();
-              handleToggleBookMark(isBookMarked, setIsBookmarked, postId);
+              handleToggleBookMark({
+                isBookMarked,
+                setIsBookmarked,
+                jobId,
+                userId,
+              });
             }}
           >
             {isBookMarked ? (
