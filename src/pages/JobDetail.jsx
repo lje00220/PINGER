@@ -35,7 +35,6 @@ const JobDetail = () => {
     lng: Number(targetJob.lng),
   };
 
-  console.log(targetJob.company_name, targetPlace);
   // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
   const handleOpenJobSite = () => {
     window.open(targetJob.url);
