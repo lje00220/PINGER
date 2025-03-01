@@ -1,13 +1,14 @@
 import { AUTH_INPUT_PLACEHOLDER } from '../../constants/inputPlaceholder';
 
-const SignupAddressSelect = ({ name, onChange }) => {
+const SignupAddressSelect = ({ value, name, onChange }) => {
   return (
     <select
       name={name}
+      value={value || ''}
       onChange={onChange}
       className="h-[30px] w-3/4 rounded-3xl border-2 border-my-main pl-2 text-sm"
     >
-      <option value="" selected disabled>
+      <option value="" disabled>
         {AUTH_INPUT_PLACEHOLDER.ADDRESS}
       </option>
       <option value="서울">서울</option>

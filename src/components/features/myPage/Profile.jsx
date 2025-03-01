@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import supabase from '../../../supabase/client';
-import { InputBar } from '../../common/Input';
-import { Button } from '../../common/Button';
 import { BUTTON_MODE } from '../../../constants/mode';
+import supabase from '../../../supabase/client';
+import { Button } from '../../common/Button';
+import { InputBar } from '../../common/Input';
+import SignupAddressSelect from '../../auth/SignupAddressInput';
 
 const Profile = ({ isSeeker }) => {
   /** 전역으로 user 정보 생기면 수정해야 되는 부분  */
@@ -30,11 +31,10 @@ const Profile = ({ isSeeker }) => {
   }, []);
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
-    setUserInfo((prev) => ({ ...prev, [id]: value }));
+    const { name, value } = e.target;
+    setUserInfo((prev) => ({ ...prev, [name]: value }));
   };
 
-  /** 공통 컴포넌트 제작 + 더미 데이터 생성하면 수정해야되는 코드 */
   return (
     <div className="flex w-full flex-col items-center gap-4">
       <h1 className="text-2xl">{`${nickname}님의 프로필`}</h1>
@@ -66,14 +66,10 @@ const Profile = ({ isSeeker }) => {
 
           <label className="flex items-center justify-between">
             <span className="text-lg font-semibold">ADDRESS</span>
-            <InputBar
-              type="text"
-              name="address"
-              placeholder="주소"
+            <SignupAddressSelect
               value={address}
+              name="address"
               onChange={handleChange}
-              minLength={2}
-              maxLength={6}
             />
           </label>
         </div>

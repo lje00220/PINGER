@@ -19,6 +19,10 @@ export const AUTH_ERROR_MESSAGES = {
     BLANK: '근무 희망지역을 선택해주세요!',
   },
   ERROR: '잠시 후 다시 시도해주세요!',
+  ALL_BLANK: '누락된 정보가 있습니다!',
+  LOGIN: {
+    FAIL: '이메일 또는 비밀번호 오류입니다!',
+  },
 };
 
 export const AUTH_SUCCESS_MESSAGES = {

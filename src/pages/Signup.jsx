@@ -1,16 +1,16 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useForm from '../hooks/useForm';
 import { toast } from 'react-toastify';
-import supabase from '../supabase/client';
-import { PATH } from '../constants/routerPath';
 import AuthForm from '../components/auth/AuthForm';
 import { AUTH_MODE } from '../constants/mode';
+import { PATH } from '../constants/routerPath';
 import {
   AUTH_ERROR_MESSAGES,
   AUTH_SUCCESS_MESSAGES,
 } from '../constants/toastMessages';
+import useForm from '../hooks/useForm';
+import supabase from '../supabase/client';
 import { validateSignUpForm } from '../utils/validate';
-import { useState } from 'react';
 
 const Signup = () => {
   //-----navigate-----
@@ -32,7 +32,7 @@ const Signup = () => {
     validateSignUpForm,
   );
   //formData 구조분해할당
-  const { email, password, nickname, address, role } = formData;
+  const { email, password, checkpassword, nickname, address, role } = formData;
 
   //닉네임 중복 검사
   const checkNicknameExsited = async () => {
@@ -65,6 +65,12 @@ const Signup = () => {
   //유저 데이터 등록
   const handleSubmitSignUp = async (e) => {
     e.preventDefault();
+
+    //예외처리 : 누락된 정보 확인
+    if (!email || !password || !checkpassword) {
+      toast.warn(AUTH_ERROR_MESSAGES.ALL_BLANK);
+      return;
+    }
     //예외처리 : 닉네임 중복 확인
     if (isNicknameExisted) {
       toast.warn(AUTH_ERROR_MESSAGES.NICKNAME.CHECK);
@@ -89,23 +95,39 @@ const Signup = () => {
         },
       },
     };
-    const { data, error } = await supabase.auth.signUp(newUserData);
 
-    console.log('newUserData', newUserData);
-    //회원가입 성공
-    if (data.user) {
-      //유저 알람
-      toast.success(AUTH_SUCCESS_MESSAGES.SIGNUP.NEW);
-      //로그인 페이지로 이동
-      navigate(PATH.LOGIN);
-      //폼 리셋
-      resetForm();
-    }
+    try {
+      const { data, error } = await supabase.auth.signUp(newUserData);
 
-    //회원가입 실패
-    if (error) {
-      console.log('error', error.message);
-      console.log('error type', typeof error.message);
+      //회원가입 성공
+      if (data.user) {
+        //유저 알람
+        toast.success(AUTH_SUCCESS_MESSAGES.SIGNUP.NEW);
+        //로그인 페이지로 이동
+        navigate(PATH.LOGIN);
+        //폼 리셋
+        resetForm();
+      }
+
+      //회원가입 실패
+      if (error) {
+        switch (error.message) {
+          case 'User already registered':
+            return toast.error(AUTH_ERROR_MESSAGES.EMAIL.SAME);
+
+          case 'Unable to validate email address: invalid format':
+            return toast.error(AUTH_ERROR_MESSAGES.EMAIL.INVALIDATE);
+
+          case 'Network request failed':
+            return toast.error(AUTH_ERROR_MESSAGES.ERROR);
+
+          default:
+            break;
+        }
+      }
+    } catch (error) {
+      toast.error(AUTH_ERROR_MESSAGES.ERROR);
+      console.error('회원가입 error : ', error);
     }
   };
 

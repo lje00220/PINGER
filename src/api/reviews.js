@@ -50,7 +50,7 @@ export const deleteReviewsData = async (id) => {
  * @returns
  */
 
-export const insertOrUpdateData = async (upsertData) => {
+export const insertOrUpdateReview = async (upsertData) => {
   try {
     const { error } = await supabase
       .from(QUERY_KEY.REVIEWS)
