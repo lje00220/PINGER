@@ -3,8 +3,7 @@ import useKakaoLoader from '../../hooks/useKakaoLoader';
 import { useJobsQuery } from '../../hooks/useJobsQuerys';
 import { useMapStore } from '../../zustand/useMapStore';
 import { useEffect } from 'react';
-
-const CLOSE_ICON_URL = 'https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif';
+import JobOverlay from './JobOverlay';
 
 const BasicMap = () => {
   useKakaoLoader();
@@ -24,11 +23,12 @@ const BasicMap = () => {
   if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
   if (isError) return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
-
   return (
     <div className="flex">
+
       {/* 왼쪽 검색 & 결과 패널 */}
       <div className="w-1/5 h-screen bg-gray-100 p-4 overflow-auto">
+        
         {/* 검색 입력창 */}
         <div className="mb-4">
           <input
@@ -58,9 +58,10 @@ const BasicMap = () => {
 
       {/* 지도 */}
       <div className="w-4/5 h-screen">
-        <Map center={{ lat: 37.5665, lng: 126.978 }} className="h-full w-full" level={10} onCreate={setMap}>
+        <Map center={{ lat: 37.5665, lng: 126.978 }} className="h-full w-full" level={2} onCreate={setMap}>
+          
           {/* 채용 정보 마커 */}
-          {jobData?.map((job) => (
+          {jobData.map((job) => (
             <MapMarker
               key={job.id}
               position={{ lat: job.lat, lng: job.lng }}
@@ -68,15 +69,7 @@ const BasicMap = () => {
               onClick={() => setIsOpen(job.id)}
             >
               {isOpen === job.id && (
-                <div className="relative min-w-[150px]">
-                  <img
-                    alt='close'
-                    src={CLOSE_ICON_URL}
-                    className="absolute top-1 right-1 w-4 h-4 cursor-pointer"
-                    onClick={() => setIsOpen(null)}
-                  />
-                  <div className="text-black p-1">{job.company_name}</div>
-                </div>
+                <JobOverlay job={job} onClose={() => setIsOpen(null)}/>
               )}
             </MapMarker>
           ))}
@@ -90,9 +83,10 @@ const BasicMap = () => {
               onClick={() => setIsOpen(job.id)}
             >
               {selectedCompany && selectedCompany.id === job.id && (
-                <div className="relative min-w-[150px]">
-                  <strong>{job.company_name}</strong>
-                </div>
+                <JobOverlay job={job} onClose={() => {
+                  setIsOpen(null);
+                  setSelectedCompany(null);
+                }}/>
               )}
             </MapMarker>
           ))}
