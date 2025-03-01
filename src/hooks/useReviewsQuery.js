@@ -15,8 +15,9 @@ import { toast } from 'react-toastify';
  */
 export const useReviewsQuery = (jobId) => {
   return useQuery({
-    queryKey: [QUERY_KEY.REVIEWS],
+    queryKey: [QUERY_KEY.REVIEWS, jobId],
     queryFn: () => fetchReviewsData(jobId),
+    initialData: [],
   });
 };
 
@@ -33,7 +34,7 @@ export const useUpsertMutation = (message) => {
     mutationFn: (commentData) => upsertReviewsData(commentData),
     onSuccess: () => {
       toast.success(message);
-      queryClient.invalidateQueries(QUERY_KEY.REVIEWS);
+      queryClient.invalidateQueries([QUERY_KEY.REVIEWS]);
     },
   });
 };
