@@ -4,7 +4,7 @@ const CLOSE_ICON_URL = "https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/
 
 // 클릭시 오버레이 디자인
 const JobOverlay = ({ job, onClose }) => (
-  <div className="relative min-w-[180px] min-h-[60px] rounded-lg border bg-white shadow-md p-4">
+  <div className="relative min-w-[180px] min-h-[60px] rounded-lg border bg-white shadow-md p-4 transform -translate-y-8">
     <img
       alt="close"
       src={CLOSE_ICON_URL}

@@ -1,4 +1,4 @@
-import { Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
 import useKakaoLoader from '../../hooks/useKakaoLoader';
 import { useJobsQuery } from '../../hooks/useJobsQuerys';
 import { useMapStore } from '../../zustand/useMapStore';
@@ -9,9 +9,9 @@ const BasicMap = () => {
   useKakaoLoader();
 
   const { data: jobData, isPending, isError } = useJobsQuery();
-  const { 
-    isOpen, keyword, filteredJobs, selectedCompany, 
-    setMap, setKeyword, setIsOpen, setSelectedCompany, setJobData 
+  const {
+    isOpen, keyword, filteredJobs, selectedCompany,
+    setMap, setKeyword, setIsOpen, setSelectedCompany, setJobData
   } = useMapStore();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const BasicMap = () => {
 
       {/* 왼쪽 검색 & 결과 패널 */}
       <div className="w-1/5 h-screen bg-gray-100 p-4 overflow-auto">
-        
+
         {/* 검색 입력창 */}
         <div className="mb-4">
           <input
@@ -59,36 +59,55 @@ const BasicMap = () => {
       {/* 지도 */}
       <div className="w-4/5 h-screen">
         <Map center={{ lat: 37.5665, lng: 126.978 }} className="h-full w-full" level={2} onCreate={setMap}>
-          
+
           {/* 채용 정보 마커 */}
           {jobData.map((job) => (
-            <MapMarker
-              key={job.id}
-              position={{ lat: job.lat, lng: job.lng }}
-              clickable={true}
-              onClick={() => setIsOpen(job.id)}
-            >
+            <>
+              <MapMarker
+                key={job.id}
+                position={{ lat: job.lat, lng: job.lng }}
+                clickable={true}
+                onClick={() => setIsOpen(job.id)} // ✅ 클릭 시 상태 변경
+              />
+
+              {/* 기본 오버레이 대신 커스텀 오버레이 표시 */}
               {isOpen === job.id && (
-                <JobOverlay job={job} onClose={() => setIsOpen(null)}/>
+                <CustomOverlayMap
+                  yAnchor={1.2}
+                  key={`overlay-${job.id}`}
+                  position={{ lat: job.lat, lng: job.lng }}
+                  clickable={true}
+                >
+                  <JobOverlay job={job} onClose={() => setIsOpen(null)} />
+                </CustomOverlayMap>
               )}
-            </MapMarker>
+            </>
           ))}
 
           {/* 검색된 회사 마커 */}
           {filteredJobs.map((job) => (
-            <MapMarker
-              key={`filtered-${job.id}`}
-              position={{ lat: job.lat, lng: job.lng }}
-              clickable={true}
-              onClick={() => setIsOpen(job.id)}
-            >
+            <>
+              <MapMarker
+                key={`filtered-${job.id}`}
+                position={{ lat: job.lat, lng: job.lng }}
+                clickable={true}
+                onClick={() => setIsOpen(job.id)}
+              />
+
+              {/* 기본 오버레이 대신 커스텀 오버레이 표시 */}
               {selectedCompany && selectedCompany.id === job.id && (
-                <JobOverlay job={job} onClose={() => {
-                  setIsOpen(null);
-                  setSelectedCompany(null);
-                }}/>
+                <CustomOverlayMap
+                  key={`overlay-filtered-${job.id}`}
+                  position={{ lat: job.lat, lng: job.lng }}
+                  clickable={true}
+                >
+                  <JobOverlay job={job} onClose={() => {
+                    setIsOpen(null);
+                    setSelectedCompany(null);
+                  }} />
+                </CustomOverlayMap>
               )}
-            </MapMarker>
+            </>
           ))}
 
           <ZoomControl />
