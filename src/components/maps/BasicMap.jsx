@@ -62,7 +62,7 @@ const BasicMap = () => {
 
           {/* 채용 정보 마커 */}
           {jobData.map((job) => (
-            <>
+            <div key={job.id}>
               <MapMarker
                 key={job.id}
                 position={{ lat: job.lat, lng: job.lng }}
@@ -79,12 +79,12 @@ const BasicMap = () => {
                   <JobOverlay job={job} onClose={() => setIsOpen(null)} />
                 </CustomOverlayMap>
               )}
-            </>
+            </div>
           ))}
 
           {/* 검색된 회사 마커 */}
           {filteredJobs.map((job) => (
-            <>
+            <div key={job.id}>
               <MapMarker
                 key={`filtered-${job.id}`}
                 position={{ lat: job.lat, lng: job.lng }}
@@ -104,7 +104,7 @@ const BasicMap = () => {
                   }} />
                 </CustomOverlayMap>
               )}
-            </>
+            </div>
           ))}
 
           <ZoomControl />
