@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import JobCommentTable from '../components/features/jobDetail/JobCommentTable';
 import StaticKakaoMap from '../components/maps/StaticKakaoMap';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,6 +5,7 @@ import JobInfo from '../components/common/JobInfo';
 import { PATH } from '../constants/routerPath';
 import { useJobsQuery } from '../hooks/useJobsQuerys';
 import useAuthStore from '../zustand/useAuthStore';
+import LoadingPage from '../components/common/LoadingPage';
 
 /**
  * 채용 정보 디테일 페이지
@@ -17,13 +17,12 @@ import useAuthStore from '../zustand/useAuthStore';
 
 const JobDetail = () => {
   const { id } = useParams();
-  const { data: jobData, isPending, isError } = useJobsQuery();
+  const role = useAuthStore((state) => state.user.role);
   const navigate = useNavigate();
-  const role = useAuthStore((state) => state.user).role;
+  const { data: jobData, isPending, isError } = useJobsQuery();
 
-  if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
-  if (isError)
-    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
+  if (isPending) return <LoadingPage state="load" />;
+  if (isError) return <LoadingPage state="error" />;
 
   // 현재 페이지의 id와 jobs 테이블에 있는 id를 비교해 일치하는 것을 가져옴
   const targetJob = jobData.find((job) => job.id === Number(id));
@@ -45,8 +44,7 @@ const JobDetail = () => {
     if (role === 'seeker') {
       navigate(PATH.RESUME_CREATE);
     } else {
-      // 기업 아이디 파라미터로 추가 예정
-      navigate(PATH.RESUME_DETAIL);
+      navigate(`${PATH.RESUME_DETAIL}/${id}`);
     }
   };
 

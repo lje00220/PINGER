@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useReviewsQuery } from '../../../hooks/useReviewsQuery';
+import {
+  useReviewsQuery,
+  useUpsertMutation,
+} from '../../../hooks/useReviewsQuery';
 import useAuthStore from '../../../zustand/useAuthStore';
 import JobComment from './JobComment';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { insertOrUpdateReview } from '../../../api/reviews';
-import { toast } from 'react-toastify';
-import { QUERY_KEY } from '../../../constants/queryKeys';
+import LoadingPage from '../../common/LoadingPage';
 
 /**
  * 채용 공고 디테일 페이지의 댓글창 테이블 컴포넌트
@@ -16,27 +16,20 @@ import { QUERY_KEY } from '../../../constants/queryKeys';
  */
 
 const JobCommentTable = ({ jobId }) => {
-  const user = useAuthStore((state) => state.user);
   const [inputComment, setInputComment] = useState('');
-  const queryClient = useQueryClient();
+  const user = useAuthStore((state) => state.user);
   const { data: commentData, isPending, isError } = useReviewsQuery(jobId);
+  const { mutate: insertMutate } = useUpsertMutation('댓글이 등록되었습니다!'); // 이것도 하드코딩.......
 
-  const { mutate } = useMutation({
-    mutationFn: (data) => insertOrUpdateReview(data),
-    onSuccess: () => {
-      toast.success('댓글이 작성되었습니다!');
-      queryClient.invalidateQueries(QUERY_KEY.REVIEWS);
-    },
-  });
+  if (isPending) return <LoadingPage state="load" />;
+  if (isError) return <LoadingPage state="error" />;
 
-  if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
-  if (isError)
-    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
-
+  // input값을 저장하는 이벤트 핸들러
   const handleInputChange = (e) => {
     setInputComment(e.target.value);
   };
 
+  // 댓글 등록 버튼을 누르면 Supabase에 저장하는 이벤트 핸들러
   const handleSubmitComment = () => {
     const commentTableData = {
       job_id: jobId,
@@ -44,7 +37,7 @@ const JobCommentTable = ({ jobId }) => {
       review_content: inputComment,
     };
 
-    mutate(commentTableData);
+    insertMutate(commentTableData); // Supabase에 데이터를 추가하는 함수
     setInputComment('');
   };
 
@@ -53,8 +46,8 @@ const JobCommentTable = ({ jobId }) => {
       <h2 className="mt-5 text-2xl font-bold">채용 후기</h2>
       <div className="mt-6">
         {/* 댓글 전체 배열에서 map을 돌려 JobComment 컴포넌트로 하나씩 출력 */}
-        {commentData.map((data) => (
-          <JobComment data={data} key={data.id} />
+        {commentData.map((comment) => (
+          <JobComment comment={comment} key={comment.id} />
         ))}
       </div>
       <div className="mt-5 flex flex-row items-center justify-center space-x-4">
