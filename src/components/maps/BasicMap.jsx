@@ -71,7 +71,7 @@ const BasicMap = () => {
               />
               {isOpen === job.id && (
                 <CustomOverlayMap
-                  yAnchor={1.2}
+                  yAnchor={1.1}
                   key={`overlay-${job.id}`}
                   position={{ lat: job.lat, lng: job.lng }}
                   clickable={true}
@@ -93,7 +93,7 @@ const BasicMap = () => {
               />
               {selectedCompany && selectedCompany.id === job.id && (
                 <CustomOverlayMap
-                  yAnchor={1.2}
+                  yAnchor={1.1}
                   key={`overlay-filtered-${job.id}`}
                   position={{ lat: job.lat, lng: job.lng }}
                   clickable={true}

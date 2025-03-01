@@ -34,6 +34,8 @@ export const useMapStore = create(
     setSelectedCompany: (job) => {
       set({ selectedCompany: job });
 
+      if (!job) return;
+
       const { map } = get();
       if (map) {
         map.setCenter(new window.kakao.maps.LatLng(job.lat, job.lng));
