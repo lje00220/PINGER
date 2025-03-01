@@ -1,6 +1,6 @@
 
 
-const CLOSE_ICON_URL = "https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif";
+const CLOSE_ICON_URL = 'https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif';
 
 // 클릭시 오버레이 디자인
 const JobOverlay = ({ job, onClose }) => (

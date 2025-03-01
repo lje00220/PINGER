@@ -67,10 +67,8 @@ const BasicMap = () => {
                 key={job.id}
                 position={{ lat: job.lat, lng: job.lng }}
                 clickable={true}
-                onClick={() => setIsOpen(job.id)} // ✅ 클릭 시 상태 변경
+                onClick={() => setIsOpen(job.id)}
               />
-
-              {/* 기본 오버레이 대신 커스텀 오버레이 표시 */}
               {isOpen === job.id && (
                 <CustomOverlayMap
                   yAnchor={1.2}
@@ -93,10 +91,9 @@ const BasicMap = () => {
                 clickable={true}
                 onClick={() => setIsOpen(job.id)}
               />
-
-              {/* 기본 오버레이 대신 커스텀 오버레이 표시 */}
               {selectedCompany && selectedCompany.id === job.id && (
                 <CustomOverlayMap
+                  yAnchor={1.2}
                   key={`overlay-filtered-${job.id}`}
                   position={{ lat: job.lat, lng: job.lng }}
                   clickable={true}
