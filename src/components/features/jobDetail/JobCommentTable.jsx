@@ -5,6 +5,7 @@ import JobComment from './JobComment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { insertOrUpdateReview } from '../../../api/reviews';
 import { toast } from 'react-toastify';
+import { QUERY_KEY } from '../../../constants/queryKeys';
 
 /**
  * 채용 공고 디테일 페이지의 댓글창 테이블 컴포넌트
@@ -25,7 +26,7 @@ const JobCommentTable = ({ jobId }) => {
     mutationFn: (data) => insertOrUpdateReview(data),
     onSuccess: () => {
       toast.success('댓글이 작성되었습니다!');
-      queryClient.invalidateQueries(['testResults']);
+      queryClient.invalidateQueries(QUERY_KEY.REVIEWS);
     },
   });
 
@@ -44,7 +45,7 @@ const JobCommentTable = ({ jobId }) => {
       job_id: jobId,
       writer_id: user.user_id,
       review_content: inputComment,
-      nickname: user.nickname,
+      nickname: user.nickname, // 닉네임 변경시 어떻게 처리할지 생각해봐야 함
     };
 
     mutate(commentTableData);

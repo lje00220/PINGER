@@ -33,8 +33,7 @@ export const deleteReviewsData = async (id) => {
     const { error } = await supabase
       .from(QUERY_KEY.REVIEWS)
       .delete()
-      .eq('id', id)
-      .eq('writed_id'); // 여기에 zustand에서 가져온 uuid랑 비교
+      .eq('id', id);
 
     if (error) {
       console.error('데이터 삭제 실패: ', error);
