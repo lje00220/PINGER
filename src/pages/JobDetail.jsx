@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import JobInfo from '../components/common/JobInfo';
 import { PATH } from '../constants/routerPath';
 import { useJobsQuery } from '../hooks/useJobsQuerys';
+import useAuthStore from '../zustand/useAuthStore';
 
 /**
  * 채용 정보 디테일 페이지
@@ -18,9 +19,7 @@ const JobDetail = () => {
   const { id } = useParams();
   const { data: jobData, isPending, isError } = useJobsQuery();
   const navigate = useNavigate();
-
-  // 임시 데이터 -> 추후에 zustand store에서 가져와 사용할 예정
-  const [role, setRole] = useState('seeker');
+  const role = useAuthStore((state) => state.user).role;
 
   if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
   if (isError)
@@ -42,6 +41,7 @@ const JobDetail = () => {
 
   // 만약 구직자일 경우 자기소개서 작성 페이지로, 채용담당자일 경우 자기소개서 디테일 페이지로 이동
   const handleMoveToResume = () => {
+    // seeker를 상수로 관리해도 좋을 듯 합니다
     if (role === 'seeker') {
       navigate(PATH.RESUME_CREATE);
     } else {

@@ -13,8 +13,9 @@ export const fetchReviewsData = async (jobId) => {
   try {
     const { data } = await supabase
       .from(QUERY_KEY.REVIEWS)
-      .select('*, users: writer_id(nickname)')
-      .eq('job_id', jobId);
+      .select('*, users(nickname)')
+      .eq('job_id', jobId)
+      .order('id', { ascending: true });
 
     return data;
   } catch (error) {

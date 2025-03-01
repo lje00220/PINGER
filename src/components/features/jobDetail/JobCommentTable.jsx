@@ -18,9 +18,8 @@ import { QUERY_KEY } from '../../../constants/queryKeys';
 const JobCommentTable = ({ jobId }) => {
   const user = useAuthStore((state) => state.user);
   const [inputComment, setInputComment] = useState('');
-  // console.log(user);
-  const { data: commentData, isPending, isError } = useReviewsQuery(jobId);
   const queryClient = useQueryClient();
+  const { data: commentData, isPending, isError } = useReviewsQuery(jobId);
 
   const { mutate } = useMutation({
     mutationFn: (data) => insertOrUpdateReview(data),
@@ -34,8 +33,6 @@ const JobCommentTable = ({ jobId }) => {
   if (isError)
     return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
-  // console.log('commentData', commentData);
-
   const handleInputChange = (e) => {
     setInputComment(e.target.value);
   };
@@ -45,7 +42,6 @@ const JobCommentTable = ({ jobId }) => {
       job_id: jobId,
       writer_id: user.user_id,
       review_content: inputComment,
-      nickname: user.nickname, // 닉네임 변경시 어떻게 처리할지 생각해봐야 함
     };
 
     mutate(commentTableData);
@@ -81,26 +77,3 @@ const JobCommentTable = ({ jobId }) => {
 };
 
 export default JobCommentTable;
-
-// 임시 데이터 -> 로그인 기능 구현 후 Supabase에서 가져올 예정
-// const MOCK_DATA = [
-//   { id: 1, writed_id: 'ㄹㅇㅋㅋ', review_content: '밥이 맛있어요', job_id: 1 },
-//   {
-//     id: 2,
-//     writed_id: '자미보약',
-//     review_content: '집에 가고 싶어요',
-//     job_id: 2,
-//   },
-//   {
-//     id: 3,
-//     writed_id: '아진짜요',
-//     review_content: '초밥이 먹고싶어요',
-//     job_id: 3,
-//   },
-//   {
-//     id: 4,
-//     writed_id: '칠칠이',
-//     review_content: '역에서 10분인데 차타고 10분이에요',
-//     job_id: 4,
-//   },
-// ];
