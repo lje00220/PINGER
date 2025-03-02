@@ -1,36 +1,62 @@
-import ResumeContent from '../components/features/Resume/ResumeContent';
-import useResumeStore from '../zustand/useResumeStore';
+import supabase from '../supabase/client';
+import { useState } from 'react';
+import ResumeForm from '../components/features/Resume/ResumeForm';
+import useAuthStore from '../zustand/useAuthStore';
 
 const ResumeCreate = () => {
-  const sections = useResumeStore((state) => state.sections);
-  const updateSection = useResumeStore((state) => state.updateSection);
+  const { user } = useAuthStore();
 
-  const handleSectionChange = (index, newContent) => {
-    updateSection(index, newContent);
+  const [formData, setFormData] = useState({
+    grow: '',
+    strength: '',
+    vision: '',
+    experience: '',
+  });
+
+  //db에 자소서 저장 (컴포넌트 분리할 예정)
+  const createResume = async (newResume) => {
+    try {
+      const { data, error } = await supabase.from('resumes').insert(newResume);
+      if (error) throw error;
+      return data;
+    } catch (error) {
+      console.error('자기소개서 저장 에러', error);
+    }
   };
 
-  const handleSave = () => {
-    // 저장 로직 구현
-    alert('자기소개서가 저장되었습니다.');
+  //DB에 저장하기 위해 세팅
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = async () => {
+    const newResume = {
+      job_id: '1',
+      writer_id: user.user_id,
+      grow: formData.grow,
+      strength: formData.strength,
+      vision: formData.vision,
+      experience: formData.experience,
+      is_confirmed: false,
+    };
+
+    const result = await createResume(newResume);
+    if (result) {
+      alert('자기소개서가 저장되었습니다.');
+      //이동어디에 할지 정하기
+    }
   };
 
   return (
     <div className="min-h-screen w-full bg-my-bg p-8">
       <h1 className="mb-8 text-center text-3xl font-bold">자기소개서 작성</h1>
       <div className="mx-auto w-2/3 rounded-2xl bg-white p-10 shadow-xl">
-        <ResumeContent
-          sections={sections}
-          editable={true}
-          onSectionChange={handleSectionChange}
+        <ResumeForm
+          formData={formData}
+          handleChange={handleChange}
+          handleSave={handleSave}
         />
-        <div className="mt-4 flex justify-end">
-          <button
-            onClick={handleSave}
-            className="rounded-full bg-my-main px-4 py-2 text-white"
-          >
-            저장
-          </button>
-        </div>
       </div>
     </div>
   );
