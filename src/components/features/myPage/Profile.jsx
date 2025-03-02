@@ -9,39 +9,55 @@ import { toast } from 'react-toastify';
 import { UPDATE_SUCCESS_MESSAGES } from '../../../constants/toastMessages';
 
 const Profile = () => {
+  /** State */
+  const setUserData = useAuthStore((state) => state.setUserData);
   const user = useAuthStore((state) => state.user);
-  const { user_id: userId, nickname, email, address } = user;
-  const [newUserInfo, setNewUser] = useState({ nickname, email, address });
+  const [userInfo, setUserInfo] = useState({
+    email: user.email,
+    nickname: user.nickname,
+    address: user.address,
+  });
 
-  const updateUser = useUpdateUserMutation();
+  /** Function */
+  const { mutate: updateUserInfo } = useUpdateUserMutation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewUser((prev) => ({ ...prev, [name]: value }));
+    setUserInfo((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleUpdateUserInfo = () => {
-    setNewUser(newUserInfo);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    updateUser.mutate({
-      userId,
-      newNickname: newUserInfo.nickname,
-      newAddress: newUserInfo.nickname,
+    updateUserInfo({
+      userId: user.user_id,
+      newNickname: userInfo.nickname,
+      newAddress: userInfo.address,
+    });
+
+    setUserData({
+      ...user,
+      nickname: userInfo.nickname,
+      address: userInfo.address,
     });
 
     toast.success(UPDATE_SUCCESS_MESSAGES.ALL);
   };
 
+  /** UI */
   return (
     <div className="flex w-full flex-col items-center gap-4">
-      <h1 className="text-2xl">{`${nickname}님의 프로필`}</h1>
+      <h1 className="text-2xl">{`${user.nickname}님의 프로필`}</h1>
 
-      <div className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20 shadow-xl">
+      <form
+        onSubmit={handleSubmit}
+        className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20 shadow-xl"
+      >
         <div className="flex w-full flex-col gap-4">
           {/** ID */}
           <div className="flex justify-between">
             <span className="min-w-[110px] text-lg font-semibold">ID</span>
-            <span className="flex-1">{email}</span>
+            <span className="flex-1">{userInfo.email}</span>
           </div>
 
           {/** NICKNAME */}
@@ -53,7 +69,7 @@ const Profile = () => {
               type="text"
               name="nickname"
               placeholder="새로운 닉네임 입력"
-              value={newUserInfo.nickname}
+              value={userInfo.nickname}
               onChange={handleChange}
               minLength={2}
               maxLength={6}
@@ -64,21 +80,17 @@ const Profile = () => {
           <label className={labelStyle}>
             <span className="min-w-[110px] text-lg font-semibold">ADDRESS</span>
             <SignupAddressSelect
-              value={newUserInfo.address}
+              value={userInfo.address}
               name="address"
               onChange={handleChange}
             />
           </label>
         </div>
         <hr className="mx-auto w-full rounded-full border-2 border-my-gray" />
-        <Button
-          mode={BUTTON_MODE.L}
-          type="button"
-          onClick={handleUpdateUserInfo}
-        >
+        <Button mode={BUTTON_MODE.L} type="submit">
           수정하기
         </Button>
-      </div>
+      </form>
     </div>
   );
 };
