@@ -16,7 +16,7 @@ import useAuthStore from '../../zustand/useAuthStore';
 const JobItem = ({ job }) => {
   /** 추가해야되는 data */
   // 등록된 자소서 개수 가져오기
-  const { user_id } = useAuthStore((state) => state.user);
+  const userId = useAuthStore((state) => state.user.user_id);
 
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
@@ -24,11 +24,12 @@ const JobItem = ({ job }) => {
 
   const handleToggleBookMark = (e) => {
     e.preventDefault();
+
     toggleBookMark({
       isBookMarked,
       setIsBookmarked,
       jobId,
-      user_id,
+      userId,
     });
   };
 
