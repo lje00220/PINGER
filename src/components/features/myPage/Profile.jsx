@@ -5,7 +5,7 @@ import SignupAddressSelect from '../../auth/SignupAddressInput';
 import { Button } from '../../common/Button';
 import { InputBar } from '../../common/Input';
 
-const Profile = ({ isSeeker }) => {
+const Profile = () => {
   const user = useAuthStore((state) => state.user);
   const { nickname, email, address } = user;
   const [newUser, setNewUser] = useState({ nickname, email, address });

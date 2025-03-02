@@ -9,7 +9,7 @@ const MyPage = () => {
 
   return (
     <div className="flex h-screen w-full flex-col gap-10 bg-my-bg py-8">
-      <Profile isSeeker={isSeeker} />
+      <Profile />
       {isSeeker ? <BookMarkList /> : <ResumeList />}
     </div>
   );
