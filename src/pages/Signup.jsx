@@ -132,10 +132,7 @@ const Signup = () => {
   };
 
   return (
-    <div
-      className="flex w-full items-center justify-center bg-my-bg"
-      style={{ minHeight: 'calc(100vh - 80px)' }}
-    >
+    <div className="flex h-[calc(100vh-80px)] w-full items-center justify-center bg-my-bg">
       <AuthForm
         mode={AUTH_MODE.SIGNUP}
         formData={formData}
