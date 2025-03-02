@@ -3,7 +3,7 @@ import { AUTH_ERROR_MESSAGES } from '../constants/toastMessages';
 export const validateSignUpForm = (name, value, password) => {
   switch (name) {
     case 'email':
-      if (value.length < 8 || !value.includes('@')) {
+      if (value.length < 8 || !value.includes('@') || value.includes(' ')) {
         return AUTH_ERROR_MESSAGES.EMAIL.INVALIDATE;
       }
       break;
@@ -20,11 +20,6 @@ export const validateSignUpForm = (name, value, password) => {
     case 'nickname':
       if (value.length < 2 || value.length > 8) {
         return AUTH_ERROR_MESSAGES.NICKNAME.LENGTH;
-      }
-      break;
-    case 'address':
-      if (value.length < 2 || value.length > 11) {
-        return "주소는 '구'까지만 입력해주세요";
       }
       break;
     default:

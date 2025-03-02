@@ -1,23 +1,88 @@
+import useAuthStore from '../../../zustand/useAuthStore';
+import { useState } from 'react';
+import {
+  useDeleteMutation,
+  useUpsertMutation,
+} from '../../../hooks/useReviewsQuery';
+
 /**
  * 1개의 댓글을 생성하는 컴포넌트
  *  - 닉네임, 내용, 버튼이 포함되어 있습니다.
+ *  - 댓글 수정, 삭제가 가능합니다.
  *
  * @param {Object} data - 개별 댓글 정보 ex) {id, nickname, review_content ....}
  * @returns {JSX.Element}
  */
 
-const JobComment = ({ data }) => {
+const JobComment = ({ comment }) => {
+  const user = useAuthStore((state) => state.user);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedReview, setEditedReview] = useState(comment.review_content);
+
+  const { mutate: deleteMutate } = useDeleteMutation();
+  const { mutate: updateMutate } = useUpsertMutation('댓글이 수정되었습니다!'); // 일단 하드코딩으로 냅둘래요........ 수정할게요....
+
+  // 댓글이 수정 상태일 경우 저장 버튼을 누르면 Supabase에 저장된 댓글의 내용이 업데이트됩니다.
+  // 댓글이 수정 상태가 아닐 경우 버튼을 누르면 수정 가능 상태로 변합니다.
+  const handleToggleEdit = () => {
+    if (isEditing) {
+      const editReviewData = {
+        id: comment.id,
+        job_id: comment.job_id,
+        writer_id: user.user_id,
+        review_content: editedReview,
+      };
+
+      updateMutate(editReviewData); // 댓글 내용을 업데이트하는 함수
+    }
+    setIsEditing(!isEditing); // 편집 상태 변경
+  };
+
+  // 댓글 수정 input에 대한 이벤트 핸들러
+  const handleEditedReview = (e) => {
+    setEditedReview(e.target.value);
+  };
+
+  // 댓글을 삭제하는 이벤트 핸들러
+  const handleDeleteComment = () => {
+    deleteMutate(comment.id); // 댓글을 Supabase에서 삭제하는 함수
+  };
+
   return (
     <div className="flex items-center justify-between py-3">
       <div className="flex items-center gap-x-8">
-        <span className="min-w-[100px] font-bold">{data.writed_id}</span>
-        <span className="text-gray-700">{data.review_content}</span>
+        <span className="min-w-[100px] font-bold">
+          {comment.users.nickname}
+        </span>
+        {/* 수정상태일 경우 input, 아닐 경우 저장된 댓글 내용을 표시 */}
+        {isEditing ? (
+          <input
+            type="text"
+            className="w-2/3 rounded-full border px-5 py-3"
+            value={editedReview}
+            onChange={handleEditedReview}
+          />
+        ) : (
+          <span className="text-gray-700">{comment.review_content}</span>
+        )}
       </div>
-      {/* 버튼: 조건부 렌더링 예정 ('로그인 회원 정보 === 글쓴이 정보' 일 경우에만 보이게)*/}
-      <div className="flex space-x-3">
-        <button className="rounded-full bg-my-main px-6 py-2">수정</button>
-        <button className="rounded-full bg-my-main px-6 py-2">삭제</button>
-      </div>
+      {/* 조건부 렌더링 ('로그인 회원 정보 === 글쓴이 정보' 일 경우에만 보이게)*/}
+      {user.user_id === comment.writer_id && (
+        <div className="flex space-x-3">
+          <button
+            className="rounded-full bg-my-main px-6 py-2"
+            onClick={handleToggleEdit}
+          >
+            {isEditing ? '저장' : '수정'}
+          </button>
+          <button
+            className="rounded-full bg-my-main px-6 py-2"
+            onClick={handleDeleteComment}
+          >
+            삭제
+          </button>
+        </div>
+      )}
     </div>
   );
 };

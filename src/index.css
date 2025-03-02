@@ -3,17 +3,13 @@
 @tailwind utilities;
 
 .S {
-  @apply h-[30px] w-24 rounded-3xl bg-my-main;
+  @apply h-[30px] w-24 rounded-3xl bg-my-main hover:bg-my-hover;
 }
 
 .M {
-  @apply h-[30px] w-40 rounded-3xl bg-my-main;
+  @apply h-[30px] w-40 rounded-3xl bg-my-main hover:bg-my-hover;
 }
 
 .L {
-  @apply h-[40px] w-64 rounded-3xl bg-my-main;
-}
-
-.S:hover {
-  @apply bg-my-hover;
+  @apply h-[40px] w-64 rounded-3xl bg-my-main hover:bg-my-hover;
 }

@@ -8,7 +8,7 @@ export default {
         'my-gray': '#B2B2B2',
         'my-bg': '#F8F8F8',
         black: '#121212',
-        'my-hover': 'D17B1E',
+        'my-hover': '#D17B1E',
       },
     },
   },

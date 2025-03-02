@@ -9,7 +9,7 @@ export const InputBar = ({
 }) => {
   return (
     <input
-      className="h-[30px] w-full rounded-3xl border-2 border-my-main pl-2 text-sm"
+      className="h-[30px] w-full rounded-3xl border-2 border-my-main pl-2 text-xs"
       type={type}
       placeholder={placeholder}
       onChange={onChange}

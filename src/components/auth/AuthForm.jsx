@@ -63,8 +63,13 @@ const AuthForm = ({
   ];
 
   return (
-    <div>
-      <form onSubmit={onSubmit}>
+    <div className="flex h-[600px] w-11/12 flex-col items-center justify-center rounded-3xl bg-white p-5 shadow-lg sm:w-[500px]">
+      {mode === AUTH_MODE.SIGNUP ? (
+        <h2 className={AUTH_TITLE}>SIGN UP</h2>
+      ) : (
+        <h2 className={AUTH_TITLE}>LOG IN</h2>
+      )}
+      <form className="flex w-11/12 flex-col gap-3" onSubmit={onSubmit}>
         {loginInputContents.map((item) => {
           const {
             title,
@@ -77,24 +82,30 @@ const AuthForm = ({
           } = item;
 
           return (
-            <label key={name}>
-              <h4>{title}</h4>
-              <InputBar
-                type={type}
-                placeholder={placeholder}
-                name={name}
-                value={value}
-                onChange={handleChange}
-                minLength={minLength}
-                maxLength={maxLength}
-              />
-              {formError[name] && <ErrorText>{formError[name]}</ErrorText>}
-            </label>
+            <section key={name}>
+              <label className={AUTH_LABEL}>
+                <h4 className={AUTH_FORM_TITLE}>{title}</h4>
+                <div className={AUTH_INPUT_WRAPPER}>
+                  <InputBar
+                    type={type}
+                    placeholder={placeholder}
+                    name={name}
+                    value={value}
+                    onChange={handleChange}
+                    minLength={minLength}
+                    maxLength={maxLength}
+                  />
+                </div>
+              </label>
+              <div className={AUTH_ERROR_WRAPPER}>
+                {formError[name] && <ErrorText>{formError[name]}</ErrorText>}
+              </div>
+            </section>
           );
         })}
         {/* 회원가입 모드 : 비밀번호 확인/닉네임/주소 input 추가 */}
         {mode === AUTH_MODE.SIGNUP && (
-          <div>
+          <div className="flex flex-col gap-3">
             {signupInputContents.map((item) => {
               const {
                 title,
@@ -108,86 +119,105 @@ const AuthForm = ({
               } = item;
 
               return (
-                <label key={name}>
-                  <h4>{title}</h4>
-                  <InputBar
-                    type={type}
-                    placeholder={placeholder}
-                    name={name}
-                    value={value}
-                    onChange={handleChange}
-                    minLength={minLength}
-                    maxLength={maxLength}
-                  />
-                  {checkButton && (
-                    <Button
-                      mode={BUTTON_MODE.S}
-                      type="button"
-                      onClick={handleCheckNickname}
-                    >
-                      CHECK
-                    </Button>
-                  )}
-                  {formError[name] && <ErrorText>{formError[name]}</ErrorText>}
-                </label>
+                <section key={name}>
+                  <label className={AUTH_LABEL}>
+                    <h4 className={AUTH_FORM_TITLE}>{title}</h4>
+                    <div className={AUTH_INPUT_WRAPPER}>
+                      <InputBar
+                        type={type}
+                        placeholder={placeholder}
+                        name={name}
+                        value={value}
+                        onChange={handleChange}
+                        minLength={minLength}
+                        maxLength={maxLength}
+                      />
+                      {checkButton && (
+                        <div className="self-end">
+                          <Button
+                            mode={BUTTON_MODE.S}
+                            type="button"
+                            onClick={handleCheckNickname}
+                          >
+                            CHECK
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </label>
+                  <div className={AUTH_ERROR_WRAPPER}>
+                    {formError[name] && (
+                      <ErrorText>{formError[name]}</ErrorText>
+                    )}
+                  </div>
+                </section>
               );
             })}
             {/* 주소 */}
-            <label>
-              <h4>ADDRESS</h4>
-              <SignupAddressSelect
-                value={address}
-                name="address"
-                onChange={handleChange}
-              />
-            </label>
+            <div className="mb-3 w-full">
+              <label className={AUTH_LABEL}>
+                <h4 className={AUTH_FORM_TITLE}>ADDRESS</h4>
+                <div className={AUTH_INPUT_WRAPPER}>
+                  <SignupAddressSelect
+                    value={address}
+                    name="address"
+                    onChange={handleChange}
+                  />
+                </div>
+              </label>
+            </div>
             {/* 권한 */}
-            <div>
-              <h4>ROLE</h4>
-              <label>
-                <InputRadio
-                  name="role"
-                  value="seeker"
-                  onChange={handleChange}
-                  checked={role === 'seeker'}
-                />
-                구직자
-              </label>
-
-              <label>
-                <InputRadio
-                  name="role"
-                  value="recruiter"
-                  onChange={handleChange}
-                  checked={role === 'recruiter'}
-                />
-                멘토
-              </label>
+            <div className="mb-3">
+              <div className={AUTH_LABEL}>
+                <h4 className={AUTH_FORM_TITLE}>ROLE</h4>
+                <div className={AUTH_RADIO_WRAPPER}>
+                  <label className="min-w-[60px]">
+                    <InputRadio
+                      name="role"
+                      value="seeker"
+                      onChange={handleChange}
+                      checked={role === 'seeker'}
+                    />
+                    구직자
+                  </label>
+                  <label className="min-w-[60px]">
+                    <InputRadio
+                      name="role"
+                      value="recruiter"
+                      onChange={handleChange}
+                      checked={role === 'recruiter'}
+                    />
+                    멘토
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
         )}
 
-        {mode === AUTH_MODE.LOGIN ? (
-          <Button mode={BUTTON_MODE.L} type="submit">
-            로그인
-          </Button>
-        ) : (
-          <Button mode={BUTTON_MODE.L} type="submit">
-            회원가입
-          </Button>
-        )}
+        <div className={AUTH_SUBMIT_BUTTON_WRPPER}>
+          {mode === AUTH_MODE.LOGIN ? (
+            <Button mode={BUTTON_MODE.L} type="submit">
+              로그인
+            </Button>
+          ) : (
+            <Button mode={BUTTON_MODE.L} type="submit">
+              회원가입
+            </Button>
+          )}
+        </div>
       </form>
 
       {mode === AUTH_MODE.LOGIN ? (
-        <div>
+        <div className={AUTH_PAGEMOVE_WRAPPER}>
           <p>아직 회원이 아니신가요?</p>
           <Link to={PATH.SIGNUP} className="font-semibold text-my-main">
             회원가입하기
           </Link>
         </div>
       ) : (
-        <div>
-          <p>회원이신가요?</p>
+        <div className={AUTH_PAGEMOVE_WRAPPER}>
+          <p>PINGER 회원이신가요?</p>
           <Link to={PATH.LOGIN} className="font-semibold text-my-main">
             로그인하기
           </Link>
@@ -198,3 +228,13 @@ const AuthForm = ({
 };
 
 export default AuthForm;
+
+//tailwind class
+const AUTH_TITLE = 'mb-5 text-4xl';
+const AUTH_LABEL = 'flex items-center justify-between';
+const AUTH_FORM_TITLE = 'font-semibold';
+const AUTH_INPUT_WRAPPER = 'w-4/6 flex justify-center gap-1';
+const AUTH_ERROR_WRAPPER = 'w-full h-3 text-right';
+const AUTH_RADIO_WRAPPER = 'w-4/6 flex justify-center gap-5';
+const AUTH_SUBMIT_BUTTON_WRPPER = 'w-full flex justify-center p-7 border-t-2';
+const AUTH_PAGEMOVE_WRAPPER = 'flex w-64 justify-between';
