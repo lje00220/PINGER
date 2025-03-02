@@ -33,3 +33,7 @@ export const AUTH_SUCCESS_MESSAGES = {
   LOGIN: '로그인 되었습니다!',
   LOGOUT: '로그아웃 되었습니다!',
 };
+
+export const UPDATE_SUCCESS_MESSAGES = {
+  ALL: '프로필을 업데이트하였습니다.',
+};
