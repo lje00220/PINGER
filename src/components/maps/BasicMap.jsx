@@ -84,7 +84,7 @@ const BasicMap = () => {
                 clickable={true}
                 onClick={() => setIsOpen(job.id)}
                 image={{
-                  src: '/public/marker.png',
+                  src: '/public/images/PINGER_marker.png',
                   size: { width: 30, height: 30 },
                 }}
               />
@@ -111,7 +111,7 @@ const BasicMap = () => {
                 clickable={true}
                 onClick={() => setIsOpen(job.id)}
                 image={{
-                  src: '/public/marker.png',
+                  src: '/public/images/PINGER_marker.png',
                   size: { width: 30, height: 30 },
                 }}
               />
