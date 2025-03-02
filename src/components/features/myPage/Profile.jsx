@@ -4,15 +4,32 @@ import useAuthStore from '../../../zustand/useAuthStore';
 import SignupAddressSelect from '../../auth/SignupAddressInput';
 import { Button } from '../../common/Button';
 import { InputBar } from '../../common/Input';
+import { useUpdateUserMutation } from '../../../hooks/users/useUpdateUserMutation';
+import { toast } from 'react-toastify';
+import { UPDATE_SUCCESS_MESSAGES } from '../../../constants/toastMessages';
 
 const Profile = () => {
   const user = useAuthStore((state) => state.user);
-  const { nickname, email, address } = user;
-  const [newUser, setNewUser] = useState({ nickname, email, address });
+  const { user_id: userId, nickname, email, address } = user;
+  const [newUserInfo, setNewUser] = useState({ nickname, email, address });
+
+  const updateUser = useUpdateUserMutation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewUser((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleUpdateUserInfo = () => {
+    setNewUser(newUserInfo);
+
+    updateUser.mutate({
+      userId,
+      newNickname: newUserInfo.nickname,
+      newAddress: newUserInfo.nickname,
+    });
+
+    toast.success(UPDATE_SUCCESS_MESSAGES.ALL);
   };
 
   return (
@@ -35,8 +52,8 @@ const Profile = () => {
             <InputBar
               type="text"
               name="nickname"
-              placeholder="닉네임"
-              value={newUser.nickname}
+              placeholder="새로운 닉네임 입력"
+              value={newUserInfo.nickname}
               onChange={handleChange}
               minLength={2}
               maxLength={6}
@@ -47,14 +64,18 @@ const Profile = () => {
           <label className={labelStyle}>
             <span className="min-w-[110px] text-lg font-semibold">ADDRESS</span>
             <SignupAddressSelect
-              value={newUser.address}
+              value={newUserInfo.address}
               name="address"
               onChange={handleChange}
             />
           </label>
         </div>
         <hr className="mx-auto w-full rounded-full border-2 border-my-gray" />
-        <Button mode={BUTTON_MODE.L} type="button">
+        <Button
+          mode={BUTTON_MODE.L}
+          type="button"
+          onClick={handleUpdateUserInfo}
+        >
           수정하기
         </Button>
       </div>
