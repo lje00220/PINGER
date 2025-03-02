@@ -6,7 +6,7 @@ const SignupAddressSelect = ({ value, name, onChange }) => {
       name={name}
       value={value || ''}
       onChange={onChange}
-      className="h-[30px] w-3/4 rounded-3xl border-2 border-my-main pl-2 text-sm"
+      className="h-[30px] w-full rounded-3xl border-2 border-my-main pl-2 text-xs"
     >
       <option value="" disabled>
         {AUTH_INPUT_PLACEHOLDER.ADDRESS}
