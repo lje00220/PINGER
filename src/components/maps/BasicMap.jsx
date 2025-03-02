@@ -24,10 +24,10 @@ const BasicMap = () => {
   if (isError) return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
   return (
-    <div className="flex">
+    <div className="relative w-screen h-screen">
 
       {/* 왼쪽 검색 & 결과 패널 */}
-      <div className="w-1/5 h-screen bg-gray-100 p-4 overflow-auto">
+      <div className="absolute top-4 left-4 z-50 w-[300px] h-[80vh] bg-gray-100/80 shadow-lg rounded-xl p-4 overflow-auto">
 
         {/* 검색 입력창 */}
         <div className="mb-4">
@@ -35,7 +35,7 @@ const BasicMap = () => {
             type='text'
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            placeholder='검색어를 입력해주세요'
+            placeholder='회사명 또는 지역을 입력해주세요'
             className="border p-2 w-full"
           />
         </div>
@@ -46,7 +46,7 @@ const BasicMap = () => {
             {filteredJobs.map((job) => (
               <li
                 key={job.id}
-                className="p-2 border-b cursor-pointer hover:bg-gray-200"
+                className="p-2 border-b cursor-pointer hover:bg-my-main"
                 onClick={() => setSelectedCompany(job)}
               >
                 <strong>{job.company_name}</strong>
@@ -57,7 +57,7 @@ const BasicMap = () => {
       </div>
 
       {/* 지도 */}
-      <div className="w-4/5 h-screen">
+      <div className="w-screen h-screen">
         <Map center={{ lat: 37.5665, lng: 126.978 }} className="h-full w-full" level={2} onCreate={setMap}>
 
           {/* 채용 정보 마커 */}
