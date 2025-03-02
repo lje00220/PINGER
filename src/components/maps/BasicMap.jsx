@@ -1,4 +1,4 @@
-import { CustomOverlayMap, Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import useKakaoLoader from '../../hooks/useKakaoLoader';
 import { useJobsQuery } from '../../hooks/useJobsQuerys';
 import { useMapStore } from '../../zustand/useMapStore';
@@ -37,7 +37,7 @@ const BasicMap = () => {
     <div className="relative w-screen h-[calc(100vh-80px)] overflow-hidden">
 
       {/* 왼쪽 검색 & 결과 패널 */}
-      <div className="absolute top-4 left-4 z-50 w-[300px] h-[80vh] bg-gray-100/80 shadow-lg rounded-xl p-4 overflow-auto">
+      <div className="absolute top-8 left-14 z-50 w-[300px] h-[80vh] bg-gray-100/80 shadow-lg rounded-xl p-4 overflow-auto">
 
         {/* 검색 입력창 */}
         <div className="mb-4">
@@ -68,7 +68,12 @@ const BasicMap = () => {
 
       {/* 지도 */}
       <div className="w-screen h-screen">
-        <Map center={{ lat: 37.5665, lng: 126.978 }} className="h-full w-full" level={2} onCreate={setMap}>
+        <Map
+          center={{ lat: 37.5665, lng: 126.978 }}
+          className="h-full w-full"
+          level={2}
+          onCreate={setMap}
+        >
 
           {/* 채용 정보 마커 */}
           {jobData.map((job) => (
@@ -83,6 +88,7 @@ const BasicMap = () => {
                   size: { width: 30, height: 30 },
                 }}
               />
+              {/* 오버레이 */}
               {isOpen === job.id && (
                 <CustomOverlayMap
                   yAnchor={1.1}
@@ -124,8 +130,8 @@ const BasicMap = () => {
               )}
             </div>
           ))}
-
-          <ZoomControl />
+          <MapTypeControl position={"TOPRIGHT"} />
+          <ZoomControl position={"RIGHT"} />
         </Map>
       </div>
     </div>
