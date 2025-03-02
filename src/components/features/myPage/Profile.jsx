@@ -1,38 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { BUTTON_MODE } from '../../../constants/mode';
-import supabase from '../../../supabase/client';
+import useAuthStore from '../../../zustand/useAuthStore';
+import SignupAddressSelect from '../../auth/SignupAddressInput';
 import { Button } from '../../common/Button';
 import { InputBar } from '../../common/Input';
-import SignupAddressSelect from '../../auth/SignupAddressInput';
 
 const Profile = ({ isSeeker }) => {
-  /** 전역으로 user 정보 생기면 수정해야 되는 부분  */
-  const [userInfo, setUserInfo] = useState([]);
-  const { nickname, email, address } = userInfo;
-
-  const userId = '544a3df2-13c9-4cb0-a396-f5ad773cce68';
-
-  useEffect(() => {
-    const getUsers = async (userId) => {
-      try {
-        const { data: users } = await supabase
-          .from('users')
-          .select('*')
-          .eq('user_id', userId)
-          .single();
-
-        setUserInfo(users);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getUsers(userId);
-  }, []);
+  const user = useAuthStore((state) => state.user);
+  const { nickname, email, address } = user;
+  const [newUser, setNewUser] = useState(user);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserInfo((prev) => ({ ...prev, [name]: value }));
+    setNewUser((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
