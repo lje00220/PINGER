@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { IoMdCloseCircleOutline } from "react-icons/io";
+import { Link } from 'react-router-dom';
+import { IoMdCloseCircleOutline } from 'react-icons/io';
+import { PATH } from '../../constants/routerPath';
 
 // 클릭시 오버레이 디자인
 const JobOverlay = ({ job, onClose }) => (
@@ -8,7 +9,7 @@ const JobOverlay = ({ job, onClose }) => (
     <div className="font-semibold text-lg">{job.company_name}</div>
     <div className="text-sm">{job.adress}</div>
     <div className="text-xs">{job.work_type}</div>
-    <Link to='' className="rounded-full bg-my-main px-6 py-1 text-sm mt-2" >자세히</Link>
+    <Link to={`${PATH.JOB_DETAIL}/${job.id}`}  className="rounded-full bg-my-main px-6 py-1 text-sm mt-2" >자세히</Link>
   </div>
 );
 

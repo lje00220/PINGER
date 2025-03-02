@@ -132,7 +132,7 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className="flex h-[calc(100vh-80px)] w-full items-center justify-center bg-my-bg">
       <AuthForm
         mode={AUTH_MODE.SIGNUP}
         formData={formData}
