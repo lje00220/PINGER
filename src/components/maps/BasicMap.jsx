@@ -5,6 +5,7 @@ import { useMapStore } from '../../zustand/useMapStore';
 import { useEffect } from 'react';
 import JobOverlay from './JobOverlay';
 import { InputBar } from '../common/Input';
+import { AUTH_INPUT_PLACEHOLDER } from '../../constants/inputPlaceholder';
 
 const BasicMap = () => {
   useKakaoLoader();
@@ -45,7 +46,7 @@ const BasicMap = () => {
             type='text'
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            placeholder='회사명 또는 지역을 입력해주세요'
+            placeholder={AUTH_INPUT_PLACEHOLDER.SEARCH}
             className="border p-2 w-full"
           />
         </div>
