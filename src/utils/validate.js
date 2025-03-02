@@ -22,11 +22,6 @@ export const validateSignUpForm = (name, value, password) => {
         return AUTH_ERROR_MESSAGES.NICKNAME.LENGTH;
       }
       break;
-    case 'address':
-      if (value.length < 2 || value.length > 11) {
-        return "주소는 '구'까지만 입력해주세요";
-      }
-      break;
     default:
       break;
   }
