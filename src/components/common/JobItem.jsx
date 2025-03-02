@@ -6,6 +6,7 @@ import { PATH } from '../../constants/routerPath';
 import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
 import { toggleBookMark } from '../../utils/toggleBookMark';
+import useAuthStore from '../../zustand/useAuthStore';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -14,11 +15,8 @@ import { toggleBookMark } from '../../utils/toggleBookMark';
  */
 const JobItem = ({ job }) => {
   /** 추가해야되는 data */
-  // 유저 정보 -> user_id 가져오기
   // 등록된 자소서 개수 가져오기
-
-  // 지워야되는 부분
-  const userId = '544a3df2-13c9-4cb0-a396-f5ad773cce68';
+  const { user_id } = useAuthStore((state) => state.user);
 
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
@@ -30,7 +28,7 @@ const JobItem = ({ job }) => {
       isBookMarked,
       setIsBookmarked,
       jobId,
-      userId,
+      user_id,
     });
   };
 
