@@ -58,12 +58,14 @@ const JobComment = ({ comment }) => {
         {isEditing ? (
           <input
             type="text"
-            className="w-2/3 rounded-full border px-5 py-3"
+            className="w-[350px] rounded-full border px-5 py-3"
             value={editedReview}
             onChange={handleEditedReview}
           />
         ) : (
-          <span className="text-gray-700">{comment.review_content}</span>
+          <span className="max-w-[400px] text-gray-700">
+            {comment.review_content}
+          </span>
         )}
       </div>
       {/* 조건부 렌더링 ('로그인 회원 정보 === 글쓴이 정보' 일 경우에만 보이게)*/}
