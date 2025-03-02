@@ -43,7 +43,7 @@ const JobDetail = () => {
   // 만약 구직자일 경우 자기소개서 작성 페이지로, 채용담당자일 경우 자기소개서 디테일 페이지로 이동
   const handleMoveToResume = () => {
     if (role === 'seeker') {
-      navigate(PATH.RESUME_CREATE);
+      navigate(PATH.RESUME_CREATE + '?id=' + targetJob.id);
     } else {
       // 기업 아이디 파라미터로 추가 예정
       navigate(PATH.RESUME_DETAIL);

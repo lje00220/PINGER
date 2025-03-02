@@ -4,6 +4,7 @@ import {
   updateResume,
   deleteResume,
   fetchResumes,
+  createResume,
 } from '../api/resumes';
 import { toast } from 'react-toastify';
 
@@ -48,6 +49,19 @@ export const useDeleteResume = () => {
     onSuccess: () => {
       toast.success('삭제되었습니다.');
       queryClient.invalidateQueries([QUERY_KEY.RESUMES]);
+    },
+  });
+};
+
+//자소서 생성
+
+export const useCreateResume = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createResume,
+    onSuccess: () => {
+      toast.success('자기소개서가 저장되었습니다.');
+      queryClient.invalidateQueries(['resumes']);
     },
   });
 };

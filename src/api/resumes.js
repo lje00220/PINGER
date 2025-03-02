@@ -38,7 +38,7 @@ export const updateResume = async (id, updatedData) => {
     .update(updatedData)
     .eq('id', id)
     .select();
-  if (error) throw new Error(error.message);
+  if (error) throw error;
   return data[0];
 };
 
@@ -47,4 +47,15 @@ export const deleteResume = async (id) => {
   const { data, error } = await supabase.from('resumes').delete().eq('id', id);
   if (error) throw error;
   return data;
+};
+
+//자기 소개서 생성
+export const createResume = async (newResume) => {
+  try {
+    const { data, error } = await supabase.from('resumes').insert(newResume);
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error('에러', error);
+  }
 };
