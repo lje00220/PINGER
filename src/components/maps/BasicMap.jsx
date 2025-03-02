@@ -1,9 +1,11 @@
-import { CustomOverlayMap, Map, MapMarker, ZoomControl } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import useKakaoLoader from '../../hooks/useKakaoLoader';
 import { useJobsQuery } from '../../hooks/useJobsQuerys';
 import { useMapStore } from '../../zustand/useMapStore';
 import { useEffect } from 'react';
 import JobOverlay from './JobOverlay';
+import { InputBar } from '../common/Input';
+import { AUTH_INPUT_PLACEHOLDER } from '../../constants/inputPlaceholder';
 
 const BasicMap = () => {
   useKakaoLoader();
@@ -14,28 +16,37 @@ const BasicMap = () => {
     setMap, setKeyword, setIsOpen, setSelectedCompany, setJobData
   } = useMapStore();
 
+  // 데이터 설정
   useEffect(() => {
     if (jobData) {
       setJobData(jobData);
     }
   }, [jobData, setJobData]);
 
+
+  // **초기화 로직 (다른 페이지에 갔다 오면 초기화)**
+  useEffect(() => {
+    setKeyword('');
+    setSelectedCompany(null);
+    setIsOpen(null);
+  }, []);
+
   if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
   if (isError) return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
   return (
-    <div className="flex">
+    <div className="relative w-screen h-[calc(100vh-80px)] overflow-hidden">
 
       {/* 왼쪽 검색 & 결과 패널 */}
-      <div className="w-1/5 h-screen bg-gray-100 p-4 overflow-auto">
+      <div className="absolute top-8 left-14 z-50 w-[300px] h-[80vh] bg-gray-100/80 shadow-lg rounded-xl p-4 overflow-auto">
 
         {/* 검색 입력창 */}
         <div className="mb-4">
-          <input
+          <InputBar
             type='text'
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
-            placeholder='검색어를 입력해주세요'
+            placeholder={AUTH_INPUT_PLACEHOLDER.SEARCH}
             className="border p-2 w-full"
           />
         </div>
@@ -46,7 +57,7 @@ const BasicMap = () => {
             {filteredJobs.map((job) => (
               <li
                 key={job.id}
-                className="p-2 border-b cursor-pointer hover:bg-gray-200"
+                className="p-2 border-b cursor-pointer hover:bg-my-main"
                 onClick={() => setSelectedCompany(job)}
               >
                 <strong>{job.company_name}</strong>
@@ -57,8 +68,13 @@ const BasicMap = () => {
       </div>
 
       {/* 지도 */}
-      <div className="w-4/5 h-screen">
-        <Map center={{ lat: 37.5665, lng: 126.978 }} className="h-full w-full" level={2} onCreate={setMap}>
+      <div className="w-screen h-screen">
+        <Map
+          center={{ lat: 37.5665, lng: 126.978 }}
+          className="h-full w-full"
+          level={2}
+          onCreate={setMap}
+        >
 
           {/* 채용 정보 마커 */}
           {jobData.map((job) => (
@@ -68,7 +84,12 @@ const BasicMap = () => {
                 position={{ lat: job.lat, lng: job.lng }}
                 clickable={true}
                 onClick={() => setIsOpen(job.id)}
+                image={{
+                  src: '/public/images/PINGER_marker.png',
+                  size: { width: 30, height: 30 },
+                }}
               />
+              {/* 오버레이 */}
               {isOpen === job.id && (
                 <CustomOverlayMap
                   yAnchor={1.1}
@@ -90,6 +111,10 @@ const BasicMap = () => {
                 position={{ lat: job.lat, lng: job.lng }}
                 clickable={true}
                 onClick={() => setIsOpen(job.id)}
+                image={{
+                  src: '/public/images/PINGER_marker.png',
+                  size: { width: 30, height: 30 },
+                }}
               />
               {selectedCompany && selectedCompany.id === job.id && (
                 <CustomOverlayMap
@@ -106,8 +131,8 @@ const BasicMap = () => {
               )}
             </div>
           ))}
-
-          <ZoomControl />
+          <MapTypeControl position={"TOPRIGHT"} />
+          <ZoomControl position={"RIGHT"} />
         </Map>
       </div>
     </div>

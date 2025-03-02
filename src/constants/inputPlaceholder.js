@@ -4,4 +4,5 @@ export const AUTH_INPUT_PLACEHOLDER = {
   CHECK_PASSWORD: '비밀번호 확인',
   NICKNAME: '닉네임(2-8자)을 입력해주세요',
   ADDRESS: '희망 근무지역을 선택해주세요',
+  SEARCH: '회사명 또는 지역을 입력해주세요',
 };
