@@ -8,7 +8,7 @@ import { InputBar } from '../../common/Input';
 const Profile = ({ isSeeker }) => {
   const user = useAuthStore((state) => state.user);
   const { nickname, email, address } = user;
-  const [newUser, setNewUser] = useState(user);
+  const [newUser, setNewUser] = useState({ nickname, email, address });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,23 +23,20 @@ const Profile = ({ isSeeker }) => {
         <div className="flex w-full flex-col gap-4">
           {/** ID */}
           <div className="flex justify-between">
-            <span className="text-lg font-semibold">ID</span>
-            <div className="flex gap-4">
-              <span>{email}</span>
-              <span className="flex h-[30px] w-[80px] items-center justify-center rounded-full bg-my-main">
-                {isSeeker ? '구직자' : '담당자'}
-              </span>
-            </div>
+            <span className="min-w-[110px] text-lg font-semibold">ID</span>
+            <span className="flex-1">{email}</span>
           </div>
 
           {/** NICKNAME */}
           <label className={labelStyle}>
-            <span className="text-lg font-semibold">NICKNAME</span>
+            <span className="min-w-[110px] text-lg font-semibold">
+              NICKNAME
+            </span>
             <InputBar
               type="text"
               name="nickname"
               placeholder="닉네임"
-              value={nickname}
+              value={newUser.nickname}
               onChange={handleChange}
               minLength={2}
               maxLength={6}
@@ -48,9 +45,9 @@ const Profile = ({ isSeeker }) => {
 
           {/** ADDRESS */}
           <label className={labelStyle}>
-            <span className="text-lg font-semibold">ADDRESS</span>
+            <span className="min-w-[110px] text-lg font-semibold">ADDRESS</span>
             <SignupAddressSelect
-              value={address}
+              value={newUser.address}
               name="address"
               onChange={handleChange}
             />
