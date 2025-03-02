@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { IoMdCloseCircleOutline } from "react-icons/io";
+import { Link } from 'react-router-dom';
+import { IoMdCloseCircleOutline } from 'react-icons/io';
 
 // 클릭시 오버레이 디자인
 const JobOverlay = ({ job, onClose }) => (
