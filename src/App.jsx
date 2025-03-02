@@ -9,6 +9,7 @@ function App() {
     <>
       <Router />
       <ToastContainer
+        className="mt-[70px]"
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
