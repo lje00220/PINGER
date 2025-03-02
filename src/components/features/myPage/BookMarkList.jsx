@@ -13,7 +13,7 @@ const BookMarkList = () => {
     <div className="flex w-full flex-col items-center gap-5">
       <h1 className="text-2xl">북마크</h1>
       {bookMarkList.length === 0 ? (
-        <span>북마크한 채용 정보가 없습니다</span>
+        <span>채용 정보를 북마크해주세요!</span>
       ) : (
         bookMarkList.map((data) => {
           return <JobItem key={data.id} job={data.jobs} />;
