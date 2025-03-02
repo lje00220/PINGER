@@ -34,7 +34,7 @@ const BasicMap = () => {
   if (isError) return <div className="p-4 text-center">데이터 불러오기 실패</div>;
 
   return (
-    <div className="relative w-screen h-screen">
+    <div className="relative w-screen h-[calc(100vh-80px)] overflow-hidden">
 
       {/* 왼쪽 검색 & 결과 패널 */}
       <div className="absolute top-4 left-4 z-50 w-[300px] h-[80vh] bg-gray-100/80 shadow-lg rounded-xl p-4 overflow-auto">
