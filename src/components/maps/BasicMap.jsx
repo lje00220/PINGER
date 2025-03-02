@@ -14,11 +14,20 @@ const BasicMap = () => {
     setMap, setKeyword, setIsOpen, setSelectedCompany, setJobData
   } = useMapStore();
 
+  // 데이터 설정
   useEffect(() => {
     if (jobData) {
       setJobData(jobData);
     }
   }, [jobData, setJobData]);
+
+
+  // **초기화 로직 (다른 페이지에 갔다 오면 초기화)**
+  useEffect(() => {
+    setKeyword('');
+    setSelectedCompany(null);
+    setIsOpen(null);
+  }, []);
 
   if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
   if (isError) return <div className="p-4 text-center">데이터 불러오기 실패</div>;
