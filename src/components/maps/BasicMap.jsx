@@ -4,6 +4,7 @@ import { useJobsQuery } from '../../hooks/useJobsQuerys';
 import { useMapStore } from '../../zustand/useMapStore';
 import { useEffect } from 'react';
 import JobOverlay from './JobOverlay';
+import { InputBar } from '../common/Input';
 
 const BasicMap = () => {
   useKakaoLoader();
@@ -40,7 +41,7 @@ const BasicMap = () => {
 
         {/* 검색 입력창 */}
         <div className="mb-4">
-          <input
+          <InputBar
             type='text'
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
@@ -77,6 +78,10 @@ const BasicMap = () => {
                 position={{ lat: job.lat, lng: job.lng }}
                 clickable={true}
                 onClick={() => setIsOpen(job.id)}
+                image={{
+                  src: '/public/marker.png',
+                  size: { width: 30, height: 30 },
+                }}
               />
               {isOpen === job.id && (
                 <CustomOverlayMap
@@ -99,6 +104,10 @@ const BasicMap = () => {
                 position={{ lat: job.lat, lng: job.lng }}
                 clickable={true}
                 onClick={() => setIsOpen(job.id)}
+                image={{
+                  src: '/public/marker.png',
+                  size: { width: 30, height: 30 },
+                }}
               />
               {selectedCompany && selectedCompany.id === job.id && (
                 <CustomOverlayMap
