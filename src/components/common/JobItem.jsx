@@ -9,7 +9,7 @@ import { toggleBookMark } from '../../utils/toggleBookMark';
 
 /**
  * 채용 정보를 보여주는 카드
- * @param {*} job - props로 넘겨 받은 채용 정보
+ * @param {object} job - props로 넘겨 받은 채용 정보
  * @returns {JSX.Element}
  */
 const JobItem = ({ job }) => {
@@ -37,7 +37,7 @@ const JobItem = ({ job }) => {
   return (
     <Link to={`${PATH.JOB_DETAIL}/${jobId}`}>
       <div
-        className={`mx-auto flex w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10`}
+        className={`mx-auto flex w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10 shadow-xl`}
       >
         <div className="flex flex-col gap-2">
           <h1 className="text-xl font-semibold">{company_name}</h1>

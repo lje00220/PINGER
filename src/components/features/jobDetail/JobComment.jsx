@@ -17,7 +17,7 @@ import {
 const JobComment = ({ comment }) => {
   const user = useAuthStore((state) => state.user);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedReview, setEditedReview] = useState('');
+  const [editedReview, setEditedReview] = useState(comment.review_content);
 
   const { mutate: deleteMutate } = useDeleteMutation();
   const { mutate: updateMutate } = useUpsertMutation('댓글이 수정되었습니다!'); // 일단 하드코딩으로 냅둘래요........ 수정할게요....
@@ -34,7 +34,6 @@ const JobComment = ({ comment }) => {
       };
 
       updateMutate(editReviewData); // 댓글 내용을 업데이트하는 함수
-      setEditedReview('');
     }
     setIsEditing(!isEditing); // 편집 상태 변경
   };
