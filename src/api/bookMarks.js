@@ -27,7 +27,7 @@ export const fetchUserBookMarks = async (userId) => {
     const { data: bookMarkList, error } = await supabase
       .from(QUERY_KEY.BOOKMARKS)
       .select(
-        `*, ${QUERY_KEY.JOBS}:job_id(company_name, recruit_title, start_date, end_date)`,
+        `*, ${QUERY_KEY.JOBS}:job_id(id, company_name, recruit_title, start_date, end_date)`,
       )
       .eq('user_id', userId);
 

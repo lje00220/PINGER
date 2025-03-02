@@ -3,6 +3,12 @@ import AuthForm from '../components/auth/AuthForm';
 import { AUTH_MODE } from '../constants/mode';
 import useForm from '../hooks/useForm';
 import { validateLoginForm } from '../utils/validate';
+import { toast } from 'react-toastify';
+import {
+  AUTH_ERROR_MESSAGES,
+  AUTH_SUCCESS_MESSAGES,
+} from '../constants/toastMessages';
+import supabase from '../supabase/client';
 import { PATH } from '../constants/routerPath';
 
 const Login = () => {
@@ -18,16 +24,48 @@ const Login = () => {
     },
     validateLoginForm,
   );
+  const { email, password } = formData;
 
   //-----로그인 로직-----
   //유저 데이터 확인
-  const handleSubmitLogin = (e) => {
+  const handleSubmitLogin = async (e) => {
     e.preventDefault();
 
-    //홈으로 이동
-    navigate(PATH.HOME);
-    //폼 리셋
-    resetForm();
+    // 예외처리 : 누락된 정보 확인
+    if (!email || !password) {
+      toast.warn(AUTH_ERROR_MESSAGES.ALL_BLANK);
+      return;
+    }
+
+    //로그인하려는 유저 데이터 => supabase auth.users 데이터에서 존재 여부 확인
+    const currentUser = {
+      email,
+      password,
+    };
+
+    try {
+      const { data, error } =
+        await supabase.auth.signInWithPassword(currentUser);
+
+      if (data) {
+        //유저 알람
+        toast.success(AUTH_SUCCESS_MESSAGES.LOGIN);
+        //홈으로 이동
+        navigate(PATH.HOME);
+        //폼 리셋
+        resetForm();
+      }
+
+      if (error) {
+        if (error.message === 'Invalid login credentials') {
+          toast.error(AUTH_ERROR_MESSAGES.LOGIN.FAIL);
+          return;
+        }
+      }
+    } catch (error) {
+      toast.error(AUTH_ERROR_MESSAGES.ERROR);
+      console.error('로그인 error : ', error);
+    }
   };
 
   return (
