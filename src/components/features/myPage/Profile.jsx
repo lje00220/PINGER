@@ -39,7 +39,7 @@ const Profile = ({ isSeeker }) => {
     <div className="flex w-full flex-col items-center gap-4">
       <h1 className="text-2xl">{`${nickname}님의 프로필`}</h1>
 
-      <div className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20">
+      <div className="flex w-full max-w-[600px] flex-col items-center gap-8 rounded-xl bg-white p-20 shadow-xl">
         <div className="flex w-full flex-col gap-4">
           {/** ID */}
           <div className="flex justify-between">
