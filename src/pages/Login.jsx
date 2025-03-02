@@ -69,7 +69,10 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div
+      className="flex w-full items-center justify-center bg-my-bg"
+      style={{ minHeight: 'calc(100vh - 80px)' }}
+    >
       <AuthForm
         mode={AUTH_MODE.LOGIN}
         formData={formData}
