@@ -62,4 +62,5 @@ export default Nav;
 
 //tailwind css
 const ROLE = 'w-12 rounded-md bg-my-main text-center text-xs';
-const NAV_BUTTON = 'cursor-pointer hover:text-my-main';
+const NAV_BUTTON =
+  'cursor-pointer hover:text-my-main tansition-all duration-200 ease-linear';
