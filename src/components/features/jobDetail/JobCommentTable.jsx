@@ -6,6 +6,8 @@ import {
 import useAuthStore from '../../../zustand/useAuthStore';
 import JobComment from './JobComment';
 import LoadingPage from '../../common/LoadingPage';
+import { validateReviewInput } from '../../../utils/validate';
+import { toast } from 'react-toastify';
 
 /**
  * 채용 공고 디테일 페이지의 댓글창 테이블 컴포넌트
@@ -31,6 +33,13 @@ const JobCommentTable = ({ jobId }) => {
 
   // 댓글 등록 버튼을 누르면 Supabase에 저장하는 이벤트 핸들러
   const handleSubmitComment = () => {
+    // 유효성 검사(댓글을 2자 이상 50자 이하로 입력해야 함
+    const validateResult = validateReviewInput(inputComment);
+    if (validateResult) {
+      toast.error(validateResult);
+      return;
+    }
+
     const commentTableData = {
       job_id: jobId,
       writer_id: user.user_id,
@@ -58,10 +67,7 @@ const JobCommentTable = ({ jobId }) => {
           placeholder="채용 후기 한줄평을 입력해주세요 (50자 이하)"
           className="w-2/3 rounded-full border px-5 py-3"
         />
-        <button
-          className="rounded-full bg-my-main px-6 py-2"
-          onClick={handleSubmitComment}
-        >
+        <button className="review-btn" onClick={handleSubmitComment}>
           등록
         </button>
       </div>

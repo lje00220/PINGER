@@ -7,6 +7,7 @@ import {
   updateReviewsData,
 } from '../api/reviews';
 import { toast } from 'react-toastify';
+import { REVIEW_MESSAGES } from '../constants/toastMessages';
 
 /**
  * reviews 테이블의 정보를 가져오는 훅
@@ -34,10 +35,10 @@ export const useUpdateMutation = () => {
     // 낙관적 업데이트 적용
     onMutate: async (commentData) => {
       await queryClient.cancelQueries([QUERY_KEY.REVIEWS, commentData.job_id]);
-      const previousReviews = queryClient.getQueryData(
-        [QUERY_KEY.REVIEWS],
+      const previousReviews = queryClient.getQueryData([
+        QUERY_KEY.REVIEWS,
         commentData.job_id,
-      );
+      ]);
       queryClient.setQueryData(
         [QUERY_KEY.REVIEWS, commentData.job_id],
         (old) => {
@@ -58,7 +59,7 @@ export const useUpdateMutation = () => {
       );
     },
     onSettled: (commentData) => {
-      toast.success('댓글이 수정되었습니다!');
+      toast.success(REVIEW_MESSAGES.UPDATE);
       queryClient.invalidateQueries([QUERY_KEY.REVIEWS, commentData.job_id]);
     },
   });
@@ -74,7 +75,7 @@ export const useDeleteMutation = () => {
   return useMutation({
     mutationFn: (id) => deleteReviewsData(id),
     onSuccess: (id) => {
-      toast.success('댓글이 삭제되었습니다!');
+      toast.success(REVIEW_MESSAGES.DELETE);
       queryClient.invalidateQueries([QUERY_KEY.REVIEWS, Number(id)]);
     },
   });
@@ -90,7 +91,7 @@ export const useInsertMutation = () => {
   return useMutation({
     mutationFn: (newReview) => insertReviewsData(newReview),
     onSuccess: (newReview) => {
-      toast.success('댓글이 등록되었습니다!');
+      toast.success(REVIEW_MESSAGES.INSERT);
       queryClient.invalidateQueries([QUERY_KEY.REVIEWS, Number(newReview)]);
     },
   });

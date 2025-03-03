@@ -1,5 +1,4 @@
 const START_INDEX = 0;
-const SLICE_INDEX = 20;
 const DOT = '...';
 
 /**
@@ -9,8 +8,9 @@ const DOT = '...';
  * @returns {string} - 채용 공고의 제목을 20자로 자른 후 "..." 추가한 문자열
  */
 
-const sliceTitleLength = (title) => {
-  const sliceTitle = title.slice(START_INDEX, SLICE_INDEX) + DOT;
+const sliceTitleLength = (title, slice_index) => {
+  if (title.length <= slice_index) return title;
+  const sliceTitle = title.slice(START_INDEX, slice_index) + DOT;
   return sliceTitle;
 };
 

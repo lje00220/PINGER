@@ -21,10 +21,14 @@ const JobItem = ({ job }) => {
   /** 추가해야되는 data */
   // 등록된 자소서 개수 가져오기
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
+<<<<<<< HEAD
   const userId = useAuthStore((state) => state.user.user_id);
+=======
+  const { user_id: userId, role } = useAuthStore((state) => state.user);
+  const isSeeker = role === 'seeker';
 
+>>>>>>> dev
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [resumeCount, setResumeCount] = useState(0);
 
   /** 해당 채용 정보를 북마크했는지 확인하는 로직 */
   useEffect(() => {
@@ -59,8 +63,10 @@ const JobItem = ({ job }) => {
       >
         {/** 채용 정보 */}
         <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-semibold">{company_name}</h1>
-          <h2>{sliceTitleLength(recruit_title)}</h2>
+          <h1 className="text-xl font-semibold">
+            {sliceTitleLength(company_name, 15)}
+          </h1>
+          <h2>{sliceTitleLength(recruit_title, 20)}</h2>
           <div className="flex gap-4">
             <span className="text-sm font-semibold">채용 날짜</span>
             <span className="text-sm">
@@ -71,17 +77,20 @@ const JobItem = ({ job }) => {
 
         <div className="flex items-center gap-3">
           {/** 북마크 버튼 */}
-          <button onClick={handleToggleBookMark}>
-            {isBookmarked ? (
-              <IoBookmark size={ICON_SIZE.BASE} className="text-my-main" />
-            ) : (
-              <IoBookmarkOutline size={ICON_SIZE.BASE} />
-            )}
-          </button>
+          {isSeeker && (
+            <button onClick={handleToggleBookMark}>
+              {isBookmarked ? (
+                <IoBookmark size={ICON_SIZE.BASE} className="text-my-main" />
+              ) : (
+                <IoBookmarkOutline size={ICON_SIZE.BASE} />
+              )}
+            </button>
+          )}
+
           {/** 지원한 자소서 */}
           <div className="flex items-center gap-2 rounded-xl bg-my-main p-5">
             <span>지원 자소서</span>
-            <span className="text-lg font-semibold">{`${resumeCount}건`}</span>
+            <span className="text-lg font-semibold">{`${job.resumes.length}건`}</span>
           </div>
         </div>
       </div>

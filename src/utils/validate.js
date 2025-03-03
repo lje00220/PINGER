@@ -1,4 +1,7 @@
-import { AUTH_ERROR_MESSAGES } from '../constants/toastMessages';
+import {
+  AUTH_ERROR_MESSAGES,
+  REVIEW_MESSAGES,
+} from '../constants/toastMessages';
 
 export const validateSignUpForm = (name, value, password) => {
   switch (name) {
@@ -38,5 +41,11 @@ export const validateLoginForm = (name, value) => {
       if (value.length < 6 || value.length > 10) {
         return AUTH_ERROR_MESSAGES.PASSWORD.BLANK;
       }
+  }
+};
+
+export const validateReviewInput = (value) => {
+  if (value.length < 2 || value.length > 50) {
+    return REVIEW_MESSAGES.ERROR;
   }
 };
