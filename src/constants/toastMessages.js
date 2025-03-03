@@ -37,3 +37,8 @@ export const AUTH_SUCCESS_MESSAGES = {
 export const UPDATE_SUCCESS_MESSAGES = {
   ALL: '프로필을 업데이트하였습니다.',
 };
+
+export const BOOKMARK_MESSAGES = {
+  CREATE: '북마크에 추가하였습니다.',
+  DELETE: '북마크에서 삭제하였습니다.',
+};

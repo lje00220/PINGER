@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { checkJobBookMarks } from '../../api/bookmarks';
+import { ICON_SIZE } from '../../constants/iconSize';
 import { PATH } from '../../constants/routerPath';
 import { useCreateBookmarkMutation } from '../../hooks/bookmarks/useCreateBookmarkMutation';
 import { useDeleteBookmarkMutation } from '../../hooks/bookmarks/useDeleteBookmarkMutation';
 import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
 import useAuthStore from '../../zustand/useAuthStore';
+import { toast } from 'react-toastify';
+import { BOOKMARK_MESSAGES } from '../../constants/toastMessages';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -41,16 +44,18 @@ const JobItem = ({ job }) => {
     if (isBookmarked === false) {
       createBookmark({ jobId, userId });
       setIsBookmarked(true);
+      toast.success(BOOKMARK_MESSAGES.CREATE);
     } else {
       deleteBookmark({ jobId, userId });
       setIsBookmarked(false);
+      toast.success(BOOKMARK_MESSAGES.DELETE);
     }
   };
 
   return (
     <Link to={`${PATH.JOB_DETAIL}/${jobId}`}>
       <div
-        className={`mx-auto flex w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10 shadow-xl`}
+        className={`mx-auto flex min-w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10 shadow-xl`}
       >
         {/** 채용 정보 */}
         <div className="flex flex-col gap-2">
