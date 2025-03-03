@@ -3,4 +3,5 @@ export const QUERY_KEY = {
   JOBS: 'jobs',
   BOOKMARKS: 'bookmarks',
   REVIEWS: 'reviews',
+  JOBSINFINITE: 'jobisinfinite',
 };
