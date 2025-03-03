@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { iconSize } from '../../constants/iconSize';
 import { PATH } from '../../constants/routerPath';
+import { useCreateBookmarkMutation } from '../../hooks/bookmarks/useCreateBookmarkMutation';
+import { useDeleteBookmarkMutation } from '../../hooks/bookmarks/useDeleteBookmarkMutation';
 import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
-import { toggleBookMark } from '../../utils/toggleBookMark';
 import useAuthStore from '../../zustand/useAuthStore';
+import { checkJobBookMarks } from '../../api/bookmarks';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -19,18 +21,31 @@ const JobItem = ({ job }) => {
   const userId = useAuthStore((state) => state.user.user_id);
 
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
-  const [isBookMarked, setIsBookmarked] = useState(false);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const [resumeCount, setResumeCount] = useState(0);
+
+  /** 해당 채용 정보를 북마크했는지 확인하는 로직 */
+  useEffect(() => {
+    const checkBookmarkState = async () => {
+      const isMarked = await checkJobBookMarks(userId, jobId);
+      setIsBookmarked(isMarked);
+    };
+    checkBookmarkState();
+  }, [userId, jobId]);
+
+  const { mutate: createBookmark } = useCreateBookmarkMutation();
+  const { mutate: deleteBookmark } = useDeleteBookmarkMutation();
 
   const handleToggleBookMark = (e) => {
     e.preventDefault();
 
-    toggleBookMark({
-      isBookMarked,
-      setIsBookmarked,
-      jobId,
-      userId,
-    });
+    if (isBookmarked === false) {
+      createBookmark({ jobId, userId });
+      setIsBookmarked(true);
+    } else {
+      deleteBookmark({ jobId, userId });
+      setIsBookmarked(false);
+    }
   };
 
   return (
@@ -38,6 +53,7 @@ const JobItem = ({ job }) => {
       <div
         className={`mx-auto flex w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10 shadow-xl`}
       >
+        {/** 채용 정보 */}
         <div className="flex flex-col gap-2">
           <h1 className="text-xl font-semibold">{company_name}</h1>
           <h2>{sliceTitleLength(recruit_title)}</h2>
@@ -48,14 +64,17 @@ const JobItem = ({ job }) => {
             </span>
           </div>
         </div>
+
         <div className="flex items-center gap-3">
+          {/** 북마크 버튼 */}
           <button onClick={handleToggleBookMark}>
-            {isBookMarked ? (
+            {isBookmarked ? (
               <IoBookmark size={iconSize.BASE} className="text-my-main" />
             ) : (
               <IoBookmarkOutline size={iconSize.BASE} />
             )}
           </button>
+          {/** 지원한 자소서 */}
           <div className="flex items-center gap-2 rounded-xl bg-my-main p-5">
             <span>지원 자소서</span>
             <span className="text-lg font-semibold">{`${resumeCount}건`}</span>

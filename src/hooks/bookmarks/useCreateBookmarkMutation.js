@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteBookMark } from '../../api/bookmarks';
+import { createBookMark } from '../../api/bookmarks';
 import { QUERY_KEY } from '../../constants/queryKeys';
 
-export const useDeleteBookmarkMutation = () => {
+export const useCreateBookmarkMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteBookMark,
+    mutationFn: createBookMark,
     onSuccess: queryClient.invalidateQueries([QUERY_KEY.BOOKMARKS]),
   });
 };
