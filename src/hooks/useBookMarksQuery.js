@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchUserBookMarks } from '../api/bookMarks';
+import { fetchUserBookMarks } from '../api/bookmarks';
 import { QUERY_KEY } from '../constants/queryKeys';
+import useAuthStore from '../zustand/useAuthStore';
 
 export const useBookMarksQuery = () => {
-  //지워야되는 부분
-  const userId = '544a3df2-13c9-4cb0-a396-f5ad773cce68';
+  const userId = useAuthStore((state) => state.user.user_id);
 
   return useQuery({
     queryKey: [QUERY_KEY.BOOKMARKS],

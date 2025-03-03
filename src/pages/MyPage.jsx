@@ -1,15 +1,15 @@
-import { useState } from 'react';
 import BookMarkList from '../components/features/myPage/BookMarkList';
 import Profile from '../components/features/myPage/Profile';
 import ResumeList from '../components/features/myPage/ResumeList';
+import useAuthStore from '../zustand/useAuthStore';
 
 const MyPage = () => {
-  // 수정해야되는 부분
-  const [isSeeker] = useState(false);
+  const { role } = useAuthStore((state) => state.user);
+  const isSeeker = role === 'seeker';
 
   return (
-    <div className="flex h-full w-full flex-col gap-10 bg-my-bg py-8">
-      <Profile isSeeker={isSeeker} />
+    <div className="flex h-screen w-full flex-col gap-10 bg-my-bg py-8">
+      <Profile />
       {isSeeker ? <BookMarkList /> : <ResumeList />}
     </div>
   );
