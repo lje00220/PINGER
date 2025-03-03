@@ -80,13 +80,13 @@ const JobComment = ({ comment }) => {
       {user.user_id === comment.writer_id && (
         <div className="flex space-x-3">
           <button
-            className="rounded-full bg-my-main px-6 py-2"
+            className="rounded-full bg-my-main px-6 py-2 transition-all duration-200 hover:bg-my-hover"
             onClick={handleToggleEdit}
           >
             {isEditing ? '저장' : '수정'}
           </button>
           <button
-            className="rounded-full bg-my-main px-6 py-2"
+            className="rounded-full bg-my-main px-6 py-2 transition-all duration-200 hover:bg-my-hover"
             onClick={handleDeleteComment}
           >
             삭제

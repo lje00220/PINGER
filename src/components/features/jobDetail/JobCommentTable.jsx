@@ -68,7 +68,7 @@ const JobCommentTable = ({ jobId }) => {
           className="w-2/3 rounded-full border px-5 py-3"
         />
         <button
-          className="rounded-full bg-my-main px-6 py-2"
+          className="rounded-full bg-my-main px-6 py-2 transition-all duration-200 hover:bg-my-hover"
           onClick={handleSubmitComment}
         >
           등록

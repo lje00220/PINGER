@@ -38,7 +38,7 @@ export const REVIEW_MESSAGES = {
   INSERT: '댓글이 등록되었습니다!',
   DELETE: '댓글이 삭제되었습니다!',
   UPDATE: '댓글이 수정되었습니다!',
-  ERROR: '댓글을 3자 이상 50자 이하로 작성해주세요!',
+  ERROR: '댓글을 2자 이상 50자 이하로 작성해주세요!',
 };
 
 export const UPDATE_SUCCESS_MESSAGES = {
