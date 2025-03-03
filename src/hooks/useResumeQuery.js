@@ -37,6 +37,7 @@ export const useConfirmedResume = (id) => {
     onSuccess: () => {
       toast.success('검토를 완료했습니다.');
       queryClient.invalidateQueries([QUERY_KEY.RESUME, id]);
+      queryClient.invalidateQueries([QUERY_KEY.RESUMES]);
     },
   });
 };

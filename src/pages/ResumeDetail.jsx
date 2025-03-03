@@ -99,7 +99,7 @@ const ResumeDetail = () => {
     const confirmStatus = resume.is_confirmed ? false : true;
     confirmMutate({
       is_confirmed: confirmStatus,
-      mentor_id: confirmStatus ? user.user_id : null,
+      mentor_id: user.user_id,
     });
   };
 
@@ -146,6 +146,9 @@ const ResumeDetail = () => {
             size={24}
             className="absolute right-4 top-4 cursor-pointer"
           />
+          <span className="text-mg absolute left-5 top-5 font-bold text-green-500">
+            검토 완료
+          </span>
           <div className="mb-20 flex flex-col items-center justify-center space-y-4">
             <p className="text-2xl font-bold">
               <span className="text-my-main"> {resume.users.nickname}</span>

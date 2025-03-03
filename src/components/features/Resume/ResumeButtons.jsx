@@ -26,9 +26,11 @@ const ResumeButtons = ({
       </div>
     ) : (
       <div className="flex gap-4">
-        <Button onClick={onEdit} mode={BUTTON_MODE.S}>
-          수정
-        </Button>
+        {!isConfirmed && (
+          <Button onClick={onEdit} mode={BUTTON_MODE.S}>
+            수정
+          </Button>
+        )}
         <Button onClick={onDelete} mode={BUTTON_MODE.S}>
           삭제
         </Button>
@@ -38,7 +40,7 @@ const ResumeButtons = ({
     // recruiter(멘토)일 경우
     return (
       <Button onClick={onConfirm} mode={BUTTON_MODE.S}>
-        {isConfirmed ? '검토 완료' : '검토'}
+        {isConfirmed ? '검토 취소' : '검토'}
       </Button>
     );
   }
