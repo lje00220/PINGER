@@ -85,19 +85,3 @@ export const createResume = async (newResume) => {
     console.error('에러', error);
   }
 };
-
-// jobId에 대한 resume의 개수를 가져오기 위한 fetch 함수
-export const fetchResumeLength = async (jobId) => {
-  try {
-    const { data, error } = await supabase
-      .from('resumes')
-      .select('*')
-      .eq('job_id', jobId);
-
-    if (error) throw error;
-
-    return data || [];
-  } catch (error) {
-    console.error('에러', error);
-  }
-};
