@@ -31,7 +31,10 @@ const Profile = () => {
     e.preventDefault();
 
     // 유효성 검증
-    const validateResult = await validateNickname(userInfo.nickname);
+    const validateResult = await validateNickname(
+      userInfo.nickname,
+      user.nickname,
+    );
     if (validateResult) {
       toast.error(validateResult);
       return;

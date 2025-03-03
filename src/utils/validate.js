@@ -53,14 +53,18 @@ export const validateReviewInput = (value) => {
   }
 };
 
-export const validateNickname = async (value) => {
+export const validateNickname = async (value, currentNickname) => {
+  if (value === currentNickname) return;
+
   const { data } = await supabase
     .from(QUERY_KEY.USERS)
     .select('*')
     .eq('nickname', value);
+  const [userData] = data;
 
   if (data.length === 0) return;
-  if (data.nickname?.length !== 0) {
+
+  if (userData.nickname?.length !== 0) {
     return AUTH_ERROR_MESSAGES.NICKNAME.SAME;
   }
 };
