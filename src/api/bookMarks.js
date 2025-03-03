@@ -22,10 +22,31 @@ export const fetchUserBookMarks = async (userId) => {
 };
 
 /**
+ * 해당 사용자가 저장한 북마크와 채용 정보가 일치하는지 확인
+ * @param {string} userId
+ * @param {string} jobId
+ * @returns boolean
+ */
+export const checkJobBookMarks = async (userId, jobId) => {
+  try {
+    const { data } = await supabase
+      .from(QUERY_KEY.BOOKMARKS)
+      .select('*')
+      .eq('user_id', userId)
+      .eq('job_id', jobId);
+
+    return data && data.length > 0;
+  } catch (error) {
+    console.error('북마크 조회 오류', error);
+    return false;
+  }
+};
+
+/**
  * 북마크 추가 함수
  * @param {*} newBookMark
  */
-export const createBookMark = async (jobId, userId) => {
+export const createBookMark = async ({ jobId, userId }) => {
   try {
     const { error } = await supabase
       .from(QUERY_KEY.BOOKMARKS)
@@ -42,7 +63,7 @@ export const createBookMark = async (jobId, userId) => {
  * @param {number} jobId
  * @param {string} userId
  */
-export const deleteBookMark = async (jobId, userId) => {
+export const deleteBookMark = async ({ jobId, userId }) => {
   try {
     await supabase
       .from(QUERY_KEY.BOOKMARKS)

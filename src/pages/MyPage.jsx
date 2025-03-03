@@ -8,7 +8,7 @@ const MyPage = () => {
   const isSeeker = role === 'seeker';
 
   return (
-    <div className="flex h-screen w-full flex-col gap-10 bg-my-bg py-8">
+    <div className="flex max-h-fit min-h-[calc(100vh-80px)] w-full flex-col gap-10 bg-my-bg py-8">
       <Profile />
       {isSeeker ? <BookMarkList /> : <ResumeList />}
     </div>
