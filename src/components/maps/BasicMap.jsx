@@ -11,11 +11,12 @@ import { useState } from 'react';
 import { REGION_COORDINATES } from '../../constants/regionCoordinates';
 import JobMarker from './JobMarker';
 import SearchResults from './SearchResults';
+import LoadingPage from '../common/LoadingPage';
 
 const BasicMap = () => {
   useKakaoLoader();
 
-  const { data: jobData, isPending, isError } = useJobsQuery();
+  const { data: jobData, isLoading, isError } = useJobsQuery();
   const {
     isOpen, keyword, filteredJobs, selectedCompany,
     setMap, setKeyword, setIsOpen, setSelectedCompany, setJobData
@@ -49,8 +50,8 @@ const BasicMap = () => {
     setIsOpen(null);
   }, []);
 
-  if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
-  if (isError) return <div className="p-4 text-center">데이터 불러오기 실패</div>;
+  if (isLoading) return <LoadingPage state="load" />
+  if (isError) return <LoadingPage state="error" />
 
   return (
     <div className="relative w-screen h-[calc(100vh-80px)] overflow-hidden">
