@@ -4,7 +4,6 @@ import supabase from '../supabase/client';
  * Supabase의 resumes 테이블에서 전체 자소서 데이터 조회
  * @returns
  */
-
 export const fetchResumes = async () => {
   try {
     const { data, error } = await supabase
