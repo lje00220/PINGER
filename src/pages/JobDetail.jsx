@@ -42,7 +42,7 @@ const JobDetail = () => {
   const handleMoveToResume = () => {
     // seeker를 상수로 관리해도 좋을 듯 합니다
     if (role === 'seeker') {
-      navigate(PATH.RESUME_CREATE + '?id=' + targetJob.id);
+      navigate(`${PATH.RESUME_CREATE}/${targetJob.id}`);
     } else {
       navigate(`${PATH.RESUME_DETAIL}/${id}`);
     }

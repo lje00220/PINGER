@@ -1,11 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ResumeForm from '../components/features/Resume/ResumeForm';
 import ResumeButtons from '../components/features/Resume/ResumeButtons';
 import useAuthStore from '../zustand/useAuthStore';
 import {
+  useConfirmedResume,
   useDeleteResume,
   useResumeDetailQuery,
   useUpdateResume,
@@ -14,6 +13,8 @@ import { IoMdClose } from 'react-icons/io';
 import { PATH } from '../constants/routerPath';
 import StaticKakaoMap from '../components/maps/StaticKakaoMap';
 import JobInfo from '../components/common/JobInfo';
+import LoadingPage from '../components/common/LoadingPage';
+import { ResumeContainer } from './ResumeListPage';
 
 const ResumeDetail = () => {
   const { id } = useParams();
@@ -22,18 +23,9 @@ const ResumeDetail = () => {
   const { user } = useAuthStore();
 
   const { data: resume, isLoading, isError } = useResumeDetailQuery(id);
-  const updateMutation = useUpdateResume(id);
-  const deleteMutaion = useDeleteResume();
-
-  // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
-  const targetPlace = {
-    lat: Number(resume?.jobs.lat),
-    lng: Number(resume?.jobs.lng),
-  };
-  // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
-  const handleOpenJobSite = () => {
-    window.open(resume.jobs.url);
-  };
+  const { mutate: updateMutate } = useUpdateResume(id);
+  const { mutateAsync: deleteMutateAsync } = useDeleteResume(id);
+  const { mutate: confirmMutate } = useConfirmedResume(id);
 
   //편집 모드 여부 (수정버튼 클릭시 수정할 수 있도록)
   const [isEditing, setIsEditing] = useState(false);
@@ -57,8 +49,10 @@ const ResumeDetail = () => {
     }
   }, [resume]);
 
-  // 본인이 작성한 자소서인지 확인
-  const isOwner = user.user_id === resume?.writer_id;
+  // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
+  const handleOpenJobSite = () => {
+    window.open(resume.jobs.url);
+  };
 
   // 변경 상태 저장
   const handleChange = (e) => {
@@ -79,38 +73,49 @@ const ResumeDetail = () => {
       strength: formData.strength,
       experience: formData.experience,
     };
-    updateMutation.mutate(updatedData);
+    updateMutate(updatedData);
     setIsEditing(false);
   };
 
-  //수정 취소하기
+  //취소하기 [편집모드]일때 원상태로 복귀
   const handleCancel = () => {
     setIsEditing(false);
     setFormData({
-      grow: resume.grow || '',
-      vision: resume.vision || '',
-      strength: resume.strength || '',
-      experience: resume.experience || '',
+      grow: resume.grow,
+      vision: resume.vision,
+      strength: resume.strength,
+      experience: resume.experience,
     });
   };
 
   //삭제하기
   const handleDelete = async () => {
-    await deleteMutaion.mutateAsync(resume.id);
+    await deleteMutateAsync(resume.id);
     navigate(PATH.RESUME_LIST);
   };
 
-  //recruiter일 때 검토(아직 미완성)
-  const handleReview = () => {
-    toast.info('검토 기능을 호출합니다.');
+  //recruiter일 때 검토체크
+  const handleConfirm = () => {
+    const confirmStatus = resume.is_confirmed ? false : true;
+    confirmMutate({
+      is_confirmed: confirmStatus,
+      mentor_id: user.user_id,
+    });
   };
 
-  if (isLoading) return <div className="p-4 text-center">로딩 중...</div>;
-  if (isError)
-    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
+  // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
+  const targetPlace = {
+    lat: Number(resume?.jobs.lat),
+    lng: Number(resume?.jobs.lng),
+  };
+  // 본인이 작성한 자소서인지 확인
+  const isOwner = user.user_id === resume?.writer_id;
+
+  if (isLoading) return <LoadingPage state="load" />;
+  if (isError) return <LoadingPage state="error" />;
 
   return (
-    <div className="배경 min-h-screen w-full bg-my-bg p-8">
+    <div className={ResumeContainer}>
       <div className="flex flex-col items-center space-y-20">
         {/*기업 정보*/}
         <div className="w-3/5 rounded-2xl bg-white p-10 shadow-xl">
@@ -141,6 +146,9 @@ const ResumeDetail = () => {
             size={24}
             className="absolute right-4 top-4 cursor-pointer"
           />
+          <span className="text-mg absolute left-5 top-5 font-bold text-green-500">
+            검토 완료
+          </span>
           <div className="mb-20 flex flex-col items-center justify-center space-y-4">
             <p className="text-2xl font-bold">
               <span className="text-my-main"> {resume.users.nickname}</span>
@@ -161,7 +169,8 @@ const ResumeDetail = () => {
               onDelete={handleDelete}
               onSave={handleSave}
               onCancel={handleCancel}
-              onReview={handleReview}
+              onConfirm={handleConfirm}
+              isConfirmed={resume.is_confirmed}
             />
           </div>
         </div>

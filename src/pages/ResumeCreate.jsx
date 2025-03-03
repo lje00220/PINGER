@@ -1,21 +1,20 @@
 import { useState } from 'react';
 import ResumeForm from '../components/features/Resume/ResumeForm';
 import useAuthStore from '../zustand/useAuthStore';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/common/Button';
 import { BUTTON_MODE } from '../constants/mode';
 import { useCreateResume } from '../hooks/useResumeQuery';
 import { PATH } from '../constants/routerPath';
+import { ResumeContainer } from './ResumeListPage';
 
 const ResumeCreate = () => {
+  const { id: jobId } = useParams();
   const { user } = useAuthStore();
-  const [searchParams, setSearchParams] = useSearchParams();
+
   const navigate = useNavigate();
 
-  const createResumeMutation = useCreateResume();
-
-  //기업아이디 가져오기
-  const jobId = searchParams.get('id');
+  const { mutateAsync: createMutateAsync } = useCreateResume();
 
   const [formData, setFormData] = useState({
     grow: '',
@@ -34,6 +33,7 @@ const ResumeCreate = () => {
     const newResume = {
       job_id: jobId,
       writer_id: user.user_id,
+      mentor_id: null,
       grow: formData.grow,
       strength: formData.strength,
       vision: formData.vision,
@@ -41,12 +41,12 @@ const ResumeCreate = () => {
       is_confirmed: false,
     };
 
-    await createResumeMutation.mutateAsync(newResume);
+    await createMutateAsync(newResume);
     navigate(PATH.RESUME_LIST);
   };
 
   return (
-    <div className="min-h-screen w-full bg-my-bg p-8">
+    <div className={ResumeContainer}>
       <h1 className="mb-8 text-center text-3xl font-bold">자기소개서 작성</h1>
       <div className="mx-auto w-2/3 rounded-2xl bg-white p-10 shadow-xl">
         <ResumeForm
