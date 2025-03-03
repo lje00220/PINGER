@@ -1,4 +1,5 @@
 import JobItem from '../components/common/JobItem';
+import LoadingPage from '../components/common/LoadingPage';
 import { useJobsQuery } from '../hooks/useJobsQuerys';
 
 /**
@@ -11,9 +12,8 @@ import { useJobsQuery } from '../hooks/useJobsQuerys';
 const JobListPage = () => {
   const { data: jobData, isPending, isError } = useJobsQuery();
 
-  if (isPending) return <div className="p-4 text-center">로딩 중...</div>;
-  if (isError)
-    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
+  if (isPending) return <LoadingPage state="load" />;
+  if (isError) return <LoadingPage state="error" />;
 
   return (
     <div className="h-max bg-my-bg p-8">

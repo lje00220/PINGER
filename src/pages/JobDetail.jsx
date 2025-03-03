@@ -78,7 +78,7 @@ const JobDetail = () => {
           </button>
         </div>
         <hr className="mx-auto w-full rounded-full border-2 border-black" />
-        <JobCommentTable jobId={id} />
+        <JobCommentTable jobId={Number(id)} />
       </div>
     </div>
   );

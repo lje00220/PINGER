@@ -2,7 +2,7 @@ import useAuthStore from '../../../zustand/useAuthStore';
 import { useState } from 'react';
 import {
   useDeleteMutation,
-  useUpsertMutation,
+  useUpdateMutation,
 } from '../../../hooks/useReviewsQuery';
 
 /**
@@ -20,7 +20,7 @@ const JobComment = ({ comment }) => {
   const [editedReview, setEditedReview] = useState(comment.review_content);
 
   const { mutate: deleteMutate } = useDeleteMutation();
-  const { mutate: updateMutate } = useUpsertMutation('댓글이 수정되었습니다!'); // 일단 하드코딩으로 냅둘래요........ 수정할게요....
+  const { mutate: updateMutate } = useUpdateMutation();
 
   // 댓글이 수정 상태일 경우 저장 버튼을 누르면 Supabase에 저장된 댓글의 내용이 업데이트됩니다.
   // 댓글이 수정 상태가 아닐 경우 버튼을 누르면 수정 가능 상태로 변합니다.
@@ -58,12 +58,14 @@ const JobComment = ({ comment }) => {
         {isEditing ? (
           <input
             type="text"
-            className="w-2/3 rounded-full border px-5 py-3"
+            className="w-[350px] rounded-full border px-5 py-3"
             value={editedReview}
             onChange={handleEditedReview}
           />
         ) : (
-          <span className="text-gray-700">{comment.review_content}</span>
+          <span className="max-w-[400px] text-gray-700">
+            {comment.review_content}
+          </span>
         )}
       </div>
       {/* 조건부 렌더링 ('로그인 회원 정보 === 글쓴이 정보' 일 경우에만 보이게)*/}

@@ -47,19 +47,18 @@ export const deleteReviewsData = async (id) => {
 };
 
 /**
- * Supabase에서 댓글을 삽입 또는 업데이트하는 함수
- * - id를 기준으로 이미 존재하는 id에 대한 데이터가 주어지면 update를 실행합니다.
- * - 그렇지 않을 경우 새로운 행을 추가합니다.
+ * Supabase에서 댓글을 업데이트하는 함수
+ * - id를 기준으로 update를 실행합니다.
  *
- * @param {*} upsertData
- * @returns
+ * @param {Object} upsertData
  */
 
-export const upsertReviewsData = async (upsertData) => {
+export const updateReviewsData = async (updateData) => {
   try {
     const { error } = await supabase
       .from(QUERY_KEY.REVIEWS)
-      .upsert(upsertData, { onConflict: 'id' });
+      .update(updateData)
+      .eq('id', updateData.id);
 
     if (error) {
       console.error('데이터 삽입/업데이트 실패: ', error.message);
@@ -67,5 +66,21 @@ export const upsertReviewsData = async (upsertData) => {
     }
   } catch (error) {
     console.error('서버오류가 발생하였습니다.: ', error);
+  }
+};
+
+/**
+ * Supabase에 댓글을 추가하는 함수
+ *
+ * @param {Object} insertData
+ */
+
+export const insertReviewsData = async (insertData) => {
+  try {
+    const { error } = await supabase.from(QUERY_KEY.REVIEWS).insert(insertData);
+
+    if (error) throw error;
+  } catch (error) {
+    console.error('댓글 추가 오류', error);
   }
 };

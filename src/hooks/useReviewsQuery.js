@@ -3,7 +3,8 @@ import { QUERY_KEY } from '../constants/queryKeys';
 import {
   deleteReviewsData,
   fetchReviewsData,
-  upsertReviewsData,
+  insertReviewsData,
+  updateReviewsData,
 } from '../api/reviews';
 import { toast } from 'react-toastify';
 
@@ -17,24 +18,48 @@ export const useReviewsQuery = (jobId) => {
   return useQuery({
     queryKey: [QUERY_KEY.REVIEWS, jobId],
     queryFn: () => fetchReviewsData(jobId),
-    initialData: [],
   });
 };
 
 /**
- * reviews 테이블의 정보를 upsert하는 훅
+ * reviews 테이블의 정보를 update 훅
  *
- * @param {string} - 성공했을 때 toast로 띄울 메세지
- * @returns {function} - reviews 테이블의 데이터를 insert 혹은 update하는 useMutation 함수
+ * @returns {function} - reviews 테이블의 데이터를 update하는 useMutation 함수
  */
 
-export const useUpsertMutation = (message) => {
+export const useUpdateMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (commentData) => upsertReviewsData(commentData),
-    onSuccess: () => {
-      toast.success(message);
-      queryClient.invalidateQueries([QUERY_KEY.REVIEWS]);
+    mutationFn: (commentData) => updateReviewsData(commentData),
+    // 낙관적 업데이트 적용
+    onMutate: async (commentData) => {
+      await queryClient.cancelQueries([QUERY_KEY.REVIEWS, commentData.job_id]);
+      const previousReviews = queryClient.getQueryData(
+        [QUERY_KEY.REVIEWS],
+        commentData.job_id,
+      );
+      queryClient.setQueryData(
+        [QUERY_KEY.REVIEWS, commentData.job_id],
+        (old) => {
+          return old.map((review) =>
+            review.id === commentData.id
+              ? { ...review, review_content: commentData.review_content }
+              : review,
+          );
+        },
+      );
+
+      return previousReviews;
+    },
+    onError: (error, newReview, context) => {
+      queryClient.setQueryData(
+        [QUERY_KEY.REVIEWS, newReview.job_id],
+        context.previousReviews,
+      );
+    },
+    onSettled: (commentData) => {
+      toast.success('댓글이 수정되었습니다!');
+      queryClient.invalidateQueries([QUERY_KEY.REVIEWS, commentData.job_id]);
     },
   });
 };
@@ -48,9 +73,25 @@ export const useDeleteMutation = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id) => deleteReviewsData(id),
-    onSuccess: () => {
+    onSuccess: (id) => {
       toast.success('댓글이 삭제되었습니다!');
-      queryClient.invalidateQueries([QUERY_KEY.REVIEWS]);
+      queryClient.invalidateQueries([QUERY_KEY.REVIEWS, Number(id)]);
+    },
+  });
+};
+
+/**
+ * reviews 테이블에 정보를 추가하는 훅
+ *
+ * @returns {function} - reviews 테이블의 데이터를 추가하는 useMutation 함수
+ */
+export const useInsertMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (newReview) => insertReviewsData(newReview),
+    onSuccess: (newReview) => {
+      toast.success('댓글이 등록되었습니다!');
+      queryClient.invalidateQueries([QUERY_KEY.REVIEWS, Number(newReview)]);
     },
   });
 };

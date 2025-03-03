@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
+  useInsertMutation,
   useReviewsQuery,
-  useUpsertMutation,
 } from '../../../hooks/useReviewsQuery';
 import useAuthStore from '../../../zustand/useAuthStore';
 import JobComment from './JobComment';
@@ -19,7 +19,7 @@ const JobCommentTable = ({ jobId }) => {
   const [inputComment, setInputComment] = useState('');
   const user = useAuthStore((state) => state.user);
   const { data: commentData, isPending, isError } = useReviewsQuery(jobId);
-  const { mutate: insertMutate } = useUpsertMutation('댓글이 등록되었습니다!'); // 이것도 하드코딩.......
+  const { mutate: insertMutate } = useInsertMutation();
 
   if (isPending) return <LoadingPage state="load" />;
   if (isError) return <LoadingPage state="error" />;
