@@ -36,6 +36,7 @@ export const useUpdateResume = (id) => {
     mutationFn: (updatedData) => updateResume(id, updatedData),
     onSuccess: () => {
       toast.success('수정되었습니다.');
+
       queryClient.invalidateQueries([QUERY_KEY.RESUME, id]);
     },
   });

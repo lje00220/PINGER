@@ -14,6 +14,8 @@ import { IoMdClose } from 'react-icons/io';
 import { PATH } from '../constants/routerPath';
 import StaticKakaoMap from '../components/maps/StaticKakaoMap';
 import JobInfo from '../components/common/JobInfo';
+import LoadingPage from '../components/common/LoadingPage';
+import { ResumeContainer } from './ResumeListPage';
 
 const ResumeDetail = () => {
   const { id } = useParams();
@@ -24,16 +26,6 @@ const ResumeDetail = () => {
   const { data: resume, isLoading, isError } = useResumeDetailQuery(id);
   const updateMutation = useUpdateResume(id);
   const deleteMutaion = useDeleteResume();
-
-  // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
-  const targetPlace = {
-    lat: Number(resume?.jobs.lat),
-    lng: Number(resume?.jobs.lng),
-  };
-  // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
-  const handleOpenJobSite = () => {
-    window.open(resume.jobs.url);
-  };
 
   //편집 모드 여부 (수정버튼 클릭시 수정할 수 있도록)
   const [isEditing, setIsEditing] = useState(false);
@@ -57,8 +49,10 @@ const ResumeDetail = () => {
     }
   }, [resume]);
 
-  // 본인이 작성한 자소서인지 확인
-  const isOwner = user.user_id === resume?.writer_id;
+  // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
+  const handleOpenJobSite = () => {
+    window.open(resume.jobs.url);
+  };
 
   // 변경 상태 저장
   const handleChange = (e) => {
@@ -83,14 +77,14 @@ const ResumeDetail = () => {
     setIsEditing(false);
   };
 
-  //수정 취소하기
+  //취소하기 [편집모드]일때 원상태로 복귀
   const handleCancel = () => {
     setIsEditing(false);
     setFormData({
-      grow: resume.grow || '',
-      vision: resume.vision || '',
-      strength: resume.strength || '',
-      experience: resume.experience || '',
+      grow: resume.grow,
+      vision: resume.vision,
+      strength: resume.strength,
+      experience: resume.experience,
     });
   };
 
@@ -105,12 +99,19 @@ const ResumeDetail = () => {
     toast.info('검토 기능을 호출합니다.');
   };
 
-  if (isLoading) return <div className="p-4 text-center">로딩 중...</div>;
-  if (isError)
-    return <div className="p-4 text-center">데이터 불러오기 실패</div>;
+  // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
+  const targetPlace = {
+    lat: Number(resume?.jobs.lat),
+    lng: Number(resume?.jobs.lng),
+  };
+  // 본인이 작성한 자소서인지 확인
+  const isOwner = user.user_id === resume?.writer_id;
+
+  if (isLoading) return <LoadingPage state="load" />;
+  if (isError) return <LoadingPage state="error" />;
 
   return (
-    <div className="배경 min-h-screen w-full bg-my-bg p-8">
+    <div className={ResumeContainer}>
       <div className="flex flex-col items-center space-y-20">
         {/*기업 정보*/}
         <div className="w-3/5 rounded-2xl bg-white p-10 shadow-xl">

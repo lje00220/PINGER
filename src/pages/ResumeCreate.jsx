@@ -6,6 +6,7 @@ import { Button } from '../components/common/Button';
 import { BUTTON_MODE } from '../constants/mode';
 import { useCreateResume } from '../hooks/useResumeQuery';
 import { PATH } from '../constants/routerPath';
+import { ResumeContainer } from './ResumeListPage';
 
 const ResumeCreate = () => {
   const { user } = useAuthStore();
@@ -46,7 +47,7 @@ const ResumeCreate = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-my-bg p-8">
+    <div className={ResumeContainer}>
       <h1 className="mb-8 text-center text-3xl font-bold">자기소개서 작성</h1>
       <div className="mx-auto w-2/3 rounded-2xl bg-white p-10 shadow-xl">
         <ResumeForm
