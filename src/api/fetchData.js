@@ -25,7 +25,7 @@ export const fetchData = async (table1, table2, ascending = true) => {
 
 export const fetchJobsData = async (table1) => {
   try {
-    const { data } = await supabase.from(table1).select('*');
+    const { data } = await supabase.from(table1).select('*, resumes(*)');
 
     return data;
   } catch (error) {

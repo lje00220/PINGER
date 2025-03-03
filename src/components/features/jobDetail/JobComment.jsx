@@ -4,6 +4,8 @@ import {
   useDeleteMutation,
   useUpdateMutation,
 } from '../../../hooks/useReviewsQuery';
+import { toast } from 'react-toastify';
+import { validateReviewInput } from '../../../utils/validate';
 
 /**
  * 1개의 댓글을 생성하는 컴포넌트
@@ -26,6 +28,12 @@ const JobComment = ({ comment }) => {
   // 댓글이 수정 상태가 아닐 경우 버튼을 누르면 수정 가능 상태로 변합니다.
   const handleToggleEdit = () => {
     if (isEditing) {
+      // 유효성 검사(댓글을 2자 이상 50자 이하로 입력해야 함
+      const validateResult = validateReviewInput(editedReview);
+      if (validateResult) {
+        toast.error(validateResult);
+        return;
+      }
       const editReviewData = {
         id: comment.id,
         job_id: comment.job_id,
@@ -71,16 +79,10 @@ const JobComment = ({ comment }) => {
       {/* 조건부 렌더링 ('로그인 회원 정보 === 글쓴이 정보' 일 경우에만 보이게)*/}
       {user.user_id === comment.writer_id && (
         <div className="flex space-x-3">
-          <button
-            className="rounded-full bg-my-main px-6 py-2"
-            onClick={handleToggleEdit}
-          >
+          <button className="review-btn" onClick={handleToggleEdit}>
             {isEditing ? '저장' : '수정'}
           </button>
-          <button
-            className="rounded-full bg-my-main px-6 py-2"
-            onClick={handleDeleteComment}
-          >
+          <button className="review-btn" onClick={handleDeleteComment}>
             삭제
           </button>
         </div>
