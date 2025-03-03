@@ -1,4 +1,4 @@
-import { createBookMark, deleteBookMark } from '../api/bookMarks';
+import { createBookMark, deleteBookMark } from '../api/bookmarks';
 
 /**
  * 북마크 추가/취소 함수

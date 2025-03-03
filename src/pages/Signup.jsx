@@ -11,6 +11,7 @@ import {
 import useForm from '../hooks/useForm';
 import supabase from '../supabase/client';
 import { validateSignUpForm } from '../utils/validate';
+import { QUERY_KEY } from '../constants/queryKeys';
 
 const Signup = () => {
   //-----navigate-----
@@ -43,7 +44,7 @@ const Signup = () => {
 
     try {
       const { data } = await supabase
-        .from('users')
+        .from(QUERY_KEY.USERS)
         .select('nickname')
         .eq('nickname', nickname)
         .single();
