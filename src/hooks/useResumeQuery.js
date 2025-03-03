@@ -5,6 +5,7 @@ import {
   deleteResume,
   fetchResumes,
   createResume,
+  fetchResumeLength,
 } from '../api/resumes';
 import { toast } from 'react-toastify';
 
@@ -63,5 +64,12 @@ export const useCreateResume = () => {
       toast.success('자기소개서가 저장되었습니다.');
       queryClient.invalidateQueries(['resumes']);
     },
+  });
+};
+
+export const useResumeListLength = (id) => {
+  return useQuery({
+    queryKey: ['resumes_length', id],
+    queryFn: () => fetchResumeLength(id),
   });
 };

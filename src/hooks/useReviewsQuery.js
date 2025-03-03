@@ -35,10 +35,10 @@ export const useUpdateMutation = () => {
     // 낙관적 업데이트 적용
     onMutate: async (commentData) => {
       await queryClient.cancelQueries([QUERY_KEY.REVIEWS, commentData.job_id]);
-      const previousReviews = queryClient.getQueryData(
-        [QUERY_KEY.REVIEWS],
+      const previousReviews = queryClient.getQueryData([
+        QUERY_KEY.REVIEWS,
         commentData.job_id,
-      );
+      ]);
       queryClient.setQueryData(
         [QUERY_KEY.REVIEWS, commentData.job_id],
         (old) => {

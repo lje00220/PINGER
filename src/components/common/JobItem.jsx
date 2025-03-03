@@ -7,6 +7,8 @@ import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
 import { toggleBookMark } from '../../utils/toggleBookMark';
 import useAuthStore from '../../zustand/useAuthStore';
+import { useResumeListLength } from '../../hooks/useResumeQuery';
+import LoadingPage from './LoadingPage';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -20,7 +22,10 @@ const JobItem = ({ job }) => {
 
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
-  const [resumeCount, setResumeCount] = useState(0);
+  const { data: resumeData, isPending, isError } = useResumeListLength(jobId);
+
+  if (isPending) return <LoadingPage state="load" />;
+  if (isError) return <LoadingPage state="error" />;
 
   const handleToggleBookMark = (e) => {
     e.preventDefault();
@@ -58,7 +63,7 @@ const JobItem = ({ job }) => {
           </button>
           <div className="flex items-center gap-2 rounded-xl bg-my-main p-5">
             <span>지원 자소서</span>
-            <span className="text-lg font-semibold">{`${resumeCount}건`}</span>
+            <span className="text-lg font-semibold">{`${resumeData.length}건`}</span>
           </div>
         </div>
       </div>
