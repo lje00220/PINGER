@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { updateUserMetaData } from '../../../api/users.js';
 import { BUTTON_MODE } from '../../../constants/mode';
+import { UPDATE_SUCCESS_MESSAGES } from '../../../constants/toastMessages';
+import { useUpdateUserMutation } from '../../../hooks/users/useUpdateUserMutation';
+import { validateNickname } from '../../../utils/validate.js';
 import useAuthStore from '../../../zustand/useAuthStore';
 import SignupAddressSelect from '../../auth/SignupAddressInput';
 import { Button } from '../../common/Button';
 import { InputBar } from '../../common/Input';
-import { useUpdateUserMutation } from '../../../hooks/users/useUpdateUserMutation';
-import { toast } from 'react-toastify';
-import { UPDATE_SUCCESS_MESSAGES } from '../../../constants/toastMessages';
-import { updateUserMetaData } from '../../../api/users.js';
 
 const Profile = () => {
   /** State */
@@ -29,12 +30,21 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 유효성 검증
+    const validateResult = await validateNickname(userInfo.nickname);
+    if (validateResult) {
+      toast.error(validateResult);
+      return;
+    }
+
+    // 사용자 정보 supabase에 업데이트
     updateUserInfo({
       userId: user.user_id,
       newNickname: userInfo.nickname,
       newAddress: userInfo.address,
     });
 
+    // 사용자 metadata 업데이트
     updateUserMetaData({
       newNickname: userInfo.nickname,
       newAddress: userInfo.address,
@@ -67,7 +77,7 @@ const Profile = () => {
             <InputBar
               type="text"
               name="nickname"
-              placeholder="새로운 닉네임 입력"
+              placeholder="새로운 닉네임을 입력해주세요"
               value={userInfo.nickname}
               onChange={handleChange}
               minLength={2}
