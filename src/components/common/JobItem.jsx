@@ -21,7 +21,8 @@ const JobItem = ({ job }) => {
   /** 추가해야되는 data */
   // 등록된 자소서 개수 가져오기
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
-  const userId = useAuthStore((state) => state.user.user_id);
+  const { user_id: userId, role } = useAuthStore((state) => state.user);
+  const isSeeker = role === 'seeker';
 
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [resumeCount, setResumeCount] = useState(0);
@@ -71,13 +72,16 @@ const JobItem = ({ job }) => {
 
         <div className="flex items-center gap-3">
           {/** 북마크 버튼 */}
-          <button onClick={handleToggleBookMark}>
-            {isBookmarked ? (
-              <IoBookmark size={ICON_SIZE.BASE} className="text-my-main" />
-            ) : (
-              <IoBookmarkOutline size={ICON_SIZE.BASE} />
-            )}
-          </button>
+          {isSeeker && (
+            <button onClick={handleToggleBookMark}>
+              {isBookmarked ? (
+                <IoBookmark size={ICON_SIZE.BASE} className="text-my-main" />
+              ) : (
+                <IoBookmarkOutline size={ICON_SIZE.BASE} />
+              )}
+            </button>
+          )}
+
           {/** 지원한 자소서 */}
           <div className="flex items-center gap-2 rounded-xl bg-my-main p-5">
             <span>지원 자소서</span>
