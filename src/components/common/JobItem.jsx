@@ -7,8 +7,8 @@ import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
 import { toggleBookMark } from '../../utils/toggleBookMark';
 import useAuthStore from '../../zustand/useAuthStore';
-import { useResumeListLength } from '../../hooks/useResumeQuery';
-import LoadingPage from './LoadingPage';
+// import { useResumeListLength } from '../../hooks/useResumeQuery';
+// import LoadingPage from './LoadingPage';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -22,10 +22,10 @@ const JobItem = ({ job }) => {
 
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookMarked, setIsBookmarked] = useState(false);
-  const { data: resumeData, isPending, isError } = useResumeListLength(jobId);
+  // const { data: resumeData, isPending, isError } = useResumeListLength(jobId);
 
-  if (isPending) return <LoadingPage state="load" />;
-  if (isError) return <LoadingPage state="error" />;
+  // if (isPending) return <LoadingPage state="load" />;
+  // if (isError) return <LoadingPage state="error" />;
 
   const handleToggleBookMark = (e) => {
     e.preventDefault();
@@ -44,8 +44,10 @@ const JobItem = ({ job }) => {
         className={`mx-auto flex w-[600px] items-center justify-between gap-4 rounded-xl bg-white p-10 shadow-xl`}
       >
         <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-semibold">{company_name}</h1>
-          <h2>{sliceTitleLength(recruit_title)}</h2>
+          <h1 className="text-xl font-semibold">
+            {sliceTitleLength(company_name, 15)}
+          </h1>
+          <h2>{sliceTitleLength(recruit_title, 20)}</h2>
           <div className="flex gap-4">
             <span className="text-sm font-semibold">채용 날짜</span>
             <span className="text-sm">
@@ -63,7 +65,7 @@ const JobItem = ({ job }) => {
           </button>
           <div className="flex items-center gap-2 rounded-xl bg-my-main p-5">
             <span>지원 자소서</span>
-            <span className="text-lg font-semibold">{`${resumeData.length}건`}</span>
+            <span className="text-lg font-semibold">{`${job.resumes.length}건`}</span>
           </div>
         </div>
       </div>
