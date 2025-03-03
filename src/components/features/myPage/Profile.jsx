@@ -7,10 +7,10 @@ import { InputBar } from '../../common/Input';
 import { useUpdateUserMutation } from '../../../hooks/users/useUpdateUserMutation';
 import { toast } from 'react-toastify';
 import { UPDATE_SUCCESS_MESSAGES } from '../../../constants/toastMessages';
+import { updateUserMetaData } from '../../../api/users.js';
 
 const Profile = () => {
   /** State */
-  const setUserData = useAuthStore((state) => state.setUserData);
   const user = useAuthStore((state) => state.user);
   const [userInfo, setUserInfo] = useState({
     email: user.email,
@@ -21,12 +21,12 @@ const Profile = () => {
   /** Function */
   const { mutate: updateUserInfo } = useUpdateUserMutation();
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     const { name, value } = e.target;
     setUserInfo((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     updateUserInfo({
@@ -35,10 +35,9 @@ const Profile = () => {
       newAddress: userInfo.address,
     });
 
-    setUserData({
-      ...user,
-      nickname: userInfo.nickname,
-      address: userInfo.address,
+    updateUserMetaData({
+      newNickname: userInfo.nickname,
+      newAddress: userInfo.address,
     });
 
     toast.success(UPDATE_SUCCESS_MESSAGES.ALL);
