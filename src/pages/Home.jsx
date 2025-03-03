@@ -1,4 +1,4 @@
-import MapContainer from '../components/MapContainer';
+import MapContainer from '../components/maps/MapContainer';
 
 const Home = () => {
   return (

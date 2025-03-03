@@ -1,4 +1,4 @@
-import BasicMap from './maps/BasicMap';
+import BasicMap from './BasicMap';
 
 const MapContainer = () => {
   return (

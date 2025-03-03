@@ -1,6 +1,6 @@
-import { CustomOverlayMap, Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, Map, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import useKakaoLoader from '../../hooks/useKakaoLoader';
-import { useJobsQuery } from '../../hooks/useJobsQuerys';
+import { useJobsQuery } from '../../hooks/useJobsQuery';
 import { useMapStore } from '../../zustand/useMapStore';
 import { useEffect } from 'react';
 import JobOverlay from './JobOverlay';
@@ -9,6 +9,7 @@ import { AUTH_INPUT_PLACEHOLDER } from '../../constants/inputPlaceholder';
 import useAuthStore from '../../zustand/useAuthStore';
 import { useState } from 'react';
 import { REGION_COORDINATES } from '../../constants/regionCoordinates';
+import JobMarker from './JobMarker';
 
 const BasicMap = () => {
   useKakaoLoader();
@@ -95,16 +96,7 @@ const BasicMap = () => {
           {/* 채용 정보 마커 */}
           {jobData.map((job) => (
             <div key={job.id}>
-              <MapMarker
-                key={job.id}
-                position={{ lat: job.lat, lng: job.lng }}
-                clickable={true}
-                onClick={() => setIsOpen(job.id)}
-                image={{
-                  src: '/public/images/PINGER_marker.png',
-                  size: { width: 30, height: 30 },
-                }}
-              />
+              <JobMarker key={job.id} job={job} onClick={setIsOpen} />
               {/* 오버레이 */}
               {isOpen === job.id && (
                 <CustomOverlayMap
@@ -122,16 +114,7 @@ const BasicMap = () => {
           {/* 검색된 회사 마커 */}
           {filteredJobs.map((job) => (
             <div key={job.id}>
-              <MapMarker
-                key={`filtered-${job.id}`}
-                position={{ lat: job.lat, lng: job.lng }}
-                clickable={true}
-                onClick={() => setIsOpen(job.id)}
-                image={{
-                  src: '/public/images/PINGER_marker.png',
-                  size: { width: 30, height: 30 },
-                }}
-              />
+              <JobMarker key={job.id} job={job} onClick={setIsOpen} />
               {selectedCompany && selectedCompany.id === job.id && (
                 <CustomOverlayMap
                   yAnchor={1.1}
