@@ -76,12 +76,7 @@ const BasicMap = () => {
 
       {/* 지도 */}
       <div className="w-screen h-screen">
-        <Map
-          center={mapCenter}
-          className="h-full w-full"
-          level={4}
-          onCreate={setMap}
-        >
+        <Map center={mapCenter} className="h-full w-full" level={4} onCreate={setMap}>
 
           {/* 채용 정보 마커 */}
           {jobData.map((job) => (
