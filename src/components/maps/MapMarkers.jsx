@@ -1,3 +1,5 @@
+// 기본 마커 기능 관리 컴포넌트
+
 import { MapMarker } from 'react-kakao-maps-sdk';
 
 const JobMarker = ({ job, onClick }) => (
