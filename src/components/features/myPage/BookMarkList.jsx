@@ -1,4 +1,4 @@
-import { useBookMarksQuery } from '../../../hooks/useBookMarksQuery';
+import { useBookMarksQuery } from '../../../hooks/bookmarks/useBookMarksQuery';
 import JobItem from '../../common/JobItem';
 import LoadingPage from '../../common/LoadingPage';
 
