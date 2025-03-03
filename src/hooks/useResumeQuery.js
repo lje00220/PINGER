@@ -5,8 +5,10 @@ import {
   deleteResume,
   fetchResumes,
   createResume,
+  fetchConfirmedResumes,
 } from '../api/resumes';
 import { toast } from 'react-toastify';
+import useAuthStore from '../zustand/useAuthStore';
 
 const QUERY_KEY = {
   RESUME: 'resume',
@@ -26,6 +28,16 @@ export const useResumesListQuery = () => {
   return useQuery({
     queryKey: [QUERY_KEY.RESUMES],
     queryFn: fetchResumes,
+  });
+};
+
+//검토한 자소서 리스트
+export const useConfirmedResumesQuery = () => {
+  const userId = useAuthStore((state) => state.user.user_id);
+
+  return useQuery({
+    queryKey: [QUERY_KEY.RESUMES],
+    queryFn: () => fetchConfirmedResumes(userId),
   });
 };
 
