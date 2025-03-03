@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { iconSize } from '../../constants/iconSize';
+import { checkJobBookMarks } from '../../api/bookmarks';
 import { PATH } from '../../constants/routerPath';
 import { useCreateBookmarkMutation } from '../../hooks/bookmarks/useCreateBookmarkMutation';
 import { useDeleteBookmarkMutation } from '../../hooks/bookmarks/useDeleteBookmarkMutation';
 import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
 import useAuthStore from '../../zustand/useAuthStore';
-import { checkJobBookMarks } from '../../api/bookmarks';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -18,9 +17,9 @@ import { checkJobBookMarks } from '../../api/bookmarks';
 const JobItem = ({ job }) => {
   /** 추가해야되는 data */
   // 등록된 자소서 개수 가져오기
+  const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const userId = useAuthStore((state) => state.user.user_id);
 
-  const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [resumeCount, setResumeCount] = useState(0);
 
@@ -69,9 +68,9 @@ const JobItem = ({ job }) => {
           {/** 북마크 버튼 */}
           <button onClick={handleToggleBookMark}>
             {isBookmarked ? (
-              <IoBookmark size={iconSize.BASE} className="text-my-main" />
+              <IoBookmark size={ICON_SIZE.BASE} className="text-my-main" />
             ) : (
-              <IoBookmarkOutline size={iconSize.BASE} />
+              <IoBookmarkOutline size={ICON_SIZE.BASE} />
             )}
           </button>
           {/** 지원한 자소서 */}
