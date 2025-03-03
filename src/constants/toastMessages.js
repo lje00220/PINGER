@@ -39,6 +39,6 @@ export const UPDATE_SUCCESS_MESSAGES = {
 };
 
 export const BOOKMARK_MESSAGES = {
-  CREATE: '북마크에 추가하였습니다.',
+  CREATE: '북마크에 추가되었습니다.',
   DELETE: '북마크를 취소하였습니다.',
 };
