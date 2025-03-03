@@ -79,16 +79,10 @@ const JobComment = ({ comment }) => {
       {/* 조건부 렌더링 ('로그인 회원 정보 === 글쓴이 정보' 일 경우에만 보이게)*/}
       {user.user_id === comment.writer_id && (
         <div className="flex space-x-3">
-          <button
-            className="rounded-full bg-my-main px-6 py-2 transition-all duration-200 hover:bg-my-hover"
-            onClick={handleToggleEdit}
-          >
+          <button className="review-btn" onClick={handleToggleEdit}>
             {isEditing ? '저장' : '수정'}
           </button>
-          <button
-            className="rounded-full bg-my-main px-6 py-2 transition-all duration-200 hover:bg-my-hover"
-            onClick={handleDeleteComment}
-          >
+          <button className="review-btn" onClick={handleDeleteComment}>
             삭제
           </button>
         </div>
