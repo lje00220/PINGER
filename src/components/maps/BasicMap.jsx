@@ -6,6 +6,9 @@ import { useEffect } from 'react';
 import JobOverlay from './JobOverlay';
 import { InputBar } from '../common/Input';
 import { AUTH_INPUT_PLACEHOLDER } from '../../constants/inputPlaceholder';
+import useAuthStore from '../../zustand/useAuthStore';
+import { useState } from 'react';
+import { REGION_COORDINATES } from '../../constants/regionCoordinates';
 
 const BasicMap = () => {
   useKakaoLoader();
@@ -15,6 +18,8 @@ const BasicMap = () => {
     isOpen, keyword, filteredJobs, selectedCompany,
     setMap, setKeyword, setIsOpen, setSelectedCompany, setJobData
   } = useMapStore();
+  const { user, isAuthenticated } = useAuthStore();
+  const [mapCenter, setMapCenter] = useState({ lat: 37.5665, lng: 126.978 });
 
   // 데이터 설정
   useEffect(() => {
@@ -23,6 +28,17 @@ const BasicMap = () => {
     }
   }, [jobData, setJobData]);
 
+  // 유저의 선호 지역을 기반으로 지도 중심 변경
+  useEffect(() => {
+    if (!isAuthenticated || !user || !user.address) return;
+
+    if (isAuthenticated && user.address) {
+      const region = user.address.trim(); 
+      if (REGION_COORDINATES[region]) {
+        setMapCenter(REGION_COORDINATES[region]); 
+      }
+    }
+  }, [isAuthenticated, user, user?.address]);
 
   // **초기화 로직 (다른 페이지에 갔다 오면 초기화)**
   useEffect(() => {
@@ -70,9 +86,9 @@ const BasicMap = () => {
       {/* 지도 */}
       <div className="w-screen h-screen">
         <Map
-          center={{ lat: 37.5665, lng: 126.978 }}
+          center={mapCenter}
           className="h-full w-full"
-          level={2}
+          level={4}
           onCreate={setMap}
         >
 
