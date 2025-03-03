@@ -4,6 +4,8 @@ import {
   useDeleteMutation,
   useUpdateMutation,
 } from '../../../hooks/useReviewsQuery';
+import { toast } from 'react-toastify';
+import { validateReviewInput } from '../../../utils/validate';
 
 /**
  * 1개의 댓글을 생성하는 컴포넌트
@@ -26,6 +28,12 @@ const JobComment = ({ comment }) => {
   // 댓글이 수정 상태가 아닐 경우 버튼을 누르면 수정 가능 상태로 변합니다.
   const handleToggleEdit = () => {
     if (isEditing) {
+      // 유효성 검사(댓글을 2자 이상 50자 이하로 입력해야 함
+      const validateResult = validateReviewInput(editedReview);
+      if (validateResult) {
+        toast.error(validateResult);
+        return;
+      }
       const editReviewData = {
         id: comment.id,
         job_id: comment.job_id,
