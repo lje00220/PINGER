@@ -10,6 +10,7 @@ import useAuthStore from '../../zustand/useAuthStore';
 import { useState } from 'react';
 import { REGION_COORDINATES } from '../../constants/regionCoordinates';
 import JobMarker from './JobMarker';
+import SearchResults from './SearchResults';
 
 const BasicMap = () => {
   useKakaoLoader();
@@ -34,9 +35,9 @@ const BasicMap = () => {
     if (!isAuthenticated || !user || !user.address) return;
 
     if (isAuthenticated && user.address) {
-      const region = user.address.trim(); 
+      const region = user.address.trim();
       if (REGION_COORDINATES[region]) {
-        setMapCenter(REGION_COORDINATES[region]); 
+        setMapCenter(REGION_COORDINATES[region]);
       }
     }
   }, [isAuthenticated, user, user?.address]);
@@ -69,19 +70,7 @@ const BasicMap = () => {
         </div>
 
         {/* 검색 결과 목록 */}
-        {filteredJobs.length > 0 && (
-          <ul className="bg-white shadow-md rounded-lg max-h-[70vh] overflow-auto">
-            {filteredJobs.map((job) => (
-              <li
-                key={job.id}
-                className="p-2 border-b cursor-pointer hover:bg-my-main"
-                onClick={() => setSelectedCompany(job)}
-              >
-                <strong>{job.company_name}</strong>
-              </li>
-            ))}
-          </ul>
-        )}
+        {filteredJobs.length > 0 && <SearchResults filteredJobs={filteredJobs} setSelectedCompany={setSelectedCompany} />}
       </div>
 
       {/* 지도 */}
