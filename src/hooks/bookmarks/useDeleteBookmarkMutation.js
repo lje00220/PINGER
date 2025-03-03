@@ -7,6 +7,23 @@ export const useDeleteBookmarkMutation = () => {
 
   return useMutation({
     mutationFn: deleteBookMark,
-    onSuccess: queryClient.invalidateQueries([QUERY_KEY.BOOKMARKS]),
+    onMutate: async ({ userId, jobId }) => {
+      await queryClient.cancelQueries([QUERY_KEY.BOOKMARKS]);
+      const previousBookmarks = queryClient.getQueryData([QUERY_KEY.BOOKMARKS]);
+
+      queryClient.setQueryData([QUERY_KEY.BOOKMARKS], (prev = []) =>
+        prev.filter((bookmark) => bookmark.jobId !== jobId),
+      );
+      return { previousBookmarks };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(
+        [QUERY_KEY.BOOKMARKS],
+        context?.previousBookmarks,
+      );
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.BOOKMARKS] });
+    },
   });
 };

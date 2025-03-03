@@ -3,7 +3,7 @@ import JobItem from '../../common/JobItem';
 import LoadingPage from '../../common/LoadingPage';
 
 const BookMarkList = () => {
-  const { data: bookmarkList, isPending, isError } = useBookMarksQuery();
+  const { data: bookmarkList = [], isPending, isError } = useBookMarksQuery();
 
   /** UI */
   if (isPending) return <LoadingPage state="load" />;
@@ -16,7 +16,7 @@ const BookMarkList = () => {
         <span>채용 정보를 북마크해주세요!</span>
       ) : (
         bookmarkList.map((data) => {
-          return <JobItem key={data.id} job={data.jobs} />;
+          return <JobItem key={data.jobs.id} job={data.jobs} />;
         })
       )}
     </div>

@@ -35,14 +35,14 @@ const JobItem = ({ job }) => {
     checkBookmarkState();
   }, [userId, jobId]);
 
-  const { mutate: createBookmark } = useCreateBookmarkMutation();
-  const { mutate: deleteBookmark } = useDeleteBookmarkMutation();
+  const { mutateAsync: createBookmark } = useCreateBookmarkMutation();
+  const { mutateAsync: deleteBookmark } = useDeleteBookmarkMutation();
 
   const handleToggleBookMark = (e) => {
     e.preventDefault();
 
     if (isBookmarked === false) {
-      createBookmark({ jobId, userId });
+      createBookmark({ jobId, userId, jobs: job });
       setIsBookmarked(true);
       toast.success(BOOKMARK_MESSAGES.CREATE);
     } else {

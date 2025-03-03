@@ -7,6 +7,24 @@ export const useCreateBookmarkMutation = () => {
 
   return useMutation({
     mutationFn: createBookMark,
-    onSuccess: queryClient.invalidateQueries([QUERY_KEY.BOOKMARKS]),
+    onMutate: async (newBookmark) => {
+      await queryClient.cancelQueries([QUERY_KEY.BOOKMARKS]);
+      const previousBookmarks = queryClient.getQueryData([QUERY_KEY.BOOKMARKS]);
+
+      queryClient.setQueryData([QUERY_KEY.BOOKMARKS], (prev = []) => [
+        ...prev,
+        newBookmark,
+      ]);
+      return { previousBookmarks };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(
+        [QUERY_KEY.BOOKMARKS],
+        context?.previousBookmarks,
+      );
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.BOOKMARKS] });
+    },
   });
 };
