@@ -1,11 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ResumeForm from '../components/features/Resume/ResumeForm';
 import ResumeButtons from '../components/features/Resume/ResumeButtons';
 import useAuthStore from '../zustand/useAuthStore';
 import {
+  useConfirmedResume,
   useDeleteResume,
   useResumeDetailQuery,
   useUpdateResume,
@@ -24,8 +23,9 @@ const ResumeDetail = () => {
   const { user } = useAuthStore();
 
   const { data: resume, isLoading, isError } = useResumeDetailQuery(id);
-  const updateMutation = useUpdateResume(id);
-  const deleteMutaion = useDeleteResume();
+  const { mutate: updateMutate } = useUpdateResume(id);
+  const { mutateAsync: deleteMutateAsync } = useDeleteResume(id);
+  const { mutate: confirmMutate } = useConfirmedResume(id);
 
   //편집 모드 여부 (수정버튼 클릭시 수정할 수 있도록)
   const [isEditing, setIsEditing] = useState(false);
@@ -73,7 +73,7 @@ const ResumeDetail = () => {
       strength: formData.strength,
       experience: formData.experience,
     };
-    updateMutation.mutate(updatedData);
+    updateMutate(updatedData);
     setIsEditing(false);
   };
 
@@ -90,13 +90,17 @@ const ResumeDetail = () => {
 
   //삭제하기
   const handleDelete = async () => {
-    await deleteMutaion.mutateAsync(resume.id);
+    await deleteMutateAsync(resume.id);
     navigate(PATH.RESUME_LIST);
   };
 
-  //recruiter일 때 검토(아직 미완성)
-  const handleReview = () => {
-    toast.info('검토 기능을 호출합니다.');
+  //recruiter일 때 검토체크
+  const handleConfirm = () => {
+    const confirmStatus = resume.is_confirmed ? false : true;
+    confirmMutate({
+      is_confirmed: confirmStatus,
+      mentor_id: confirmStatus ? user.user_id : null,
+    });
   };
 
   // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
@@ -162,7 +166,8 @@ const ResumeDetail = () => {
               onDelete={handleDelete}
               onSave={handleSave}
               onCancel={handleCancel}
-              onReview={handleReview}
+              onConfirm={handleConfirm}
+              isConfirmed={resume.is_confirmed}
             />
           </div>
         </div>

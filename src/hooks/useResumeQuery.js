@@ -29,6 +29,18 @@ export const useResumesListQuery = () => {
   });
 };
 
+//자소서 검토
+export const useConfirmedResume = (id) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (confiredmData) => updateResume(id, confiredmData),
+    onSuccess: () => {
+      toast.success('검토를 완료했습니다.');
+      queryClient.invalidateQueries([QUERY_KEY.RESUME, id]);
+    },
+  });
+};
+
 // 자소서 업데이트
 export const useUpdateResume = (id) => {
   const queryClient = useQueryClient();
@@ -43,10 +55,10 @@ export const useUpdateResume = (id) => {
 };
 
 //자소서 삭제
-export const useDeleteResume = () => {
+export const useDeleteResume = (id) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id) => deleteResume(id),
+    mutationFn: () => deleteResume(id),
     onSuccess: () => {
       toast.success('삭제되었습니다.');
       queryClient.invalidateQueries([QUERY_KEY.RESUMES]);

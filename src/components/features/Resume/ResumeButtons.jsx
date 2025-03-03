@@ -11,7 +11,8 @@ const ResumeButtons = ({
   onDelete,
   onSave,
   onCancel,
-  onReview,
+  onConfirm,
+  isConfirmed,
 }) => {
   if (isOwner) {
     return isEditing ? (
@@ -36,8 +37,8 @@ const ResumeButtons = ({
   } else {
     // recruiter(멘토)일 경우
     return (
-      <Button onClick={onReview} mode={BUTTON_MODE.S}>
-        검토
+      <Button onClick={onConfirm} mode={BUTTON_MODE.S}>
+        {isConfirmed ? '검토 완료' : '검토'}
       </Button>
     );
   }

@@ -14,7 +14,7 @@ const ResumeCreate = () => {
 
   const navigate = useNavigate();
 
-  const createResumeMutation = useCreateResume();
+  const { mutateAsync: createMutateAsync } = useCreateResume();
 
   const [formData, setFormData] = useState({
     grow: '',
@@ -41,7 +41,7 @@ const ResumeCreate = () => {
       is_confirmed: false,
     };
 
-    await createResumeMutation.mutateAsync(newResume);
+    await createMutateAsync(newResume);
     navigate(PATH.RESUME_LIST);
   };
 
