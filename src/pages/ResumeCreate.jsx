@@ -33,6 +33,7 @@ const ResumeCreate = () => {
     const newResume = {
       job_id: jobId,
       writer_id: user.user_id,
+      mentor_id: null,
       grow: formData.grow,
       strength: formData.strength,
       vision: formData.vision,
