@@ -29,13 +29,7 @@ const ResumeDetail = () => {
 
   //편집 모드 여부 (수정버튼 클릭시 수정할 수 있도록)
   const [isEditing, setIsEditing] = useState(false);
-  //수정 내용 저장
-  const [formData, setFormData] = useState({
-    grow: '',
-    vision: '',
-    strength: '',
-    experience: '',
-  });
+  const [formData, setFormData] = useState({});
 
   // formdata 세팅
   useEffect(() => {
@@ -54,7 +48,7 @@ const ResumeDetail = () => {
     window.open(resume.jobs.url);
   };
 
-  // 변경 상태 저장
+  // 입력 변경 상태 저장
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -65,8 +59,8 @@ const ResumeDetail = () => {
     setIsEditing(true);
   };
 
-  //저장하기
-  const handleSave = () => {
+  //수정 후 저장하기
+  const handleUpdate = () => {
     const updatedData = {
       grow: formData.grow,
       vision: formData.vision,
@@ -88,13 +82,13 @@ const ResumeDetail = () => {
     });
   };
 
-  //삭제하기
+  //자소서 삭제하기
   const handleDelete = async () => {
     await deleteMutateAsync(resume.id);
     navigate(PATH.RESUME_LIST);
   };
 
-  //recruiter일 때 검토체크
+  //recruiter일 때 검토 체크
   const handleConfirm = () => {
     const confirmStatus = resume.is_confirmed ? false : true;
     confirmMutate({
@@ -167,7 +161,7 @@ const ResumeDetail = () => {
               isEditing={isEditing}
               onEdit={handleEdit}
               onDelete={handleDelete}
-              onSave={handleSave}
+              onSave={handleUpdate}
               onCancel={handleCancel}
               onConfirm={handleConfirm}
               isConfirmed={resume.is_confirmed}
