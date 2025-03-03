@@ -24,7 +24,7 @@ const Router = () => {
         <Route path={PATH.MY_PAGE} element={<MyPage />} />
         <Route path={PATH.RESUME_LIST} element={<ResumeListPage />} />
         <Route path={`${PATH.RESUME_DETAIL}/:id`} element={<ResumeDetail />} />
-        <Route path={PATH.RESUME_CREATE} element={<ResumeCreate />} />
+        <Route path={`${PATH.RESUME_CREATE}/:id`} element={<ResumeCreate />} />
       </Routes>
     </BrowserRouter>
   );

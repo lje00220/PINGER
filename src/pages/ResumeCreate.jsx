@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ResumeForm from '../components/features/Resume/ResumeForm';
 import useAuthStore from '../zustand/useAuthStore';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../components/common/Button';
 import { BUTTON_MODE } from '../constants/mode';
 import { useCreateResume } from '../hooks/useResumeQuery';
@@ -9,14 +9,12 @@ import { PATH } from '../constants/routerPath';
 import { ResumeContainer } from './ResumeListPage';
 
 const ResumeCreate = () => {
+  const { id: jobId } = useParams();
   const { user } = useAuthStore();
-  const [searchParams, setSearchParams] = useSearchParams();
+
   const navigate = useNavigate();
 
   const createResumeMutation = useCreateResume();
-
-  //기업아이디 가져오기
-  const jobId = searchParams.get('id');
 
   const [formData, setFormData] = useState({
     grow: '',
