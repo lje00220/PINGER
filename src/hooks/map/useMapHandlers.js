@@ -2,13 +2,25 @@ import { useMapStore } from '../../zustand/useMapStore';
 
 const useMapHandlers = () => {
   const {
-    isOpen, setIsOpen, keyword, setKeyword,
-    filteredJobs, setMap, selectedCompany, setSelectedCompany
+    isOpen,
+    setIsOpen,
+    keyword,
+    setKeyword,
+    filteredJobs,
+    setMap,
+    selectedCompany,
+    setSelectedCompany,
   } = useMapStore();
 
   return {
-    isOpen, setIsOpen, keyword, setKeyword,
-    filteredJobs, setMap, selectedCompany, setSelectedCompany
+    isOpen,
+    setIsOpen,
+    keyword,
+    setKeyword,
+    filteredJobs,
+    setMap,
+    selectedCompany,
+    setSelectedCompany,
   };
 };
 

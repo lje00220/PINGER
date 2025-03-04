@@ -22,10 +22,15 @@ const BasicMap = () => {
   if (isError) return <LoadingPage state="error" />;
 
   return (
-    <div className="relative w-screen h-[calc(100vh-80px)] overflow-hidden">
+    <div className="relative h-[calc(100vh-80px)] w-screen overflow-hidden">
       <SearchPanel />
-      <div className="w-screen h-screen">
-        <Map center={mapCenter} className="h-full w-full" level={4} onCreate={setMap}>
+      <div className="h-screen w-screen">
+        <Map
+          center={mapCenter}
+          className="h-full w-full"
+          level={4}
+          onCreate={setMap}
+        >
           <JobMarkers jobData={jobData} />
           <MapControls />
         </Map>

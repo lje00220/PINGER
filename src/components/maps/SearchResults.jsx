@@ -1,9 +1,9 @@
 const SearchResults = ({ filteredJobs, setSelectedCompany }) => (
-  <ul className="bg-white shadow-md rounded-lg max-h-[70vh] overflow-auto">
+  <ul className="max-h-[70vh] overflow-auto rounded-lg bg-white shadow-md">
     {filteredJobs.map((job) => (
       <li
         key={job.id}
-        className="p-2 border-b cursor-pointer hover:bg-my-main"
+        className="cursor-pointer border-b p-2 hover:bg-my-main"
         onClick={() => setSelectedCompany(job)}
       >
         <strong>{job.company_name}</strong>

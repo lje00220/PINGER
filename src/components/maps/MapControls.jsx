@@ -4,8 +4,8 @@ import { MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 
 const MapControls = () => (
   <>
-    <MapTypeControl position={"TOPRIGHT"} />
-    <ZoomControl position={"RIGHT"} />
+    <MapTypeControl position={'TOPRIGHT'} />
+    <ZoomControl position={'RIGHT'} />
   </>
 );
 

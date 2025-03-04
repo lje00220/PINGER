@@ -1,6 +1,6 @@
 // 액션 관리
 
-import { filterJobsByKeyword } from "./mapUtils";
+import { filterJobsByKeyword } from './mapUtils';
 
 export const createMapActions = (set, get) => ({
   // 지도 객체 설정
@@ -30,5 +30,4 @@ export const createMapActions = (set, get) => ({
 
   // 채용 데이터 설정
   setJobData: (data) => set({ jobData: data }),
-  
 });

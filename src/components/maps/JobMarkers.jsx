@@ -6,7 +6,13 @@ import JobOverlay from './JobOverlay';
 import { useMapStore } from '../../zustand/useMapStore';
 
 const JobMarkers = ({ jobData }) => {
-  const { isOpen, setIsOpen, selectedCompany, setSelectedCompany, filteredJobs } = useMapStore();
+  const {
+    isOpen,
+    setIsOpen,
+    selectedCompany,
+    setSelectedCompany,
+    filteredJobs,
+  } = useMapStore();
 
   return (
     <>
@@ -38,10 +44,13 @@ const JobMarkers = ({ jobData }) => {
               position={{ lat: job.lat, lng: job.lng }}
               clickable={true}
             >
-              <JobOverlay job={job} onClose={() => {
-                setIsOpen(null);
-                setSelectedCompany(null);
-              }} />
+              <JobOverlay
+                job={job}
+                onClose={() => {
+                  setIsOpen(null);
+                  setSelectedCompany(null);
+                }}
+              />
             </CustomOverlayMap>
           )}
         </div>

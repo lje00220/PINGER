@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { useMapStore } from '../../zustand/useMapStore';
 
 const useMapEffects = (jobData) => {
-  const { setJobData, setKeyword, setSelectedCompany, setIsOpen } = useMapStore();
+  const { setJobData, setKeyword, setSelectedCompany, setIsOpen } =
+    useMapStore();
 
   // 채용 정보 데이터 설정
   useEffect(() => {
@@ -13,7 +14,7 @@ const useMapEffects = (jobData) => {
 
   // 초기화 로직 (페이지 이동 시 초기화)
   useEffect(() => {
-    setKeyword("");
+    setKeyword('');
     setSelectedCompany(null);
     setIsOpen(null);
   }, []);
