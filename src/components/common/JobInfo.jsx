@@ -1,4 +1,4 @@
-import separateDate from '../../utils/separateDate';
+import separateDate from '../../utils/SeparateDate';
 
 /**
  * 채용공고 정보를 출력하는 컴포넌트
