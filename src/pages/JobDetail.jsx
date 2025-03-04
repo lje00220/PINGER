@@ -43,8 +43,6 @@ const JobDetail = () => {
   const handleMoveToResume = () => {
     if (role === 'seeker') {
       navigate(`${PATH.RESUME_CREATE}/${targetJob.id}`);
-    } else {
-      navigate(`${PATH.RESUME_DETAIL}/${id}`);
     }
   };
 

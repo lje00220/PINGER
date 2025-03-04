@@ -1,4 +1,3 @@
-import IntroModal from '../components/common/IntroModal';
 import JobItem from '../components/common/JobItem';
 import LoadingPage from '../components/common/LoadingPage';
 import { useInfiniteJobsQuery } from '../hooks/useJobsQuery';
@@ -30,7 +29,6 @@ const JobListPage = () => {
 
   return (
     <div className="h-max bg-my-bg p-8">
-      <IntroModal />
       <div className="flex flex-col items-center gap-5">
         {jobData.map((data) => {
           return <JobItem job={data} key={data.id} width={600} />;

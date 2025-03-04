@@ -1,6 +1,11 @@
 import Modal from 'react-modal';
 import useModalStore from '../../zustand/useModalStore';
 
+/**
+ * 인트로 모달창 컴포넌트
+ *
+ * @returns {JSX.Element}
+ */
 const IntroModal = () => {
   const isModalOpen = useModalStore((state) => state.isModalOpen);
   const setModalClose = useModalStore((state) => state.setModalClose);
@@ -8,7 +13,7 @@ const IntroModal = () => {
     <>
       {isModalOpen && (
         <Modal
-          className="absolute left-1/2 top-1/2 z-[99999] flex h-2/3 w-2/3 -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center gap-12 rounded-3xl bg-white shadow-lg"
+          className="fixed left-1/2 top-1/2 z-50 flex h-2/3 w-2/3 -translate-x-1/2 -translate-y-1/2 transform flex-col items-center justify-center gap-12 rounded-3xl bg-white shadow-lg"
           isOpen={isModalOpen}
           ariaHideApp={false}
           contentLabel="Pop up Message"

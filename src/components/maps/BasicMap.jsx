@@ -19,7 +19,7 @@ const BasicMap = () => {
   if (isLoading) return <LoadingPage state="load" />;
   if (isError) return <LoadingPage state="error" />;
   return (
-    <div className="relative h-[calc(100vh-80px)] w-screen overflow-hidden">
+    <div className="relative z-[0] h-[calc(100vh-80px)] w-screen overflow-hidden">
       <IntroModal />
       <SearchPanel />
       <div className="h-screen w-screen">
