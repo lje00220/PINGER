@@ -1,10 +1,10 @@
-import MapContainer from '../components/MapContainer';
+import BasicMap from '../components/maps/BasicMap';
 
 const Home = () => {
   return (
-    <div>
-      <MapContainer />
-    </div>
+    <>
+      <BasicMap />
+    </>
   );
 };
 

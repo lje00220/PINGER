@@ -1,5 +1,5 @@
 import { AUTH_INPUT_PLACEHOLDER } from '../../constants/inputPlaceholder';
-import { AUTH_MODE, BUTTON_MODE } from '../../constants/mode';
+import { AUTH_MODE, BUTTON_MODE, ROLE_MODE } from '../../constants/mode';
 import { Button } from '../common/Button';
 import { InputBar, InputRadio } from '../common/Input';
 import { Link } from 'react-router-dom';
@@ -177,18 +177,18 @@ const AuthForm = ({
                   <label className="min-w-[60px]">
                     <InputRadio
                       name="role"
-                      value="seeker"
+                      value={ROLE_MODE.SEEKER}
                       onChange={handleChange}
-                      checked={role === 'seeker'}
+                      checked={role === ROLE_MODE.SEEKER}
                     />
                     구직자
                   </label>
                   <label className="min-w-[60px]">
                     <InputRadio
                       name="role"
-                      value="recruiter"
+                      value={ROLE_MODE.R}
                       onChange={handleChange}
-                      checked={role === 'recruiter'}
+                      checked={role === ROLE_MODE.RECRUITER}
                     />
                     멘토
                   </label>

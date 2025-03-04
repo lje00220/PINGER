@@ -1,4 +1,3 @@
-import { QUERY_KEY } from '../constants/queryKeys';
 import supabase from '../supabase/client';
 
 /** 해당 table의 데이터를 join해서 가져오는 로직
@@ -25,10 +24,28 @@ export const fetchData = async (table1, table2, ascending = true) => {
 
 export const fetchJobsData = async (table1) => {
   try {
-    const { data } = await supabase.from(table1).select('*');
+    const { data } = await supabase
+      .from(table1)
+      .select('*, resumes(*), bookmarks(*)');
 
-    return data;
+    return data || [];
   } catch (error) {
     console.error('fetching error', error);
   }
+};
+
+const PAGE_SIZE = 10;
+
+export const fetchJobsInfinite = async ({ startPageParam = 0 }) => {
+  const limit = PAGE_SIZE;
+  const endPageParam = startPageParam + limit - 1;
+  const { data, error } = await supabase
+    .from('jobs')
+    .select('*, resumes(*), bookmarks(*)')
+    .range(startPageParam, endPageParam);
+
+  if (error) throw error;
+
+  const nextPage = data.length === limit ? startPageParam + limit : undefined;
+  return { data, nextPage };
 };

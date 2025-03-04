@@ -8,3 +8,8 @@ export const BUTTON_MODE = {
   M: 'M',
   L: 'L',
 };
+
+export const ROLE_MODE = {
+  SEEKER: 'seeker',
+  RECRUITER: 'recruiter',
+};

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import supabase from '../../supabase/client';
 import useAuthStore from '../../zustand/useAuthStore';
 import { PATH } from '../../constants/routerPath';
+import { ROLE_MODE } from '../../constants/mode';
 
 const Nav = () => {
   //-----zustand-----
@@ -36,7 +37,7 @@ const Nav = () => {
   return (
     <nav className="mr-3 flex flex-row items-center gap-3">
       {!!user &&
-        (user?.role === 'seeker' ? (
+        (user?.role === ROLE_MODE.SEEKER ? (
           <div className={ROLE}>구직자</div>
         ) : (
           <div className={ROLE}>멘토</div>

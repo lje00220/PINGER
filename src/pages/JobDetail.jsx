@@ -3,9 +3,10 @@ import StaticKakaoMap from '../components/maps/StaticKakaoMap';
 import { useNavigate, useParams } from 'react-router-dom';
 import JobInfo from '../components/common/JobInfo';
 import { PATH } from '../constants/routerPath';
-import { useJobsQuery } from '../hooks/useJobsQuerys';
+import { useJobsQuery } from '../hooks/useJobsQuery';
 import useAuthStore from '../zustand/useAuthStore';
 import LoadingPage from '../components/common/LoadingPage';
+import { ROLE_MODE } from '../constants/mode';
 
 /**
  * 채용 정보 디테일 페이지
@@ -26,6 +27,7 @@ const JobDetail = () => {
 
   // 현재 페이지의 id와 jobs 테이블에 있는 id를 비교해 일치하는 것을 가져옴
   const targetJob = jobData.find((job) => job.id === Number(id));
+  console.log(targetJob);
 
   // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
   const targetPlace = {
@@ -40,12 +42,7 @@ const JobDetail = () => {
 
   // 만약 구직자일 경우 자기소개서 작성 페이지로, 채용담당자일 경우 자기소개서 디테일 페이지로 이동
   const handleMoveToResume = () => {
-    // seeker를 상수로 관리해도 좋을 듯 합니다
-    if (role === 'seeker') {
-      navigate(PATH.RESUME_CREATE + '?id=' + targetJob.id);
-    } else {
-      navigate(`${PATH.RESUME_DETAIL}/${id}`);
-    }
+    navigate(`${PATH.RESUME_CREATE}/${targetJob.id}`);
   };
 
   return (
@@ -63,21 +60,22 @@ const JobDetail = () => {
             <JobInfo targetJob={targetJob} />
             <button
               onClick={handleOpenJobSite}
-              className="ml-2 mt-8 w-fit rounded-full bg-my-main px-5 py-2"
+              className="ml-2 mt-8 w-fit rounded-full bg-my-main px-5 py-2 transition-all duration-200 hover:bg-my-hover"
             >
               채용 사이트
             </button>
           </div>
         </div>
-        <div>
+
+        {role === ROLE_MODE.SEEKER && (
           <button
-            className="mb-6 mt-14 w-fit rounded-full bg-my-main px-16 py-2"
+            className="mb-6 mt-14 w-fit rounded-full bg-my-main px-16 py-2 transition-all duration-200 hover:bg-my-hover"
             onClick={handleMoveToResume}
           >
-            {role === 'seeker' ? '지원하기' : '지원 자소서 보러가기'}
+            지원하기
           </button>
-        </div>
-        <hr className="mx-auto w-full rounded-full border-2 border-black" />
+        )}
+        <hr className="mx-auto mt-5 w-full rounded-full border-2 border-black" />
         <JobCommentTable jobId={Number(id)} />
       </div>
     </div>

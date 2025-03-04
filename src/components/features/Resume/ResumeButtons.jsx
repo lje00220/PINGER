@@ -11,7 +11,8 @@ const ResumeButtons = ({
   onDelete,
   onSave,
   onCancel,
-  onReview,
+  onConfirm,
+  isConfirmed,
 }) => {
   if (isOwner) {
     return isEditing ? (
@@ -25,9 +26,11 @@ const ResumeButtons = ({
       </div>
     ) : (
       <div className="flex gap-4">
-        <Button onClick={onEdit} mode={BUTTON_MODE.S}>
-          수정
-        </Button>
+        {!isConfirmed && (
+          <Button onClick={onEdit} mode={BUTTON_MODE.S}>
+            수정
+          </Button>
+        )}
         <Button onClick={onDelete} mode={BUTTON_MODE.S}>
           삭제
         </Button>
@@ -36,8 +39,8 @@ const ResumeButtons = ({
   } else {
     // recruiter(멘토)일 경우
     return (
-      <Button onClick={onReview} mode={BUTTON_MODE.S}>
-        검토
+      <Button onClick={onConfirm} mode={BUTTON_MODE.S}>
+        {isConfirmed ? '검토 취소' : '검토'}
       </Button>
     );
   }

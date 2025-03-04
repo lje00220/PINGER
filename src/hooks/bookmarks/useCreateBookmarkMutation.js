@@ -1,19 +1,20 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { deleteBookMark } from '../../api/bookmarks';
+import { createBookMark } from '../../api/bookmarks';
 import { QUERY_KEY } from '../../constants/queryKeys';
 
-export const useDeleteBookmarkMutation = () => {
+export const useCreateBookmarkMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteBookMark,
-    onMutate: async ({ userId, jobId }) => {
+    mutationFn: createBookMark,
+    onMutate: async (newBookmark) => {
       await queryClient.cancelQueries([QUERY_KEY.BOOKMARKS]);
       const previousBookmarks = queryClient.getQueryData([QUERY_KEY.BOOKMARKS]);
 
-      queryClient.setQueryData([QUERY_KEY.BOOKMARKS], (prev = []) =>
-        prev.filter((bookmark) => bookmark.jobId !== jobId),
-      );
+      queryClient.setQueryData([QUERY_KEY.BOOKMARKS], (prev = []) => [
+        ...prev,
+        newBookmark,
+      ]);
       return { previousBookmarks };
     },
     onError: (_, __, context) => {
@@ -24,7 +25,6 @@ export const useDeleteBookmarkMutation = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.BOOKMARKS] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.JOBS] });
     },
   });
 };
