@@ -68,7 +68,10 @@ const Router = () => {
             path={`${PATH.RESUME_DETAIL}/:id`}
             element={<ResumeDetail />}
           />
-          <Route path={PATH.RESUME_CREATE} element={<ResumeCreate />} />
+          <Route
+            path={`${PATH.RESUME_CREATE}/:id`}
+            element={<ResumeCreate />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
