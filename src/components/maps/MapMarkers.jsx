@@ -9,7 +9,7 @@ const JobMarker = ({ job, onClick }) => (
     clickable={true}
     onClick={() => onClick(job.id)}
     image={{
-      src: '/public/images/PINGER_marker.png',
+      src: '/images/PINGER_marker.png',
       size: { width: 30, height: 30 },
     }}
   />
