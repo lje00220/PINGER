@@ -8,6 +8,7 @@ import MapControls from './MapControls';
 import SearchPanel from './SearchPanel';
 import JobMarkers from './JobMarkers';
 import useMapHandlers from '../../hooks/map/useMapHandlers';
+import IntroModal from '../common/IntroModal';
 
 const BasicMap = () => {
   useKakaoLoader();
@@ -23,6 +24,7 @@ const BasicMap = () => {
 
   return (
     <div className="relative h-[calc(100vh-80px)] w-screen overflow-hidden">
+      <IntroModal />
       <SearchPanel />
       <div className="h-screen w-screen">
         <Map
