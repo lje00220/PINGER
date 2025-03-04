@@ -12,16 +12,12 @@ import IntroModal from '../common/IntroModal';
 
 const BasicMap = () => {
   useKakaoLoader();
-
   const { data: jobData, isLoading, isError } = useJobsQuery();
   const { mapCenter } = useMapCenter();
   const { setMap } = useMapHandlers();
-
   useMapEffects(jobData);
-
   if (isLoading) return <LoadingPage state="load" />;
   if (isError) return <LoadingPage state="error" />;
-
   return (
     <div className="relative h-[calc(100vh-80px)] w-screen overflow-hidden">
       <IntroModal />
@@ -40,5 +36,4 @@ const BasicMap = () => {
     </div>
   );
 };
-
 export default BasicMap;
