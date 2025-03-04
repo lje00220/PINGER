@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ICON_SIZE } from '../../constants/iconSize';
+import { ROLE_MODE } from '../../constants/mode';
 import { PATH } from '../../constants/routerPath';
 import { BOOKMARK_MESSAGES } from '../../constants/toastMessages';
 import { useCreateBookmarkMutation } from '../../hooks/bookmarks/useCreateBookmarkMutation';
@@ -10,7 +10,6 @@ import { useDeleteBookmarkMutation } from '../../hooks/bookmarks/useDeleteBookma
 import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
 import useAuthStore from '../../zustand/useAuthStore';
-import { ROLE_MODE } from '../../constants/mode';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -22,8 +21,8 @@ const JobItem = ({ job }) => {
   const { user_id: userId, role } = useAuthStore((state) => state.user);
 
   const isSeeker = role === ROLE_MODE.SEEKER;
-  const [isBookmarked, setIsBookmarked] = useState(
-    job.bookmarks.some((bookmark) => bookmark.user_id === userId),
+  const isBookmarked = job.bookmarks.some(
+    (bookmark) => bookmark.user_id === userId,
   );
 
   const { mutateAsync: createBookmark } = useCreateBookmarkMutation();
@@ -34,11 +33,9 @@ const JobItem = ({ job }) => {
 
     if (isBookmarked === false) {
       createBookmark({ jobId, userId, jobs: job });
-      setIsBookmarked(true);
       toast.success(BOOKMARK_MESSAGES.CREATE);
     } else {
       deleteBookmark({ jobId, userId });
-      setIsBookmarked(false);
       toast.success(BOOKMARK_MESSAGES.DELETE);
     }
   };

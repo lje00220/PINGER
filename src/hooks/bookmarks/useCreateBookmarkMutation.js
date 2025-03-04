@@ -15,6 +15,7 @@ export const useCreateBookmarkMutation = () => {
         ...prev,
         newBookmark,
       ]);
+
       return { previousBookmarks };
     },
     onError: (_, __, context) => {
@@ -25,6 +26,7 @@ export const useCreateBookmarkMutation = () => {
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.BOOKMARKS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.JOBS] });
     },
   });
 };
