@@ -2,26 +2,6 @@ import { QUERY_KEY } from '../constants/queryKeys';
 import supabase from '../supabase/client';
 
 /**
- * 해당 사용자가 저장한 북마크 데이터 조회
- * @param {string} userId - 로그인한 사용자 아이디
- * @returns bookMarkData
- */
-export const fetchUserBookMarks = async (userId) => {
-  try {
-    const { data: bookMarkList } = await supabase
-      .from(QUERY_KEY.BOOKMARKS)
-      .select(
-        `*, ${QUERY_KEY.JOBS}:job_id(id, company_name, recruit_title, start_date, end_date), resumes:job_id(*)`,
-      )
-      .eq('user_id', userId);
-
-    return bookMarkList || [];
-  } catch (error) {
-    console.error('북마크 조회 오류', error);
-  }
-};
-
-/**
  * 북마크 추가 함수
  * @param {*} newBookMark
  */
