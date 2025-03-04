@@ -88,6 +88,9 @@ const ResumeDetail = () => {
     navigate(PATH.RESUME_LIST);
   };
 
+  // 본인이 작성한 자소서인지 확인
+  const isOwner = user.user_id === resume?.writer_id;
+
   //recruiter일 때 검토 체크
   const handleConfirm = () => {
     if (resume.is_confirmed) {
@@ -97,6 +100,7 @@ const ResumeDetail = () => {
       }
       confirmMutate({
         is_confirmed: false,
+        mentor_id: null,
       });
     } else {
       confirmMutate({
@@ -105,9 +109,6 @@ const ResumeDetail = () => {
       });
     }
   };
-
-  // 본인이 작성한 자소서인지 확인
-  const isOwner = user.user_id === resume?.writer_id;
 
   if (isLoading) return <LoadingPage state="load" />;
   if (isError) return <LoadingPage state="error" />;

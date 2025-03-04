@@ -48,7 +48,9 @@ export const useConfirmedResume = (id) => {
     mutationFn: (confiredmData) => updateResume(id, confiredmData),
     onSuccess: (_, variables) => {
       toast.success(
-        variables.is_confirmed ? '검토 했습니다.' : '검토를 취소했습니다.',
+        variables.is_confirmed
+          ? '검토가 완료되었습니다 쿠쿸'
+          : '검토를 취소했습니다.',
       );
 
       queryClient.invalidateQueries([QUERY_KEY.RESUME, id]);
