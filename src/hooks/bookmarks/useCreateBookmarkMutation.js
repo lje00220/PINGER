@@ -27,6 +27,7 @@ export const useCreateBookmarkMutation = () => {
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.BOOKMARKS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.JOBS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.JOBSINFINITE] });
     },
   });
 };
