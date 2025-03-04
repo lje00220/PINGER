@@ -11,6 +11,9 @@ export const validateSignUpForm = (name, value, password) => {
       if (value.length < 6 || value.length > 12) {
         return AUTH_ERROR_MESSAGES.PASSWORD.BLANK;
       }
+      if (value.includes(' ')) {
+        return AUTH_ERROR_MESSAGES.PASSWORD.SPACE;
+      }
       break;
     case 'checkpassword':
       if (value !== password) {
@@ -38,5 +41,11 @@ export const validateLoginForm = (name, value) => {
       if (value.length < 6 || value.length > 10) {
         return AUTH_ERROR_MESSAGES.PASSWORD.BLANK;
       }
+      if (value.includes(' ')) {
+        return AUTH_ERROR_MESSAGES.PASSWORD.SPACE;
+      }
+      break;
+    default:
+      break;
   }
 };
