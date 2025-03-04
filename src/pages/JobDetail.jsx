@@ -41,9 +41,7 @@ const JobDetail = () => {
 
   // 만약 구직자일 경우 자기소개서 작성 페이지로, 채용담당자일 경우 자기소개서 디테일 페이지로 이동
   const handleMoveToResume = () => {
-    if (role === 'seeker') {
-      navigate(`${PATH.RESUME_CREATE}/${targetJob.id}`);
-    }
+    navigate(`${PATH.RESUME_CREATE}/${targetJob.id}`);
   };
 
   return (
@@ -67,15 +65,16 @@ const JobDetail = () => {
             </button>
           </div>
         </div>
-        <div>
+
+        {role === 'seeker' && (
           <button
             className="mb-6 mt-14 w-fit rounded-full bg-my-main px-16 py-2 transition-all duration-200 hover:bg-my-hover"
             onClick={handleMoveToResume}
           >
-            {role === 'seeker' ? '지원하기' : '지원 자소서 보러가기'}
+            지원하기
           </button>
-        </div>
-        <hr className="mx-auto w-full rounded-full border-2 border-black" />
+        )}
+        <hr className="mx-auto mt-5 w-full rounded-full border-2 border-black" />
         <JobCommentTable jobId={Number(id)} />
       </div>
     </div>

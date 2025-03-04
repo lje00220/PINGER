@@ -1,11 +1,15 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-const useModalStore = create((set) => ({
-  isModalOpen: true,
+const useModalStore = create(
+  persist((set) => ({
+    isModalOpen: true,
 
-  setModalClose: () => {
-    set({ isModalOpen: false });
-  },
-}));
+    setModalClose: () => {
+      set({ isModalOpen: false });
+    },
+  })),
+  { name: 'modal' },
+);
 
 export default useModalStore;
