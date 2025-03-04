@@ -47,6 +47,13 @@ const Login = () => {
       const { data, error } =
         await supabase.auth.signInWithPassword(currentUser);
 
+      if (error) {
+        if (error.message === 'Invalid login credentials') {
+          toast.error(AUTH_ERROR_MESSAGES.LOGIN.FAIL);
+          return;
+        }
+      }
+
       if (data) {
         //유저 알람
         toast.success(AUTH_SUCCESS_MESSAGES.LOGIN);
@@ -54,13 +61,6 @@ const Login = () => {
         navigate(PATH.HOME);
         //폼 리셋
         resetForm();
-      }
-
-      if (error) {
-        if (error.message === 'Invalid login credentials') {
-          toast.error(AUTH_ERROR_MESSAGES.LOGIN.FAIL);
-          return;
-        }
       }
     } catch (error) {
       toast.error(AUTH_ERROR_MESSAGES.ERROR);
