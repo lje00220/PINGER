@@ -1,4 +1,3 @@
-import { QUERY_KEY } from '../constants/queryKeys';
 import supabase from '../supabase/client';
 
 /** 해당 table의 데이터를 join해서 가져오는 로직
@@ -29,7 +28,7 @@ export const fetchJobsData = async (table1) => {
       .from(table1)
       .select('*, resumes(*), bookmarks(*)');
 
-    return data;
+    return data || [];
   } catch (error) {
     console.error('fetching error', error);
   }
