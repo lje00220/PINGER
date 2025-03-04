@@ -22,6 +22,7 @@ const JobItem = ({ job }) => {
 
   const { user_id: userId, role } = useAuthStore((state) => state.user);
   const isSeeker = role === 'seeker';
+
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   /** 해당 채용 정보를 북마크했는지 확인하는 로직 */

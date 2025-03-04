@@ -3,9 +3,9 @@ import { PATH } from '../constants/routerPath';
 import useAuthStore from '../zustand/useAuthStore';
 import { useResumesListQuery } from '../hooks/useResumeQuery';
 import ResumeItem from '../components/common/ResumeItem';
-import { BUTTON_MODE } from '../constants/mode';
-import { Button } from '../components/common/Button';
+
 import LoadingPage from '../components/common/LoadingPage';
+import { ROLE_MODE } from '../constants/mode';
 
 const ResumeListPage = () => {
   const { user } = useAuthStore();
@@ -18,7 +18,7 @@ const ResumeListPage = () => {
 
   // 구직자일 경우 내가 작성한 자소서목록/ 멘토일 경우 모든 자소서 리스트 출력
   const filteredResumes =
-    user.role === 'seeker'
+    user.role === ROLE_MODE.SEEKER
       ? resumes.filter((resume) => resume.writer_id === user.user_id)
       : resumes;
 
@@ -31,7 +31,7 @@ const ResumeListPage = () => {
     <div className={ResumeContainer}>
       <div className="flex flex-col items-center">
         <h1 className="mb-8 text-2xl font-bold">
-          {user.role === 'seeker' ? '나의' : '전체'}
+          {user.role === ROLE_MODE.SEEKER ? '나의' : '전체'}
           <span className="text-my-main"> 자소서 목록</span>
         </h1>
 
@@ -46,11 +46,6 @@ const ResumeListPage = () => {
         ) : (
           <div>자소서가 없습니다.</div>
         )}
-
-        {/*추 후 무한스크롤 구현 */}
-        <div className="mt-20">
-          <Button mode={BUTTON_MODE.S}>더보기</Button>
-        </div>
       </div>
     </div>
   );
