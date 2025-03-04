@@ -6,6 +6,7 @@ import { PATH } from '../constants/routerPath';
 import { useJobsQuery } from '../hooks/useJobsQuery';
 import useAuthStore from '../zustand/useAuthStore';
 import LoadingPage from '../components/common/LoadingPage';
+import { ROLE_MODE } from '../constants/mode';
 
 /**
  * 채용 정보 디테일 페이지
@@ -66,7 +67,7 @@ const JobDetail = () => {
           </div>
         </div>
 
-        {role === 'seeker' && (
+        {role === ROLE_MODE.SEEKER && (
           <button
             className="mb-6 mt-14 w-fit rounded-full bg-my-main px-16 py-2 transition-all duration-200 hover:bg-my-hover"
             onClick={handleMoveToResume}
