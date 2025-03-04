@@ -14,6 +14,7 @@ import { PATH } from '../constants/routerPath';
 import LoadingPage from '../components/common/LoadingPage';
 import { ResumeContainer } from './ResumeListPage';
 import JobHeader from '../components/common/JobHeader';
+import { toast } from 'react-toastify';
 
 const ResumeDetail = () => {
   const { id } = useParams();
@@ -89,11 +90,20 @@ const ResumeDetail = () => {
 
   //recruiter일 때 검토 체크
   const handleConfirm = () => {
-    const confirmStatus = resume.is_confirmed ? false : true;
-    confirmMutate({
-      is_confirmed: confirmStatus,
-      mentor_id: user.user_id,
-    });
+    if (resume.is_confirmed) {
+      if (resume.mentor_id !== user.user_id) {
+        toast.error('본인이 검토한 자소서만 취소 가능합니다');
+        return;
+      }
+      confirmMutate({
+        is_confirmed: false,
+      });
+    } else {
+      confirmMutate({
+        is_confirmed: true,
+        mentor_id: user.user_id,
+      });
+    }
   };
 
   // 본인이 작성한 자소서인지 확인

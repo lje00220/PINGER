@@ -46,8 +46,11 @@ export const useConfirmedResume = (id) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (confiredmData) => updateResume(id, confiredmData),
-    onSuccess: () => {
-      toast.success('검토를 완료했습니다.');
+    onSuccess: (_, variables) => {
+      toast.success(
+        variables.is_confirmed ? '검토 했습니다.' : '검토를 취소했습니다.',
+      );
+
       queryClient.invalidateQueries([QUERY_KEY.RESUME, id]);
       queryClient.invalidateQueries([QUERY_KEY.RESUMES]);
     },
