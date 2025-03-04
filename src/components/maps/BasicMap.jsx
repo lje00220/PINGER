@@ -8,19 +8,14 @@ import MapControls from './MapControls';
 import SearchPanel from './SearchPanel';
 import JobMarkers from './JobMarkers';
 import useMapHandlers from '../../hooks/map/useMapHandlers';
-
 const BasicMap = () => {
   useKakaoLoader();
-
   const { data: jobData, isLoading, isError } = useJobsQuery();
   const { mapCenter } = useMapCenter();
   const { setMap } = useMapHandlers();
-
   useMapEffects(jobData);
-
   if (isLoading) return <LoadingPage state="load" />;
   if (isError) return <LoadingPage state="error" />;
-
   return (
     <div className="relative h-[calc(100vh-80px)] w-screen overflow-hidden">
       <SearchPanel />
@@ -38,5 +33,4 @@ const BasicMap = () => {
     </div>
   );
 };
-
 export default BasicMap;

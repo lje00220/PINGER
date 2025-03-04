@@ -1,23 +1,25 @@
+import { RESUME_INPUT_PLACEHOLDER } from '../../../constants/inputPlaceholder';
+
 const fields = [
   {
     name: 'grow',
     label: '성장 과정',
-    placeholder: '나의 성장 과정에 대해 입력하세요.',
+    placeholder: RESUME_INPUT_PLACEHOLDER.GROW,
   },
   {
     name: 'vision',
     label: '입사 후 포부',
-    placeholder: '입사 후 포부에 대해  입력하세요.',
+    placeholder: RESUME_INPUT_PLACEHOLDER.VISION,
   },
   {
     name: 'strength',
     label: '성격 및 장단점',
-    placeholder: '성격 및 장단점에 대해 입력하세요.',
+    placeholder: RESUME_INPUT_PLACEHOLDER.STRENGTH,
   },
   {
     name: 'experience',
     label: '경력사항 및 사회경험',
-    placeholder: '경력사항 및 사회경험에 대해 입력하세요.',
+    placeholder: RESUME_INPUT_PLACEHOLDER.EXPERIENCE,
   },
 ];
 
