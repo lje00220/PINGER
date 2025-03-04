@@ -9,7 +9,9 @@ const useAuthListener = () => {
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
+        //이메일로 로그인
         const { user } = session;
+
         setUserData({
           user_id: user.id,
           email: user.email,
@@ -22,7 +24,7 @@ const useAuthListener = () => {
       }
     });
 
-    return () => data?.subscription?.unsubscribe();
+    return () => data?.subscription.unsubscribe();
   }, []);
 };
 
