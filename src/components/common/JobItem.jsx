@@ -10,6 +10,7 @@ import { useDeleteBookmarkMutation } from '../../hooks/bookmarks/useDeleteBookma
 import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
 import useAuthStore from '../../zustand/useAuthStore';
+import { ROLE_MODE } from '../../constants/mode';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -20,7 +21,7 @@ const JobItem = ({ job }) => {
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
   const { user_id: userId, role } = useAuthStore((state) => state.user);
 
-  const isSeeker = role === 'seeker';
+  const isSeeker = role === ROLE_MODE.SEEKER;
   const [isBookmarked, setIsBookmarked] = useState(
     job.bookmarks.some((bookmark) => bookmark.user_id === userId),
   );
