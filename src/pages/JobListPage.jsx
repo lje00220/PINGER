@@ -1,6 +1,6 @@
 import JobItem from '../components/common/JobItem';
 import LoadingPage from '../components/common/LoadingPage';
-import { useInfiniteJobsQuery, useJobsQuery } from '../hooks/useJobsQuery';
+import { useInfiniteJobsQuery } from '../hooks/useJobsQuery';
 import { Button } from '../components/common/Button';
 import { BUTTON_MODE } from '../constants/mode';
 
@@ -12,7 +12,6 @@ import { BUTTON_MODE } from '../constants/mode';
  */
 
 const JobListPage = () => {
-  // const { data: jobData, isPending, isError } = useJobsQuery();
   const {
     data,
     isPending,
