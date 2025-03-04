@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.S {
+  @apply h-[30px] w-24 rounded-3xl bg-my-main transition-all duration-200 hover:bg-my-hover;
+}
+
+.M {
+  @apply h-[30px] w-40 rounded-3xl bg-my-main transition-all duration-200 hover:bg-my-hover;
+}
+
+.L {
+  @apply h-[40px] w-64 rounded-3xl bg-my-main transition-all duration-200 hover:bg-my-hover;
+}
+
+.review-btn {
+  @apply rounded-full bg-my-main px-6 py-2 transition-all duration-200 hover:bg-my-hover;
+}
