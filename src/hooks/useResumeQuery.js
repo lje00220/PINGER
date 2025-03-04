@@ -36,7 +36,7 @@ export const useConfirmedResumesQuery = () => {
   const userId = useAuthStore((state) => state.user.user_id);
 
   return useQuery({
-    queryKey: [QUERY_KEY.RESUMES],
+    queryKey: [QUERY_KEY.RESUMES, userId],
     queryFn: () => fetchConfirmedResumes(userId),
   });
 };
