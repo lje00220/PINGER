@@ -41,7 +41,7 @@ export const fetchJobsInfinite = async ({ startPageParam = 0 }) => {
   const endPageParam = startPageParam + limit - 1;
   const { data, error } = await supabase
     .from('jobs')
-    .select('*')
+    .select('*, resumes(*), bookmarks(*)')
     .range(startPageParam, endPageParam);
 
   if (error) throw error;
