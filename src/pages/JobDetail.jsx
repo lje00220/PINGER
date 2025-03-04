@@ -1,12 +1,11 @@
 import JobCommentTable from '../components/features/jobDetail/JobCommentTable';
-import StaticKakaoMap from '../components/maps/StaticKakaoMap';
 import { useNavigate, useParams } from 'react-router-dom';
-import JobInfo from '../components/common/JobInfo';
 import { PATH } from '../constants/routerPath';
 import { useJobsQuery } from '../hooks/useJobsQuery';
 import useAuthStore from '../zustand/useAuthStore';
 import LoadingPage from '../components/common/LoadingPage';
 import { ROLE_MODE } from '../constants/mode';
+import JobHeader from '../components/common/JobHeader';
 
 /**
  * 채용 정보 디테일 페이지
@@ -28,12 +27,6 @@ const JobDetail = () => {
   // 현재 페이지의 id와 jobs 테이블에 있는 id를 비교해 일치하는 것을 가져옴
   const targetJob = jobData.find((job) => job.id === Number(id));
 
-  // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
-  const targetPlace = {
-    lat: Number(targetJob.lat),
-    lng: Number(targetJob.lng),
-  };
-
   // 기업 채용 공고(외부 링크)로 이동하는 이벤트 핸들러 함수
   const handleOpenJobSite = () => {
     window.open(targetJob.url);
@@ -47,25 +40,7 @@ const JobDetail = () => {
   return (
     <div className="flex min-h-fit justify-center bg-my-bg pb-8">
       <div className="mt-10 flex min-h-fit w-3/5 flex-col items-center rounded-xl bg-white px-20 py-10">
-        <div className="flex flex-row">
-          <StaticKakaoMap targetPlace={targetPlace} size={330} />
-          <div className="mx-10 flex max-w-[300px] flex-col">
-            <div className="mb-10 flex flex-col">
-              <span className="text-2xl font-bold">
-                {targetJob.company_name}
-              </span>
-              <span className="text-xl">{targetJob.recruit_title}</span>
-            </div>
-            <JobInfo targetJob={targetJob} />
-            <button
-              onClick={handleOpenJobSite}
-              className="ml-2 mt-8 w-fit rounded-full bg-my-main px-5 py-2 transition-all duration-200 hover:bg-my-hover"
-            >
-              채용 사이트
-            </button>
-          </div>
-        </div>
-
+        <JobHeader job={targetJob} onOpenJobSite={handleOpenJobSite} />
         {role === ROLE_MODE.SEEKER && (
           <button
             className="mb-6 mt-14 w-fit rounded-full bg-my-main px-16 py-2 transition-all duration-200 hover:bg-my-hover"

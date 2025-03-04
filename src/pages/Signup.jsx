@@ -96,8 +96,6 @@ const Signup = () => {
       },
     };
 
-    console.log('newUserData', newUserData);
-
     try {
       const { data, error } = await supabase.auth.signUp(newUserData);
 
