@@ -186,7 +186,7 @@ const AuthForm = ({
                   <label className="min-w-[60px]">
                     <InputRadio
                       name="role"
-                      value={ROLE_MODE.R}
+                      value={ROLE_MODE.RECRUITER}
                       onChange={handleChange}
                       checked={role === ROLE_MODE.RECRUITER}
                     />
