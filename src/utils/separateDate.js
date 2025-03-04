@@ -1,4 +1,4 @@
-import DATE_RANGE from '../constants/DateRange';
+import DATE_RANGE from '../constants/dateRange';
 
 /**
  * 날짜 변환 함수

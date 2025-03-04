@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import ErrorText from '../common/ErrorText';
 import SignupAddressSelect from './SignupAddressInput';
 import { PATH } from '../../constants/routerPath';
+import { googleLogin, kakaoLogin } from '../../api/auth';
+import { FaGoogle } from 'react-icons/fa';
+import { RiKakaoTalkFill } from 'react-icons/ri';
 
 const AuthForm = ({
   mode,
@@ -183,7 +186,7 @@ const AuthForm = ({
                   <label className="min-w-[60px]">
                     <InputRadio
                       name="role"
-                      value={ROLE_MODE.R}
+                      value={ROLE_MODE.RECRUITER}
                       onChange={handleChange}
                       checked={role === ROLE_MODE.RECRUITER}
                     />
@@ -197,9 +200,33 @@ const AuthForm = ({
 
         <div className={AUTH_SUBMIT_BUTTON_WRPPER}>
           {mode === AUTH_MODE.LOGIN ? (
-            <Button mode={BUTTON_MODE.L} type="submit">
-              로그인
-            </Button>
+            <div className={AUTH_SOCIAL_WRAPPER}>
+              {/* 소셜로그인 */}
+              <div className={AUTH_SOCIAL_WRAPPER}>
+                <h4 className="mb-2 text-lg text-my-gray">OR</h4>
+                <div className="mb-5 flex justify-center gap-7">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      googleLogin();
+                    }}
+                    className={AUTH_SOCIAL_BUTTON}
+                  >
+                    <FaGoogle />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={kakaoLogin}
+                    className={AUTH_SOCIAL_BUTTON}
+                  >
+                    <RiKakaoTalkFill />
+                  </button>
+                </div>
+              </div>
+              <Button mode={BUTTON_MODE.L} type="submit">
+                로그인
+              </Button>
+            </div>
           ) : (
             <Button mode={BUTTON_MODE.L} type="submit">
               회원가입
@@ -238,3 +265,6 @@ const AUTH_ERROR_WRAPPER = 'w-full h-3 text-right';
 const AUTH_RADIO_WRAPPER = 'w-4/6 flex justify-center gap-5';
 const AUTH_SUBMIT_BUTTON_WRPPER = 'w-full flex justify-center p-7 border-t-2';
 const AUTH_PAGEMOVE_WRAPPER = 'flex w-64 justify-between';
+const AUTH_SOCIAL_WRAPPER = 'flex flex-col items-center';
+const AUTH_SOCIAL_BUTTON =
+  'text-2xl transition-all duration-200 hover:text-my-main';

@@ -8,6 +8,7 @@ export const AUTH_ERROR_MESSAGES = {
     BLANK: '비밀번호는 6-12글자 여야합니다!',
     WEEK: '취약한 비밀번호입니다!',
     DIFFER: '비밀번호가 다릅니다!',
+    SPACE: '비밀번호는 빈칸없이 작성되어야 합니다!',
   },
   NICKNAME: {
     BLANK: '닉네임을 입력해주세요!',
@@ -43,6 +44,11 @@ export const REVIEW_MESSAGES = {
 
 export const UPDATE_SUCCESS_MESSAGES = {
   ALL: '프로필을 업데이트하였습니다.',
+};
+
+export const AUTHENTICATED_MESSAGES = {
+  PRAVITE: '로그인이 필요한 페이지입니다!',
+  PUBLIC: '이미 로그인 되어있습니다!',
 };
 
 export const BOOKMARK_MESSAGES = {

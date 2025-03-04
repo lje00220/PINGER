@@ -43,13 +43,12 @@ const Signup = () => {
     }
 
     try {
-      const { data } = await supabase
+      const { count } = await supabase
         .from(QUERY_KEY.USERS)
-        .select('nickname')
-        .eq('nickname', nickname)
-        .single();
+        .select('nickname', { count: 'exact', head: true })
+        .eq('nickname', nickname);
 
-      if (data) {
+      if (count > 0) {
         toast.warn(AUTH_ERROR_MESSAGES.NICKNAME.SAME);
         setIsNickNameExisted(true);
       } else {
@@ -96,6 +95,8 @@ const Signup = () => {
         },
       },
     };
+
+    console.log('newUserData', newUserData);
 
     try {
       const { data, error } = await supabase.auth.signUp(newUserData);
