@@ -31,7 +31,7 @@ const JobListPage = () => {
     <div className="h-max bg-my-bg p-8">
       <div className="flex flex-col items-center gap-5">
         {jobData.map((data) => {
-          return <JobItem job={data} key={data.id} width={600} />;
+          return <JobItem job={data} key={data.id} />;
         })}
       </div>
       <div className="mt-5 flex justify-center">
