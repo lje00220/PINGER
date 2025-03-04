@@ -8,4 +8,5 @@ export const PATH = {
   RESUME_LIST: '/resume-list',
   RESUME_DETAIL: '/resume-detail',
   RESUME_CREATE: '/resume-create',
+  SOCIAL_LOGIN_REDIRECT_URL: `${window.location.origin}/`,
 };

@@ -10,13 +10,13 @@ const ResumeItem = ({ resume }) => {
   return (
     <li className="w-full cursor-pointer rounded-2xl bg-white px-28 py-8 shadow-xl">
       <div className="flex flex-col space-y-4">
-        <span className="text-2xl font-bold">{jobs.company_name}</span>
+        <span className="text-2xl font-bold">{jobs?.company_name}</span>
         <span>
-          경력 :<span className="text-lg"> {jobs.recruit_type}</span>
+          경력 :<span className="text-lg"> {jobs?.recruit_type}</span>
         </span>
 
         <span>
-          구직자 :<span className="font-bold"> {users.nickname}</span>
+          구직자 :<span className="font-bold"> {users?.nickname}</span>
         </span>
       </div>
     </li>
