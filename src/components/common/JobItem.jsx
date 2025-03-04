@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
-import { checkJobBookMarks } from '../../api/bookmarks';
+import { toast } from 'react-toastify';
 import { ICON_SIZE } from '../../constants/iconSize';
 import { PATH } from '../../constants/routerPath';
+import { BOOKMARK_MESSAGES } from '../../constants/toastMessages';
 import { useCreateBookmarkMutation } from '../../hooks/bookmarks/useCreateBookmarkMutation';
 import { useDeleteBookmarkMutation } from '../../hooks/bookmarks/useDeleteBookmarkMutation';
 import separateDate from '../../utils/separateDate';
 import sliceTitleLength from '../../utils/sliceTitleLength';
 import useAuthStore from '../../zustand/useAuthStore';
-import { toast } from 'react-toastify';
-import { BOOKMARK_MESSAGES } from '../../constants/toastMessages';
 
 /**
  * 채용 정보를 보여주는 카드
@@ -19,19 +18,12 @@ import { BOOKMARK_MESSAGES } from '../../constants/toastMessages';
  */
 const JobItem = ({ job }) => {
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
-
   const { user_id: userId, role } = useAuthStore((state) => state.user);
-  const isSeeker = role === 'seeker';
-  const [isBookmarked, setIsBookmarked] = useState(false);
 
-  /** 해당 채용 정보를 북마크했는지 확인하는 로직 */
-  useEffect(() => {
-    const checkBookmarkState = async () => {
-      const isMarked = await checkJobBookMarks(userId, jobId);
-      setIsBookmarked(isMarked);
-    };
-    checkBookmarkState();
-  }, [userId, jobId]);
+  const isSeeker = role === 'seeker';
+  const [isBookmarked, setIsBookmarked] = useState(
+    job.bookmarks.some((bookmark) => bookmark.user_id === userId),
+  );
 
   const { mutateAsync: createBookmark } = useCreateBookmarkMutation();
   const { mutateAsync: deleteBookmark } = useDeleteBookmarkMutation();
