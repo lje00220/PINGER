@@ -7,7 +7,7 @@ export const useDeleteBookmarkMutation = () => {
 
   return useMutation({
     mutationFn: deleteBookMark,
-    onMutate: async ({ userId, jobId }) => {
+    onMutate: async ({ jobId }) => {
       await queryClient.cancelQueries([QUERY_KEY.BOOKMARKS]);
       const previousBookmarks = queryClient.getQueryData([QUERY_KEY.BOOKMARKS]);
 
