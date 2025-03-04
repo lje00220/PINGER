@@ -27,7 +27,6 @@ const JobDetail = () => {
 
   // 현재 페이지의 id와 jobs 테이블에 있는 id를 비교해 일치하는 것을 가져옴
   const targetJob = jobData.find((job) => job.id === Number(id));
-  console.log(targetJob);
 
   // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
   const targetPlace = {
