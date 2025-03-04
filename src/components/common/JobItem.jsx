@@ -18,16 +18,10 @@ import { BOOKMARK_MESSAGES } from '../../constants/toastMessages';
  * @returns {JSX.Element}
  */
 const JobItem = ({ job }) => {
-  /** 추가해야되는 data */
-  // 등록된 자소서 개수 가져오기
   const { id: jobId, company_name, recruit_title, start_date, end_date } = job;
-<<<<<<< HEAD
-  const userId = useAuthStore((state) => state.user.user_id);
-=======
+
   const { user_id: userId, role } = useAuthStore((state) => state.user);
   const isSeeker = role === 'seeker';
-
->>>>>>> dev
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   /** 해당 채용 정보를 북마크했는지 확인하는 로직 */

@@ -16,7 +16,11 @@ const BookMarkList = () => {
         <span>채용 정보를 북마크해주세요!</span>
       ) : (
         bookmarkList.map((data) => {
-          return <JobItem key={data.jobs.id} job={data.jobs} />;
+          const { jobs, resumes } = data;
+
+          return (
+            <JobItem key={data.jobs.id} job={{ ...jobs, resumes: [resumes] }} />
+          );
         })
       )}
     </div>
