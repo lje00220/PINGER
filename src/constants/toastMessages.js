@@ -40,5 +40,6 @@ export const UPDATE_SUCCESS_MESSAGES = {
 };
 
 export const AUTHENTICATED_MESSAGES = {
-  LOGIN: '로그인이 필요한 페이지입니다!',
+  PRAVITE: '로그인이 필요한 페이지입니다!',
+  PUBLIC: '이미 로그인 되어있습니다!',
 };
