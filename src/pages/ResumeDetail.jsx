@@ -11,10 +11,9 @@ import {
 } from '../hooks/useResumeQuery';
 import { IoMdClose } from 'react-icons/io';
 import { PATH } from '../constants/routerPath';
-import StaticKakaoMap from '../components/maps/StaticKakaoMap';
-import JobInfo from '../components/common/JobInfo';
 import LoadingPage from '../components/common/LoadingPage';
 import { ResumeContainer } from './ResumeListPage';
+import JobHeader from '../components/common/JobHeader';
 
 const ResumeDetail = () => {
   const { id } = useParams();
@@ -97,11 +96,6 @@ const ResumeDetail = () => {
     });
   };
 
-  // 해당 기업의 위도와 경도 정보 (카카오맵에 넘겨주기 위해)
-  const targetPlace = {
-    lat: Number(resume?.jobs.lat),
-    lng: Number(resume?.jobs.lng),
-  };
   // 본인이 작성한 자소서인지 확인
   const isOwner = user.user_id === resume?.writer_id;
 
@@ -113,24 +107,7 @@ const ResumeDetail = () => {
       <div className="flex flex-col items-center space-y-20">
         {/*기업 정보*/}
         <div className="w-3/5 rounded-2xl bg-white p-10 shadow-xl">
-          <div className="flex flex-row">
-            <StaticKakaoMap targetPlace={targetPlace} size={330} />
-            <div className="mx-10 flex max-w-[300px] flex-col">
-              <div className="mb-10 flex flex-col">
-                <span className="text-2xl font-bold">
-                  {resume.jobs.company_name}
-                </span>
-                <span className="text-xl">{resume.jobs.recruit_title}</span>
-              </div>
-              <JobInfo targetJob={resume.jobs} />
-              <button
-                onClick={handleOpenJobSite}
-                className="ml-2 mt-8 w-fit rounded-full bg-my-main px-5 py-2"
-              >
-                채용 사이트
-              </button>
-            </div>
-          </div>
+          <JobHeader job={resume.jobs} onOpenJobSite={handleOpenJobSite} />
         </div>
 
         {/*자기 소개서*/}
@@ -141,7 +118,7 @@ const ResumeDetail = () => {
             className="absolute right-4 top-4 cursor-pointer"
           />
           {resume.is_confirmed && (
-            <span className="text-mg absolute right-5 top-5 font-bold text-green-500">
+            <span className="text-mg reft-5 absolute top-5 font-bold text-green-500">
               검토 완료
             </span>
           )}

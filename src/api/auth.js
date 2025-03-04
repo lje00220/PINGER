@@ -29,18 +29,6 @@ export const googleLogin = async () => {
   if (data) {
     const userId = data.user.id;
 
-    // const { error: insertError } = await supabase
-    //   .from('users')
-    //   .update([
-    //     {
-    //       nickname:
-    //         data.user.user_metadata?.name ||
-    //         `user${Math.floor(Math.random() * 10000)}`, // 기본 닉네임
-    //       address: '서울', // 기본 주소
-    //       role: 'seeker', // 기본 역할
-    //     },
-    //   ])
-    //   .eq('user_id', userId);
     const { error: insertError } = await supabase.from('users').upsert([
       {
         user_id: userId,
@@ -84,28 +72,3 @@ export const kakaoLogin = async () => {
     return;
   }
 };
-
-// export const updateSocialLoginUser = async () => {
-//   const { user } = JSON.parse(
-//     localStorage.getItem('sb-sakyvuakdxtpvojkcaxm-auth-token'),
-//   );
-
-//   const { error: insertError } = await supabase
-//     .from('users')
-//     .update([
-//       {
-//         nickname:
-//           user.user_metadata?.name ||
-//           `user${Math.floor(Math.random() * 10000)}`, // 기본 닉네임
-//         address: '서울', // 기본 주소
-//         role: 'seeker', // 기본 역할
-//       },
-//     ])
-//     .eq('user_id', user.id);
-
-//   if (insertError) {
-//     console.error('소셜 로그인 유저 정보 업데이트 error:', insertError);
-//   } else {
-//     console.log('소셜 로그인 유저 정보 업데이트 성공');
-//   }
-// };
