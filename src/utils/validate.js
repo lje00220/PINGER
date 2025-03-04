@@ -1,7 +1,10 @@
+import { QUERY_KEY } from '../constants/queryKeys';
 import {
   AUTH_ERROR_MESSAGES,
+  AUTH_SUCCESS_MESSAGES,
   REVIEW_MESSAGES,
 } from '../constants/toastMessages';
+import supabase from '../supabase/client';
 
 export const validateSignUpForm = (name, value, password) => {
   switch (name) {
@@ -47,5 +50,21 @@ export const validateLoginForm = (name, value) => {
 export const validateReviewInput = (value) => {
   if (value.length < 2 || value.length > 50) {
     return REVIEW_MESSAGES.ERROR;
+  }
+};
+
+export const validateNickname = async (value, currentNickname) => {
+  if (value === currentNickname) return;
+
+  const { data } = await supabase
+    .from(QUERY_KEY.USERS)
+    .select('*')
+    .eq('nickname', value);
+  const [userData] = data;
+
+  if (data.length === 0) return;
+
+  if (userData.nickname?.length !== 0) {
+    return AUTH_ERROR_MESSAGES.NICKNAME.SAME;
   }
 };

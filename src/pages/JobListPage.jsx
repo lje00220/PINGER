@@ -1,6 +1,6 @@
 import JobItem from '../components/common/JobItem';
 import LoadingPage from '../components/common/LoadingPage';
-import { useInfiniteJobsQuery, useJobsQuery } from '../hooks/useJobsQuerys';
+import { useInfiniteJobsQuery, useJobsQuery } from '../hooks/useJobsQuery';
 import { Button } from '../components/common/Button';
 import { BUTTON_MODE } from '../constants/mode';
 

@@ -1,47 +1,62 @@
 import { create } from 'zustand';
+import { initialMapState } from './map/useMapState';
+import { createMapActions } from './map/useMapActions';
 
-export const useMapStore = create(
-  (set, get) => ({
-    map: null,
-    isOpen: null,
-    keyword: "",
-    filteredJobs: [],
-    selectedCompany: null,
-    jobData: [],
+export const useMapStore = create((set, get) => ({
+  ...initialMapState, // 초기 상태
+  ...createMapActions(set, get), // 액션 추가
+}));
 
-    setMap: (map) => set({ map }),
+// import { create } from 'zustand';
 
-    setKeyword: (keyword) => {
-      set({ keyword });
+// // 지도관련 상태관리
+// export const useMapStore = create(
+//   (set, get) => ({
+//     map: null,
+//     isOpen: null,
+//     keyword: "",
+//     filteredJobs: [],
+//     selectedCompany: null,
+//     jobData: [],
 
-      const { jobData } = get();
-      if (!jobData) return;
+//     // 지도 상태
+//     setMap: (map) => set({ map }),
 
-      if (keyword.trim() === "") {
-        set({ filteredJobs: [] });
-        return;
-      }
+//     // 검색 관련 상태
+//     setKeyword: (keyword) => {
+//       set({ keyword });
 
-      const filtered = jobData.filter(
-        (job) => job.company_name.includes(keyword) || job.adress.includes(keyword)
-      );
+//       const { jobData } = get();
+//       if (!jobData) return;
 
-      set({ filteredJobs: filtered });
-    },
+//       if (keyword.trim() === "") {
+//         set({ filteredJobs: [] });
+//         return;
+//       }
 
-    setIsOpen: (id) => set({ isOpen: id }),
+//       const filtered = jobData.filter(
+//         (job) => job.company_name.includes(keyword) || job.adress.includes(keyword)
+//       );
 
-    setSelectedCompany: (job) => {
-      set({ selectedCompany: job });
+//       set({ filteredJobs: filtered });
+//     },
 
-      if (!job) return;
+//     // 오버레이 상태
+//     setIsOpen: (id) => set({ isOpen: id }),
 
-      const { map } = get();
-      if (map) {
-        map.setCenter(new window.kakao.maps.LatLng(job.lat, job.lng));
-      }
-    },
+//     // 선택된 회사 정보
+//     setSelectedCompany: (job) => {
+//       set({ selectedCompany: job });
 
-    setJobData: (data) => set({ jobData: data }),
-  }),
-);
+//       if (!job) return;
+
+//       const { map } = get();
+//       if (map) {
+//         map.setCenter(new window.kakao.maps.LatLng(job.lat, job.lng));
+//       }
+//     },
+
+//     // 채용데이터 관련 상태
+//     setJobData: (data) => set({ jobData: data }),
+//   }),
+// );
