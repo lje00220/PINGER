@@ -1,6 +1,6 @@
 import JobItem from '../components/common/JobItem';
 import LoadingPage from '../components/common/LoadingPage';
-import { useJobsQuery } from '../hooks/useJobsQuerys';
+import { useJobsQuery } from '../hooks/useJobsQuery';
 
 /**
  * 채용 공고 리스트 페이지

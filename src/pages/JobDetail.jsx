@@ -3,7 +3,7 @@ import StaticKakaoMap from '../components/maps/StaticKakaoMap';
 import { useNavigate, useParams } from 'react-router-dom';
 import JobInfo from '../components/common/JobInfo';
 import { PATH } from '../constants/routerPath';
-import { useJobsQuery } from '../hooks/useJobsQuerys';
+import { useJobsQuery } from '../hooks/useJobsQuery';
 import useAuthStore from '../zustand/useAuthStore';
 import LoadingPage from '../components/common/LoadingPage';
 
