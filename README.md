@@ -162,6 +162,7 @@ PINGER와 함께 손가락 터치 한 번으로 채용 정보를 빠르게 확�
 📝 [tailwind에 동적 스타일링이 적용되지 않을 때](https://home1204.tistory.com/122) <br>
 📝 [TroubleShooting 1 : supabase auth와 트리거 함수📍](https://velog.io/@miiing_gaeng/아웃소싱-프로젝트-PINGER-TroubleShooting-1-supabase-auth와-트리거-함수) <br>
 📝 [TroubleShooting 2 : OAuth 로그인과 meta_data📍](https://velog.io/@miiing_gaeng/아웃소싱-프로젝트-PINGER-TroubleShooting-2-OAuth-로그인과-metadata) <br>
+📝 [tanstackQuery를 활용한 무한스크롤 구현하기](https://velog.io/@woozi__zi/tanstackQuery를-활용한-무한스크롤-구현하기)
 
 ## 🎨 와이어 프레임
 
